@@ -6,7 +6,7 @@
 <title>Baseline Farmer</title>
 <style>
 :root{--bg:#101313;--panel:#171b1b;--panel2:#1d2222;--text:#e8eeee;--muted:#9aa8a8;--line:#303838;--accent:#42d6c5;--good:#78e08f;--warn:#ffd166;--bad:#ff7b72}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,sans-serif}main{max-width:1180px;margin:auto;padding:22px}.top{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:18px}h1{font-size:28px;margin:0}.sub{color:var(--muted);margin-top:5px}.badge{padding:8px 12px;border:1px solid var(--line);border-radius:999px;color:var(--accent)}h2{font-size:19px;margin:0 0 12px}.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.card{background:var(--panel2);border-radius:10px;padding:13px}.label{font-size:12px;color:var(--muted)}.value{font-size:22px;font-weight:700;margin-top:4px}.good{color:var(--good)}.bad{color:var(--bad)}.accent{color:var(--accent)}.muted{color:var(--muted)}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}label{font-size:12px;color:var(--muted);display:block;margin-bottom:5px}input,select{width:100%;padding:10px;background:#101414;color:var(--text);border:1px solid var(--line);border-radius:8px;font:inherit}button{padding:10px 13px;border:1px solid var(--line);background:#222929;color:var(--text);border-radius:8px;cursor:pointer;font-weight:600}button:hover{border-color:var(--accent)}.buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.action{border-color:var(--accent)}.bar{height:18px;background:#0e1111;border-radius:9px;overflow:hidden;margin:12px 0}.fill{height:100%;background:var(--accent);transition:.2s}.centerline{position:relative;height:26px;margin:4px 0 12px}.centerline:before{content:"";position:absolute;left:0;right:0;top:12px;border-top:2px solid var(--line)}.marker{position:absolute;top:4px;width:16px;height:16px;border-radius:50%;background:var(--accent);transform:translateX(-50%)}.target{position:absolute;top:0;height:26px;border-left:2px dashed var(--warn)}.bigstate{font-size:32px;font-weight:800;margin:4px 0}.explain{color:var(--muted);line-height:1.5}.mini{font-size:12px;color:var(--muted)}.callout{border-left:3px solid var(--accent);background:#141919;padding:12px 14px;border-radius:0 9px 9px 0;line-height:1.5}.entrygrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.entrycard{background:var(--panel2);padding:13px;border-radius:10px}.entrynum{font-size:25px;font-weight:800;margin-top:3px}.split{display:grid;grid-template-columns:1fr 1fr;gap:10px}.deploybar{display:flex;height:24px;border-radius:12px;overflow:hidden;background:#0e1111;margin:10px 0}.deploycore{background:var(--accent);height:100%}.deployreserve{background:var(--warn);height:100%}.legend{display:flex;gap:15px;font-size:12px;color:var(--muted)}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;margin-top:8px}th,td{text-align:left;padding:9px;border-bottom:1px solid var(--line);font-size:13px}th{color:var(--muted);font-weight:500}.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#222929;font-size:12px}.sectiongap{margin-top:14px}.hidden{display:none}.modal{position:fixed;inset:0;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;padding:18px;z-index:20}.modalbox{width:min(620px,100%);background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 20px 80px rgba(0,0,0,.45)}.modalbox h2{font-size:24px}.modalbox p{color:var(--muted);line-height:1.55}.fine{font-size:12px;color:var(--muted)}.right{text-align:right}.hr{height:1px;background:var(--line);margin:16px 0}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,sans-serif}main{max-width:1180px;margin:auto;padding:22px}.top{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:18px}h1{font-size:28px;margin:0}.sub{color:var(--muted);margin-top:5px}.badge{padding:8px 12px;border:1px solid var(--line);border-radius:999px;color:var(--accent)}h2{font-size:19px;margin:0 0 12px}.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.card{background:var(--panel2);border-radius:10px;padding:13px}.label{font-size:12px;color:var(--muted)}.value{font-size:22px;font-weight:700;margin-top:4px}.good{color:var(--good)}.bad{color:var(--bad)}.accent{color:var(--accent)}.muted{color:var(--muted)}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}label{font-size:12px;color:var(--muted);display:block;margin-bottom:5px}input,select{width:100%;padding:10px;background:#101414;color:var(--text);border:1px solid var(--line);border-radius:8px;font:inherit}button{padding:10px 13px;border:1px solid var(--line);background:#222929;color:var(--text);border-radius:8px;cursor:pointer;font-weight:600}button:hover{border-color:var(--accent)}.buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.action{border-color:var(--accent)}.bar{height:18px;background:#0e1111;border-radius:9px;overflow:hidden;margin:12px 0}.fill{height:100%;background:var(--accent);transition:.2s}.centerline{position:relative;height:26px;margin:4px 0 12px}.centerline:before{content:"";position:absolute;left:0;right:0;top:12px;border-top:2px solid var(--line)}.marker{position:absolute;top:4px;width:16px;height:16px;border-radius:50%;background:var(--accent);transform:translateX(-50%)}.target{position:absolute;top:0;height:26px;border-left:2px dashed var(--warn)}.bigstate{font-size:32px;font-weight:800;margin:4px 0}.explain{color:var(--muted);line-height:1.5}.mini{font-size:12px;color:var(--muted)}.callout{border-left:3px solid var(--accent);background:#141919;padding:12px 14px;border-radius:0 9px 9px 0;line-height:1.5}.entrygrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.entrycard{background:var(--panel2);padding:13px;border-radius:10px}.entrynum{font-size:25px;font-weight:800;margin-top:3px}.split{display:grid;grid-template-columns:1fr 1fr;gap:10px}.deploybar{display:flex;height:24px;border-radius:12px;overflow:hidden;background:#0e1111;margin:10px 0}.deploycore{background:var(--accent);height:100%}.deployreserve{background:var(--warn);height:100%}.legend{display:flex;gap:15px;font-size:12px;color:var(--muted)}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;margin-top:8px}th,td{text-align:left;padding:9px;border-bottom:1px solid var(--line);font-size:13px}th{color:var(--muted);font-weight:500}.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#222929;font-size:12px}.sectiongap{margin-top:14px}.hidden{display:none}.modal{position:fixed;inset:0;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;padding:18px;z-index:20}.modal.hidden{display:none}.modalbox{width:min(620px,100%);background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 20px 80px rgba(0,0,0,.45)}.modalbox h2{font-size:24px}.modalbox p{color:var(--muted);line-height:1.55}.fine{font-size:12px;color:var(--muted)}.right{text-align:right}.hr{height:1px;background:var(--line);margin:16px 0}
 @media(max-width:800px){.grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.entrygrid,.split{grid-template-columns:1fr}.top{align-items:start;flex-direction:column}}
 
 .philosophyHero{display:flex;justify-content:space-between;gap:20px;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--line)}
@@ -40,7 +40,7 @@
       <div><label>Capital Available for Entry ($)</label><input id="obCapital" type="number" min="0" step="100" value="15000"></div>
       <div><label>Core / Tactical Split</label><select id="obSplit"><option value="50">50% core / 50% tactical</option><option value="60">60% core / 40% tactical</option><option value="70">70% core / 30% tactical</option><option value="40">40% core / 60% tactical</option></select></div>
     </div>
-    <div class="buttons"><button class="action" onclick="finishOnboarding()">Build my entry plan</button></div>
+    <div class="buttons"><button type="button" class="action" id="buildEntryPlan">Build my entry plan</button></div>
     <div class="fine">This does not place trades. It establishes the capital/state model and gives you a relative framework for deciding when to deploy.</div>
   </div>
 </div>
@@ -273,18 +273,30 @@ const $=id=>document.getElementById(id);
 const state={
   target:15000,current:0,capital:15000,corePct:50,
   coreRemaining:7500,reserveRemaining:7500,
-  coreStep:750
+  coreStep:750,
+  onboardingComplete:false
 };
 function money(x){return (Number(x)||0).toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:0})}
 function num(id){return Number($(id).value)||0}
-function save(){localStorage.setItem('baselineFarmerState',JSON.stringify(state))}
-function load(){try{const s=JSON.parse(localStorage.getItem('baselineFarmerState'));if(s&&typeof s.target==='number')Object.assign(state,s)}catch(e){}}
+function save(){try{localStorage.setItem('baselineFarmerState',JSON.stringify(state))}catch(e){/* storage may be unavailable for local files/private browsing */}}
+function load(){try{const s=JSON.parse(localStorage.getItem('baselineFarmerState'));if(s&&typeof s.target==='number'){Object.assign(state,s);state.onboardingComplete=s.onboardingComplete===true}}catch(e){/* start clean when storage is unavailable */}}
+function hasSavedState(){try{return !!localStorage.getItem('baselineFarmerState')}catch(e){return false}}
 function finishOnboarding(){
   state.target=Math.max(0,num('obTarget')); state.current=Math.max(0,num('obCurrent')); state.capital=Math.max(0,num('obCapital')); state.corePct=num('obSplit');
   const gap=Math.max(0,state.target-state.current); const available=Math.min(state.capital,gap);
   state.coreRemaining=available*(state.corePct/100); state.reserveRemaining=available-state.coreRemaining;
   state.coreStep=Math.max(100,state.coreRemaining/10||100);
+  state.onboardingComplete=true;
   $('onboarding').classList.add('hidden'); syncInputs(); update(); save();
+}
+function bindOnboarding(){
+  const button=$('buildEntryPlan');
+  if(!button || button.dataset.bound==='1')return;
+  button.dataset.bound='1';
+  button.addEventListener('click',function(event){
+    event.preventDefault();
+    finishOnboarding();
+  });
 }
 function syncInputs(){
   $('baselineOut').textContent=money(state.target); $('entryTarget').textContent=money(state.target); $('entryCurrent').textContent=money(state.current);
@@ -335,8 +347,9 @@ function updateMarket(){
   $('marketDev').className='value '+(pct<0?'bad':pct>0?'good':'accent');
 }
 load();
-if(localStorage.getItem('baselineFarmerState')){syncInputs();$('onboarding').classList.add('hidden')}
-else{}
+bindOnboarding();
+if(state.onboardingComplete){$('onboarding').classList.add('hidden')}
+syncInputs();
 ['external','extracted','recycled','friction','refValue','marketValue'].forEach(id=>$(id).addEventListener('input',()=>{update();save()}));
 update();
 </script>
