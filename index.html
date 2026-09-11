@@ -1,479 +1,169 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Baseline Farmer</title>
 <style>
-:root{--bg:#101313;--panel:#171b1b;--panel2:#1d2222;--text:#e8eeee;--muted:#9aa8a8;--line:#303838;--accent:#42d6c5;--good:#78e08f;--warn:#ffd166;--bad:#ff7b72}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,sans-serif}main{max-width:1180px;margin:auto;padding:22px}.top{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:18px}h1{font-size:28px;margin:0}.sub{color:var(--muted);margin-top:5px}.badge{padding:8px 12px;border:1px solid var(--line);border-radius:999px;color:var(--accent)}h2{font-size:19px;margin:0 0 12px}.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.card{background:var(--panel2);border-radius:10px;padding:13px}.label{font-size:12px;color:var(--muted)}.value{font-size:22px;font-weight:700;margin-top:4px}.good{color:var(--good)}.bad{color:var(--bad)}.accent{color:var(--accent)}.muted{color:var(--muted)}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}label{font-size:12px;color:var(--muted);display:block;margin-bottom:5px}input,select{width:100%;padding:10px;background:#101414;color:var(--text);border:1px solid var(--line);border-radius:8px;font:inherit}button{padding:10px 13px;border:1px solid var(--line);background:#222929;color:var(--text);border-radius:8px;cursor:pointer;font-weight:600}button:hover{border-color:var(--accent)}.buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.action{border-color:var(--accent)}.bar{height:18px;background:#0e1111;border-radius:9px;overflow:hidden;margin:12px 0}.fill{height:100%;background:var(--accent);transition:.2s}.centerline{position:relative;height:26px;margin:4px 0 12px}.centerline:before{content:"";position:absolute;left:0;right:0;top:12px;border-top:2px solid var(--line)}.marker{position:absolute;top:4px;width:16px;height:16px;border-radius:50%;background:var(--accent);transform:translateX(-50%)}.target{position:absolute;top:0;height:26px;border-left:2px dashed var(--warn)}.bigstate{font-size:32px;font-weight:800;margin:4px 0}.explain{color:var(--muted);line-height:1.5}.mini{font-size:12px;color:var(--muted)}.callout{border-left:3px solid var(--accent);background:#141919;padding:12px 14px;border-radius:0 9px 9px 0;line-height:1.5}.entrygrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.entrycard{background:var(--panel2);padding:13px;border-radius:10px}.entrynum{font-size:25px;font-weight:800;margin-top:3px}.split{display:grid;grid-template-columns:1fr 1fr;gap:10px}.deploybar{display:flex;height:24px;border-radius:12px;overflow:hidden;background:#0e1111;margin:10px 0}.deploycore{background:var(--accent);height:100%}.deployreserve{background:var(--warn);height:100%}.legend{display:flex;gap:15px;font-size:12px;color:var(--muted)}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;margin-top:8px}th,td{text-align:left;padding:9px;border-bottom:1px solid var(--line);font-size:13px}th{color:var(--muted);font-weight:500}.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#222929;font-size:12px}.sectiongap{margin-top:14px}.hidden{display:none}.modal{position:fixed;inset:0;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;padding:18px;z-index:20}.modal.hidden{display:none}.modalbox{width:min(620px,100%);background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 20px 80px rgba(0,0,0,.45)}.modalbox h2{font-size:24px}.modalbox p{color:var(--muted);line-height:1.55}.fine{font-size:12px;color:var(--muted)}.right{text-align:right}.hr{height:1px;background:var(--line);margin:16px 0}
-@media(max-width:800px){.grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.entrygrid,.split{grid-template-columns:1fr}.top{align-items:start;flex-direction:column}}
-
-.philosophyHero{display:flex;justify-content:space-between;gap:20px;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--line)}
-.eyebrow{font-size:11px;letter-spacing:.16em;color:var(--accent);font-weight:800;margin-bottom:7px}
-.philosophyHero h2{font-size:25px;line-height:1.18;margin:0 0 8px;max-width:760px}
-.lead{font-size:16px;color:var(--text);line-height:1.55;max-width:820px;margin:0}
-.philosophyBadge{white-space:nowrap;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:10px 13px;font-size:11px;font-weight:800;letter-spacing:.06em}
-.philosophyGrid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:18px}
-.philosophyGrid h3,.warningBox h3{margin:0 0 8px;font-size:16px}
-.philosophyGrid p,.warningBox p{color:var(--muted);line-height:1.6;margin:8px 0}
-.lower{margin-top:14px}
-.callout.warning{border-left-color:var(--warn)}
-.warningBox{margin-top:14px;background:#171817;border:1px solid #4a4330;border-radius:11px;padding:15px 17px}
-.warningBox h3{color:var(--warn)}
-.philosophyFooter{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;letter-spacing:.08em;font-weight:800;color:var(--muted)}
-.about h2{font-size:23px;margin-bottom:10px}.aboutGrid{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}.aboutGrid p{color:var(--muted);line-height:1.6}.plainTerms{margin-top:20px;padding-top:17px;border-top:1px solid var(--line)}.plainTerms h3{margin:0 0 12px;font-size:16px}.termGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.termGrid>div{background:var(--panel2);border-radius:9px;padding:11px 12px}.termGrid strong{display:block;margin-bottom:4px}.termGrid span{display:block;color:var(--muted);line-height:1.45;font-size:13px}.disclaimerBox{margin-top:18px;padding:15px 17px;border:1px solid var(--line);border-radius:11px;background:#131717}.disclaimerBox p{color:var(--muted);line-height:1.55;margin:8px 0}@media(max-width:800px){.aboutGrid,.termGrid{grid-template-columns:1fr}}
-@media(max-width:800px){.philosophyHero{align-items:flex-start;flex-direction:column}.philosophyBadge{white-space:normal}.philosophyGrid{grid-template-columns:1fr}}
-
-.structurePositive{color:var(--good)}.structureNegative{color:var(--bad)}.structureNeutral{color:var(--warn)}
-.thesis{font-weight:800}.smallcaps{font-size:11px;letter-spacing:.08em;font-weight:800}
-@media(max-width:800px){.cards[style*="repeat(3"]{grid-template-columns:1fr!important}}
+:root{--bg:#0d1111;--panel:#151b1b;--panel2:#1b2323;--line:#2c3838;--text:#e9eeee;--muted:#8fa0a0;--teal:#42d6c5;--green:#78e08f;--yellow:#ffd166;--red:#ff7b72;--blue:#79a8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:1240px;margin:auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:16px}h1{margin:0;font-size:28px}h2{margin:0 0 12px;font-size:18px}h3{margin:0 0 8px;font-size:15px}.sub,.muted,.mini{color:var(--muted)}.sub{margin-top:4px}.mini{font-size:12px;line-height:1.45}.badge{border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:var(--teal);font-size:12px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px}.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:14px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.card{background:var(--panel2);border-radius:10px;padding:12px}.label{font-size:11px;color:var(--muted);letter-spacing:.05em}.value{font-size:22px;font-weight:750;margin-top:3px}.big{font-size:30px;font-weight:800}.good{color:var(--green)}.bad{color:var(--red)}.warn{color:var(--yellow)}.teal{color:var(--teal)}button{background:#202929;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-weight:650;cursor:pointer}button:hover{border-color:var(--teal)}button.primary{border-color:var(--teal)}input,select{width:100%;background:#0f1414;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:9px;font:inherit}label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.sectiongap{margin-top:14px}.progress{height:14px;background:#0b0f0f;border-radius:7px;overflow:hidden;margin:10px 0}.progress>div{height:100%;background:var(--teal)}.decision{border:1px solid var(--line);border-radius:12px;padding:14px;background:#121818}.decisionTitle{font-size:28px;font-weight:850}.decisionText{line-height:1.5;margin-top:6px}.chart{height:300px;width:100%;overflow:hidden}.chart svg{width:100%;height:100%;display:block}.chartSmall{height:150px}.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:6px}.legend span:before{content:"";display:inline-block;width:12px;border-top:2px solid currentColor;margin:0 5px 3px 0}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{padding:9px 7px;border-bottom:1px solid var(--line);text-align:left;font-size:12px}th{color:var(--muted);font-weight:500}.pill{display:inline-block;border-radius:999px;padding:3px 7px;background:#232b2b}.topologyGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.tf{background:var(--panel2);border-radius:10px;padding:11px}.tf .tfname{font-weight:800;font-size:13px}.tf .tfdir{font-size:18px;font-weight:800;margin-top:5px}.tf .tfnum{font-size:12px;margin-top:4px}.bars{display:grid;gap:8px}.barrow{display:grid;grid-template-columns:42px 1fr 70px;gap:8px;align-items:center;font-size:12px}.barbg{height:9px;background:#0d1111;border-radius:5px;overflow:hidden}.barfill{height:100%;background:var(--teal)}.callout{padding:11px 13px;border-left:3px solid var(--teal);background:#121818;border-radius:0 9px 9px 0;line-height:1.45}.ath{display:grid;grid-template-columns:1fr 1fr;gap:9px}.modal{position:fixed;inset:0;background:rgba(0,0,0,.82);display:flex;align-items:center;justify-content:center;padding:18px;z-index:10}.modal.hidden{display:none}.modalbox{width:min(620px,100%);background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:21px;box-shadow:0 20px 70px #000}.modalbox p{color:var(--muted);line-height:1.5}.buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.hidden{display:none!important}@media(max-width:850px){main{padding:13px}.grid,.grid2{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.topologyGrid{grid-template-columns:1fr 1fr}.row{grid-template-columns:1fr}.top{align-items:start;flex-direction:column}.chart{height:240px}}
 </style>
 </head>
 <body>
-<div class="modal" id="onboarding">
-  <div class="modalbox">
-    <h2>Build your baseline</h2>
-    <p>Baseline Farmer starts with one idea: <strong>your baseline is the amount of crypto exposure you want to maintain under normal conditions.</strong> It is a centerline, not a floor.</p>
-    <p>During entry, the same measurement is used before the position is fully established. The goal is not to blindly DCA on a calendar. It is to keep moving toward the target while using meaningful dips to improve the value you lock into the position.</p>
-    <div class="row">
-      <div><label>Target Crypto Exposure ($)</label><input id="obTarget" type="number" min="0" step="100" value="15000"></div>
-      <div><label>Current Crypto Exposure ($)</label><input id="obCurrent" type="number" min="0" step="100" value="0"></div>
-    </div>
-    <div class="row">
-      <div><label>Capital Available for Entry ($)</label><input id="obCapital" type="number" min="0" step="100" value="15000"></div>
-      <div><label>Core / Tactical Split</label><select id="obSplit"><option value="50">50% core / 50% tactical</option><option value="60">60% core / 40% tactical</option><option value="70">70% core / 30% tactical</option><option value="40">40% core / 60% tactical</option></select></div>
-    </div>
-    <div class="buttons"><button type="button" class="action" id="buildEntryPlan">Build my entry plan</button></div>
-    <div class="fine">This does not place trades. It establishes the capital/state model and gives you a relative framework for deciding when to deploy.</div>
-  </div>
-</div>
+<div class="modal" id="onboarding"><div class="modalbox">
+<h2>Set your target</h2>
+<p><strong>Your baseline is the amount of crypto exposure you want to maintain.</strong> It is the centerline you farm around. It is not a price level, and being below it does not automatically mean the market is a dip.</p>
+<div class="row"><div><label>Target crypto exposure</label><input id="obTarget" type="number" min="0" step="100" value="15000"></div><div><label>Current crypto exposure</label><input id="obCurrent" type="number" min="0" step="100" value="0"></div></div>
+<div class="row" style="margin-top:10px"><div><label>Capital available for entry</label><input id="obCapital" type="number" min="0" step="100" value="15000"></div><div><label>Core / tactical split</label><select id="obSplit"><option value="50">50% / 50%</option><option value="60">60% / 40%</option><option value="70">70% / 30%</option><option value="40">40% / 60%</option></select></div></div>
+<div class="buttons"><button class="primary" type="button" id="buildEntryPlan">Build entry plan</button></div>
+</div></div>
 
 <main>
-<div class="top">
-  <div><h1>Baseline Farmer</h1><div class="sub">Entry is the first farming cycle. Baseline is the target; deviations are the farm.</div></div>
-  <div class="badge">LOCAL • NO ACCOUNT REQUIRED</div>
-</div>
+<div class="top"><div><h1>Baseline Farmer</h1><div class="sub">Farm meaningful movement around the amount you actually want to own.</div></div><div class="badge" id="dataStatus">MARKET DATA</div></div>
 
 <section class="panel">
-  <div class="cards">
-    <div class="card"><div class="label">TARGET CRYPTO EXPOSURE</div><div class="value" id="baselineOut">$15,000</div></div>
-    <div class="card"><div class="label">CURRENT CRYPTO VALUE</div><div class="value" id="valueOut">$0</div></div>
-    <div class="card"><div class="label">DEVIATION FROM BASELINE</div><div class="value" id="devOut">-$15,000</div></div>
-    <div class="card"><div class="label">FARM STATE</div><div class="value accent" id="stateOut">ENTRY</div></div>
-  </div>
-  <div class="centerline"><div class="target" style="left:50%"></div><div class="marker" id="marker" style="left:0%"></div></div>
-  <div class="mini">Below target = dip / rebuild. Above target = excess / harvest. The target is not a floor.</div>
+<div class="cards">
+<div class="card"><div class="label">YOUR BASELINE</div><div class="value" id="baselineOut">$15,000</div></div>
+<div class="card"><div class="label">CURRENT EXPOSURE</div><div class="value" id="valueOut">$0</div></div>
+<div class="card"><div class="label">FROM YOUR BASELINE</div><div class="value" id="devOut">-$15,000</div></div>
+<div class="card"><div class="label">CAPITAL AVAILABLE</div><div class="value" id="capitalOut">$15,000</div></div>
+</div>
+<div class="progress"><div id="exposureFill" style="width:0%"></div></div>
+<div class="mini" id="capitalLine">0% of your target exposure established.</div>
+</section>
+
+<section class="panel sectiongap" id="entryPanel">
+<h2>Entry</h2>
+<div class="cards">
+<div class="card"><div class="label">TARGET</div><div class="value" id="decisionTarget">—</div></div>
+<div class="card"><div class="label">CURRENT</div><div class="value" id="decisionCurrent">—</div></div>
+<div class="card"><div class="label">GAP</div><div class="value" id="decisionGap">—</div></div>
+<div class="card"><div class="label">ENTRY POSTURE</div><div class="value" id="decisionPosture">—</div></div>
+</div>
+<div class="decision sectiongap"><div class="decisionText" id="decisionNarrative">—</div></div>
+<div class="buttons"><button class="primary" onclick="deploy('core')">Deploy next core amount</button><button onclick="deploy('tactical')">Deploy tactical reserve</button><button onclick="record('WAIT')">Wait</button><button onclick="record('HARVEST')">Harvest</button></div>
 </section>
 
 <div class="grid sectiongap">
 <section class="panel">
-  <h2>Entry: the same baseline measurement</h2>
-  <div class="callout">Before you are fully invested, your <strong>remaining exposure gap</strong> is the baseline problem. We measure the market relative to the position you are trying to establish, then decide how aggressively to convert waiting capital into baseline exposure.</div>
-  <div class="entrygrid" style="margin-top:12px">
-    <div class="entrycard"><div class="label">TARGET</div><div class="entrynum" id="entryTarget">$15,000</div></div>
-    <div class="entrycard"><div class="label">CURRENT EXPOSURE</div><div class="entrynum" id="entryCurrent">$0</div></div>
-    <div class="entrycard"><div class="label">EXPOSURE GAP</div><div class="entrynum bad" id="entryGap">$15,000</div></div>
-  </div>
-  <div class="bar"><div class="fill" id="exposureFill" style="width:0%"></div></div>
-  <div class="mini" id="entryProgress">0% of target exposure established.</div>
-</section>
-
-<section class="panel">
-  <h2>Tactical DCA</h2>
-  <div class="explain">Not a calendar DCA. A baseline-aware DCA: maintain forward progress, but keep tactical capital available so a meaningful deviation can buy more baseline exposure.</div>
-  <div class="split" style="margin-top:12px">
-    <div class="card"><div class="label">CORE CAPITAL</div><div class="value" id="coreCapital">$7,500</div><div class="mini">Keeps the position moving.</div></div>
-    <div class="card"><div class="label">TACTICAL RESERVE</div><div class="value" id="reserveCapital">$7,500</div><div class="mini">Available when the market offers weakness.</div></div>
-  </div>
-  <div class="deploybar"><div class="deploycore" id="coreBar"></div><div class="deployreserve" id="reserveBar"></div></div>
-  <div class="legend"><span><span class="dot" style="background:var(--accent)"></span>Core</span><span><span class="dot" style="background:var(--warn)"></span>Tactical reserve</span></div>
-</section>
+<h2>BTC right now</h2>
+<div class="cards">
+<div class="card"><div class="label">PRICE</div><div class="value" id="btcPrice">—</div><div class="mini" id="btcUpdated">—</div></div>
+<div class="card"><div class="label">7D</div><div class="value" id="chg7">—</div></div>
+<div class="card"><div class="label">30D</div><div class="value" id="chg30">—</div></div>
+<div class="card"><div class="label">90D</div><div class="value" id="chg90">—</div></div>
 </div>
-
-<div class="grid sectiongap">
-<section class="panel">
-  <h2>How the entry engine thinks</h2>
-  <div class="bigstate" id="entryState">BUILDING</div>
-  <div class="explain" id="entryText">You are below the target. The system treats the remaining gap as exposure still to be built, not as a reason to chase a perfect entry.</div>
-  <div class="row">
-    <div class="card"><div class="label">NEXT CORE ALLOCATION</div><div class="value" id="nextCore">$750</div></div>
-    <div class="card"><div class="label">TACTICAL CAPACITY</div><div class="value" id="tacticalCapacity">$7,500</div></div>
-  </div>
-  <div class="buttons">
-    <button class="action" onclick="deploy('core')">DEPLOY CORE</button>
-    <button class="action" onclick="deploy('tactical')">DEPLOY TACTICAL</button>
-    <button onclick="record('WAIT')">WAIT / HOLD RESERVE</button>
-    <button onclick="record('DIP OPPORTUNITY')">MARK DIP OPPORTUNITY</button>
-  </div>
+<div class="chart sectiongap" id="priceChart"></div><div class="cards sectiongap" style="grid-template-columns:repeat(3,1fr)"><div class="card"><div class="label">1H HEIKIN-ASHI</div><div class="value" id="haTrend">—</div></div><div class="card"><div class="label">1H VOLUME</div><div class="value" id="haVol">—</div></div><div class="card"><div class="label">7D VOLUME</div><div class="value" id="vol7top">—</div></div></div>
+<div class="legend"><span style="color:var(--text)">Price</span><span style="color:var(--teal)">7D path</span><span style="color:var(--yellow)">30D path</span><span style="color:var(--blue)">90D path</span></div>
 </section>
 
 <section class="panel">
-  <h2>Relative market context</h2>
-  <div class="explain">This panel deliberately avoids pretending that a single indicator knows the future. It gives the user the same relative measurements the funded strategy will use later.</div>
-  <div class="row">
-    <div><label>Recent reference value ($)</label><input id="refValue" type="number" step="1" value="100000"></div>
-    <div><label>Current market value ($)</label><input id="marketValue" type="number" step="1" value="95000"></div>
-  </div>
-  <div class="cards" style="margin-top:10px;grid-template-columns:repeat(3,1fr)">
-    <div class="card"><div class="label">MARKET DEVIATION</div><div class="value" id="marketDev">-5.0%</div></div>
-    <div class="card"><div class="label">ENTRY BIAS</div><div class="value" id="entryBias">WEAKNESS</div></div>
-    <div class="card"><div class="label">RESERVE POSTURE</div><div class="value" id="reservePosture">AVAILABLE</div></div>
-  </div>
-  <p class="mini">The reference is intentionally editable. Later, live market history can populate it; the capital logic should remain usable even when market-history data is unavailable.</p>
+<h2>ATH</h2>
+<div class="ath">
+<div class="card"><div class="label">ALL-TIME HIGH</div><div class="value" id="athPrice">—</div><div class="mini" id="athDate">—</div></div>
+<div class="card"><div class="label">CURRENT DISTANCE</div><div class="value" id="athDistance">—</div><div class="mini" id="daysSinceAth">—</div></div>
+</div>
+<div class="decision sectiongap"><div class="label">PATH TO ATH</div><div class="decisionTitle" id="athTrajectory">—</div><div class="decisionText" id="athWhy">—</div></div>
+<div class="sectiongap"><h3>What the recent price path says</h3><div class="bars" id="rangeBars"></div></div>
 </section>
 </div>
 
 <section class="panel sectiongap">
-  <div class="philosophyHero">
-    <div>
-      <div class="eyebrow">MARKET TOPOLOGY</div>
-      <h2>Price, structure, participation, and cycle context</h2>
-      <p class="lead">Your capital baseline is separate from the market's structural baselines. Each timeframe gets its own moving shape and its own verdict. The dashboard does not collapse them into one bullish/bearish score.</p>
-    </div>
-    <div class="philosophyBadge" id="dataStatus">LOADING MARKET DATA</div>
-  </div>
-
-  <div class="cards" style="margin-top:14px">
-    <div class="card"><div class="label">BTC</div><div class="value" id="btcPrice">—</div><div class="mini" id="btcUpdated">Waiting for ticker</div></div>
-    <div class="card"><div class="label">ALL-TIME HIGH</div><div class="value" id="athPrice">—</div><div class="mini" id="athDate">—</div></div>
-    <div class="card"><div class="label">FROM ATH</div><div class="value" id="athDistance">—</div><div class="mini" id="daysSinceAth">—</div></div>
-    <div class="card"><div class="label">ATH TRAJECTORY</div><div class="value accent" id="athTrajectory">—</div><div class="mini" id="athTrajectoryWhy">—</div></div>
-  </div>
-
-  <div class="grid sectiongap">
-    <section>
-      <h2>Nested structural baselines</h2>
-      <div class="tablewrap">
-        <table id="structureTable">
-          <thead><tr><th>Scale</th><th>Structure</th><th>Price vs structural path</th><th>Volume</th><th>Verdict</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <p class="mini">Each row is a separate structural reference. Agreement is useful; disagreement is useful too. A short retreat inside a longer advance is not the same thesis as a synchronized breakdown.</p>
-    </section>
-    <section class="panel" style="background:#131717">
-      <h2>Current path</h2>
-      <div class="entrygrid">
-        <div class="entrycard"><div class="label">1H</div><div class="entrynum" id="state1h">—</div></div>
-        <div class="entrycard"><div class="label">4H</div><div class="entrynum" id="state4h">—</div></div>
-        <div class="entrycard"><div class="label">7D</div><div class="entrynum" id="state7d">—</div></div>
-      </div>
-      <div class="entrygrid" style="margin-top:10px">
-        <div class="entrycard"><div class="label">30D</div><div class="entrynum" id="state30d">—</div></div>
-        <div class="entrycard"><div class="label">90D</div><div class="entrynum" id="state90d">—</div></div>
-        <div class="entrycard"><div class="label">VOLUME</div><div class="entrynum" id="volumeState">—</div></div>
-      </div>
-      <div class="callout" style="margin-top:12px" id="structureNarrative">Waiting for enough market history to describe the nested structure.</div>
-    </section>
-  </div>
-</section>
-
-<section class="panel sectiongap">
-  <div class="grid">
-    <section>
-      <h2>Volume as thesis evidence</h2>
-      <p class="explain">Volume does not mean bullish or bearish by itself. It supports or contradicts a thesis formed from price structure, location, and cycle context.</p>
-      <div class="cards" style="margin-top:12px;grid-template-columns:repeat(3,1fr)">
-        <div class="card"><div class="label">REVERSAL THESIS</div><div class="value" id="reversalThesis">—</div><div class="mini" id="reversalEvidence">—</div></div>
-        <div class="card"><div class="label">CONTINUATION THESIS</div><div class="value" id="continuationThesis">—</div><div class="mini" id="continuationEvidence">—</div></div>
-        <div class="card"><div class="label">LATE EXTENSION / FOMO</div><div class="value" id="fomoThesis">—</div><div class="mini" id="fomoEvidence">—</div></div>
-      </div>
-    </section>
-    <section>
-      <h2>Virtual farming reference</h2>
-      <div class="callout" id="virtualFarmText">The dashboard will replay the tracked market window as a counterfactual farming reference. This is not your personal capital baseline and it is not a price target.</div>
-      <div class="row">
-        <div class="card"><div class="label">VIRTUAL REFERENCE</div><div class="value" id="virtualBaseline">—</div></div>
-        <div class="card"><div class="label">PRICE VS REFERENCE</div><div class="value" id="virtualDeviation">—</div></div>
-      </div>
-    </section>
-  </div>
-</section>
-
-<section class="panel sectiongap">
-  <h2>Entry decision: capital state × market topology</h2>
-  <div class="cards">
-    <div class="card"><div class="label">TARGET EXPOSURE</div><div class="value" id="decisionTarget">—</div></div>
-    <div class="card"><div class="label">CURRENT EXPOSURE</div><div class="value" id="decisionCurrent">—</div></div>
-    <div class="card"><div class="label">REMAINING GAP</div><div class="value" id="decisionGap">—</div></div>
-    <div class="card"><div class="label">ENTRY POSTURE</div><div class="value accent" id="decisionPosture">WAITING</div></div>
-  </div>
-  <div class="callout" style="margin-top:12px" id="decisionNarrative">Exposure below target creates capacity, not a buy signal. Market topology determines whether that capacity should be used.</div>
-</section>
-
-<section class="panel sectiongap">
-  <h2>Funded position: the same strategy continues</h2>
-  <div class="callout">Once the position is established, nothing conceptually changes. The same baseline comparison becomes <strong>actual exposure versus target exposure</strong>. Dips become rebuild opportunities; excess becomes harvestable capital. Recycled profit can raise the baseline.</div>
-  <div class="cards" style="margin-top:12px">
-    <div class="card"><div class="label">BASELINE</div><div class="value" id="fundedBaseline">$15,000</div></div>
-    <div class="card"><div class="label">CURRENT VALUE</div><div class="value" id="fundedValue">$0</div></div>
-    <div class="card"><div class="label">HARVESTABLE EXCESS</div><div class="value" id="harvestable">$0</div></div>
-    <div class="card"><div class="label">REBUILD GAP</div><div class="value" id="rebuildGap">$15,000</div></div>
-  </div>
+<h2>Market structure</h2>
+<p class="mini">Each timeframe gets its own reference. The rows are not averaged into one signal.</p>
+<div class="topologyGrid" id="tfGrid"></div>
+<div class="grid2 sectiongap">
+<div><h3>Price + structural references</h3><div class="chart" id="structureChart"></div><div class="legend"><span style="color:var(--text)">Price</span><span style="color:var(--teal)">7D</span><span style="color:var(--yellow)">30D</span><span style="color:var(--blue)">90D</span></div></div>
+<div><h3>Volume</h3><div class="chart chartSmall" id="volumeChart"></div><div class="cards" style="margin-top:8px;grid-template-columns:repeat(3,1fr)"><div class="card"><div class="label">7D VS PRIOR 7D</div><div class="value" id="vol7">—</div></div><div class="card"><div class="label">30D VS PRIOR 30D</div><div class="value" id="vol30">—</div></div><div class="card"><div class="label">90D VS PRIOR 90D</div><div class="value" id="vol90">—</div></div></div></div>
+</div>
 </section>
 
 <div class="grid sectiongap">
 <section class="panel">
-  <h2>Capital Ledger</h2>
-  <div class="row">
-    <div><label>External capital supplied ($)</label><input id="external" type="number" step="100" value="15000"></div>
-    <div><label>Cumulative capital extracted ($)</label><input id="extracted" type="number" step="100" value="0"></div>
-  </div>
-  <div class="row">
-    <div><label>Realized profit recycled ($)</label><input id="recycled" type="number" step="100" value="0"></div>
-    <div><label>All-in round-trip friction (%)</label><input id="friction" type="number" step="0.01" value="0.80"></div>
-  </div>
-  <div class="row">
-    <div class="card"><div class="label">SELF-FUNDING RATIO</div><div class="value" id="selfFund">0%</div></div>
-    <div class="card"><div class="label">VALUE / EXTERNAL $</div><div class="value" id="valuePer">$0.00</div></div>
-  </div>
-  <div class="buttons"><button onclick="raiseBaseline()">RECYCLE PROFIT → RAISE BASELINE</button></div>
-  <p class="mini">Baseline growth is funded by realized internal profit. It is not treated as new external money.</p>
+<h2>What the market is doing</h2>
+<div class="decision"><div class="label">CURRENT READ</div><div class="decisionTitle" id="marketRead">WAITING</div><div class="decisionText" id="marketReadText">Loading the price path, structural references and volume.</div></div>
+<div class="sectiongap"><h3>Three things that matter</h3><div class="cards" style="grid-template-columns:repeat(3,1fr)">
+<div class="card"><div class="label">SHORT TERM</div><div class="value" id="shortRead">—</div><div class="mini" id="shortWhy">—</div></div>
+<div class="card"><div class="label">LARGER TREND</div><div class="value" id="longRead">—</div><div class="mini" id="longWhy">—</div></div>
+<div class="card"><div class="label">PARTICIPATION</div><div class="value" id="volumeRead">—</div><div class="mini" id="volumeWhy">—</div></div>
+</div></div>
 </section>
-
 <section class="panel">
-  <h2>Decision Layer</h2>
-  <div class="explain">The machine keeps the relative numbers and capital history visible. Your judgment remains explicit: the tool does not invent a market call and does not auto-submit trades.</div>
-  <div class="buttons">
-    <button class="action" onclick="record('GO')">GO — deploy tactical capital</button>
-    <button onclick="record('HARVEST')">HARVEST — reduce excess</button>
-    <button onclick="record('WAIT')">WAIT — baseline only</button>
-    <button onclick="record('ATH WATCH')">ATH WATCH — progressive extraction</button>
-  </div>
-  <div class="tablewrap"><table><thead><tr><th>Time</th><th>Decision</th><th>Target</th><th>Exposure</th><th>Deviation</th></tr></thead><tbody id="log"></tbody></table></div>
+<h2>Possible explanations</h2>
+<div class="cards" style="grid-template-columns:1fr">
+<div class="card"><div class="label">BOTTOM REVERSAL</div><div class="value" id="reversal">—</div><div class="mini" id="reversalWhy">—</div></div>
+<div class="card"><div class="label">HEALTHY CONTINUATION</div><div class="value" id="continuation">—</div><div class="mini" id="continuationWhy">—</div></div>
+<div class="card"><div class="label">LATE / FOMO</div><div class="value" id="fomo">—</div><div class="mini" id="fomoWhy">—</div></div>
+</div>
 </section>
 </div>
 
+
+
 <section class="panel sectiongap">
-  <h2>The Baseline Farmer loop</h2>
-  <div class="split">
-    <div>
-      <table>
-        <tr><td>1. Establish</td><td class="muted">Use tactical DCA to build exposure toward the target.</td></tr>
-        <tr><td>2. Measure</td><td class="muted">Continuously compare actual exposure with the baseline.</td></tr>
-        <tr><td>3. Farm</td><td class="muted">Below target is rebuild territory; above target is harvest territory.</td></tr>
-        <tr><td>4. Harvest</td><td class="muted">Convert excess into realized capital rather than trying to call the exact top.</td></tr>
-        <tr><td>5. Recycle</td><td class="muted">Use internally generated profit to increase the baseline when appropriate.</td></tr>
-        <tr><td>6. Repeat</td><td class="muted">The entry behavior and maintenance behavior are the same strategy at different stages.</td></tr>
-      </table>
-    </div>
-    <div class="callout">
-      <strong>Training objective</strong><br><br>
-      Stop thinking primarily in calendar intervals or absolute price predictions. Think in terms of <strong>where the market is relative to the baseline you are trying to establish or maintain</strong> and how much capital remains available to exploit that deviation.
-      <br><br>
-      The entry phase is therefore not a temporary set of rules. It is the user's first practice of the same farming loop that will eventually maintain and grow the position.
-    </div>
-  </div>
+<h2>Virtual farming reference</h2>
+<div class="grid2">
+<div><div class="chart" id="virtualChart"></div><div class="legend"><span style="color:var(--text)">Price</span><span style="color:var(--teal)">Virtual farm reference</span></div></div>
+<div><div class="cards" style="grid-template-columns:1fr 1fr"><div class="card"><div class="label">PRICE VS VIRTUAL REFERENCE</div><div class="value" id="virtualDeviation">—</div></div><div class="card"><div class="label">VIRTUAL FARM STATE</div><div class="value" id="virtualState">—</div></div></div><div class="callout sectiongap" id="virtualText">The reference is built by replaying the tracked history from a clean hypothetical entry. It is separate from your real baseline.</div></div>
+</div>
 </section>
 
+<div class="grid2 sectiongap">
+<section class="panel"><h2>Your farming capital</h2><div class="row"><div><label>External capital supplied</label><input id="external" type="number" step="100" value="15000"></div><div><label>Capital extracted</label><input id="extracted" type="number" step="100" value="0"></div></div><div class="row" style="margin-top:10px"><div><label>Profit recycled</label><input id="recycled" type="number" step="100" value="0"></div><div><label>Round-trip friction %</label><input id="friction" type="number" step="0.01" value="0.80"></div></div><div class="cards sectiongap" style="grid-template-columns:1fr 1fr"><div class="card"><div class="label">SELF-FUNDED</div><div class="value" id="selfFund">0%</div></div><div class="card"><div class="label">VALUE / EXTERNAL $</div><div class="value" id="valuePer">$0.00</div></div></div><div class="buttons"><button onclick="raiseBaseline()">Recycle profit → raise baseline</button></div></section>
+<section class="panel"><h2>Decision log</h2><div class="tablewrap"><table><thead><tr><th>Time</th><th>Decision</th><th>Exposure</th><th>Baseline</th><th>Deviation</th></tr></thead><tbody id="log"></tbody></table></div></section>
+</div>
 
-<section class="panel sectiongap philosophy">
-  <div class="philosophyHero">
-    <div>
-      <div class="eyebrow">THE PHILOSOPHY</div>
-      <h2>Farm the path. Protect the baseline. Let the market pay you for waiting.</h2>
-      <p class="lead">Baseline Farmer is built around a simple idea: you do not have to predict every move to think clearly about a market that moves above and below a level of exposure you actually want to own.</p>
-    </div>
-    <div class="philosophyBadge">WAIT → GO → HARVEST → WAIT</div>
-  </div>
-  <div class="philosophyGrid">
-    <div>
-      <h3>Your strategy</h3>
-      <p>The long cycle provides the reason to stay engaged with the asset class while leaving room for shorter cycles of movement along the way. But the strategy does not require sitting idle for four or five years waiting for an all-time high.</p>
-      <p>Instead, you establish a <strong>baseline</strong> — the amount of crypto exposure you actually want — and farm meaningful movement around it. Below the baseline, weakness is an opportunity to rebuild. Above it, excess exposure is something you can harvest.</p>
-      <p>That turns the market's path into something useful instead of something you simply endure.</p>
-    </div>
-    <div>
-      <h3>Why this is different from ordinary DCA</h3>
-      <p>Calendar DCA treats every purchase opportunity as roughly equivalent. Baseline Farmer treats <strong>relative position</strong> as something worth observing. Capital can keep moving toward the target while tactical reserve remains available for genuine weakness.</p>
-      <p>The goal is not to buy the bottom. It is to avoid spending all your buying power before the market gives you a better opportunity — while also avoiding the opposite mistake of waiting forever for a perfect entry.</p>
-      <p>The intended result is a single mental model that works while the position is being built and after it is established.</p>
-    </div>
-  </div>
-  <div class="philosophyGrid lower">
-    <div class="callout">
-      <strong>What the tool actually does</strong><br><br>
-      It externalizes the things that are difficult to hold in your head: your target, current exposure, remaining capital, deviations, harvests, recycled profits and market context. It helps you compare today's situation with the baseline instead of making every decision from scratch.
-    </div>
-    <div class="callout warning">
-      <strong>What it deliberately does not do</strong><br><br>
-      It does not predict the future, identify the exact bottom or top, or turn a few indicators into a fake certainty score. Market data can describe a move without proving that the move is about to reverse.
-    </div>
-  </div>
-  <div class="warningBox">
-    <h3>The blind spot: reversals</h3>
-    <p>A dip can keep falling. A rally can keep running. A market can look weak immediately before a violent reversal, or look strong immediately before it rolls over. Relative measurements are useful precisely because they tell you <em>where you are</em>; they do not tell you with certainty <em>what happens next</em>.</p>
-    <p>This matters most around major reversals and possible ATH behavior. The tool can show distance from ATH, recent range position, persistence, acceleration and other observable context, but it cannot expose every piece of information that a human may notice in price action, liquidity, news, sentiment or changing market structure. Your judgment remains part of the strategy.</p>
-    <p><strong>The discipline is therefore not “trust the dashboard.” It is “use the dashboard so your judgment has a memory, a baseline and a capital plan behind it.”</strong></p>
-  </div>
-  <div class="philosophyFooter">
-    <span>ENTRY IS THE FIRST FARMING CYCLE.</span>
-    <span>PROFITS CAN BECOME A LARGER BASELINE.</span>
-    <span>NO PREDICTION REQUIRED.</span>
-  </div>
-</section>
-
-<section class="panel sectiongap about">
-  <div class="eyebrow">WHAT THIS IS</div>
-  <h2>A way to see one strategy philosophy</h2>
-  <div class="aboutGrid">
-    <div>
-      <p class="lead">Baseline Farmer is a website built around <strong>one way of thinking about crypto exposure</strong>. The baseline, farming loop, tactical entry idea and capital ledger are the philosophy made visible and interactive.</p>
-      <p>It is not asking you to believe that the strategy is universally correct. It gives you a structure for exploring the idea: establish a target, measure where you are relative to it, preserve capital for meaningful opportunities, harvest excess when appropriate, and keep track of what happened.</p>
-    </div>
-    <div class="callout">
-      <strong>No expertise required.</strong><br><br>
-      You do not need to be a professional trader, analyst, or financial expert to understand the framework. The website is intentionally showing the relationships in plain language so you can decide whether the way of thinking is useful to you.
-    </div>
-  </div>
-  <div class="plainTerms">
-    <h3>The important words, in plain English</h3>
-    <div class="termGrid">
-      <div><strong>Baseline</strong><span>The amount of crypto exposure you want to maintain as your normal target. It is a centerline, not a floor.</span></div>
-      <div><strong>Exposure</strong><span>The current dollar value of the crypto position being managed.</span></div>
-      <div><strong>Deviation</strong><span>How far current exposure is above or below the baseline.</span></div>
-      <div><strong>Dip / rebuild</strong><span>Exposure is below the baseline, so the framework treats the gap as something that may be rebuilt.</span></div>
-      <div><strong>Harvest</strong><span>Exposure is above the baseline, so the excess can be considered for realization rather than requiring an exact top call.</span></div>
-      <div><strong>Tactical reserve</strong><span>Capital deliberately left available instead of being deployed immediately.</span></div>
-      <div><strong>Recycle</strong><span>Realized internal profit is put back into the system to support a larger baseline.</span></div>
-      <div><strong>Trajectory</strong><span>A description of recent direction and market position—not a prediction of what happens next.</span></div>
-    </div>
-  </div>
-  <div class="disclaimerBox">
-    <strong>This is a strategy ideation tool, not financial advice.</strong>
-    <p>Baseline Farmer does not promise returns, predict markets, recommend that anyone buy or sell anything, or claim that this philosophy will outperform another approach. It is an interactive expression of a strategy philosophy and topology: a way to explore how baseline-relative thinking might organize decisions and capital over time.</p>
-    <p>Markets can behave in ways the framework does not expose. A dip can become a larger decline; a rally can continue; reversals can happen without warning. The numbers on this site describe the framework and available market context. They do not remove uncertainty or replace your own judgment.</p>
-    <p class="fine"><strong>Use the tool to understand the idea—not as a promise about the future.</strong></p>
-  </div>
-</section>
-
-<p class="fine sectiongap">Prototype principle: externalize the strategy, capital state, and bookkeeping. Do not turn intuition into arbitrary indicator thresholds merely because software makes them possible.</p>
 </main>
 <script>
-const $=id=>document.getElementById(id);
-const state={
-  target:15000,current:0,capital:15000,corePct:50,
-  coreRemaining:7500,reserveRemaining:7500,coreStep:750,
-  onboardingComplete:false,
-  market:{ticker:null,daily:null,hourly:null,lastGood:null}
-};
-const CACHE_KEY='baselineFarmerMarketCacheV2';
-function money(x){return (Number(x)||0).toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:0})}
-function num(id){return Number($(id).value)||0}
-function save(){try{const copy={...state,market:undefined};localStorage.setItem('baselineFarmerState',JSON.stringify(copy))}catch(e){}}
-function load(){try{const s=JSON.parse(localStorage.getItem('baselineFarmerState'));if(s&&typeof s.target==='number'){Object.assign(state,s);state.onboardingComplete=s.onboardingComplete===true}}catch(e){}}
-function finishOnboarding(){
-  state.target=Math.max(0,num('obTarget'));state.current=Math.max(0,num('obCurrent'));state.capital=Math.max(0,num('obCapital'));state.corePct=num('obSplit');
-  const gap=Math.max(0,state.target-state.current),available=Math.min(state.capital,gap);
-  state.coreRemaining=available*(state.corePct/100);state.reserveRemaining=available-state.coreRemaining;state.coreStep=Math.max(100,state.coreRemaining/10||100);state.onboardingComplete=true;
-  $('onboarding').classList.add('hidden');syncInputs();update();save();
-}
-function bindOnboarding(){const button=$('buildEntryPlan');if(!button)return;button.addEventListener('click',e=>{e.preventDefault();finishOnboarding()},{once:true})}
-function syncInputs(){
-  $('baselineOut').textContent=money(state.target);$('entryTarget').textContent=money(state.target);$('entryCurrent').textContent=money(state.current);
-  $('coreCapital').textContent=money(state.coreRemaining);$('reserveCapital').textContent=money(state.reserveRemaining);
-}
-function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
-function ema(values,span){if(!values.length)return[];const k=2/(span+1);let e=values[0];return values.map((v,i)=>i?e=e+k*(v-e):e)}
-function slope(values,n){if(values.length<Math.min(n,3))return 0;const a=values.slice(-n);const first=a[0],last=a[a.length-1];return first?((last-first)/first)*100:0}
-function direction(values,n){const s=slope(values,n);const recent=values.slice(-Math.min(n,values.length));const mid=recent.slice(0,Math.max(1,Math.floor(recent.length/2)));const s2=slope(mid,mid.length);if(s>1.2)return 'ADVANCING';if(s<-1.2)return 'RETREATING';return 'MIXED'}
-function fmtPct(x){return (x>=0?'+':'')+x.toFixed(1)+'%'}
-function parseDaily(raw){return Array.isArray(raw)?raw.map(x=>({t:new Date(x.timestamp).getTime(),p:Number(x.price),v:Number(x.volume_24h)||0})).filter(x=>x.p>0).sort((a,b)=>a.t-b.t):[]}
-function parseHourly(raw){return Array.isArray(raw)?raw.map(x=>({t:Number(x[0])*1000,low:Number(x[1]),high:Number(x[2]),open:Number(x[3]),close:Number(x[4]),v:Number(x[5])||0})).filter(x=>x.close>0).sort((a,b)=>a.t-b.t):[]}
-function aggregate4h(h){const out=[];for(let i=0;i<h.length;i+=4){const g=h.slice(i,i+4);if(g.length<2)continue;out.push({t:g[g.length-1].t,open:g[0].open,high:Math.max(...g.map(x=>x.high)),low:Math.min(...g.map(x=>x.low)),close:g[g.length-1].close,v:g.reduce((a,x)=>a+x.v,0)})}return out}
-function nearestDaily(days,n){return days.slice(-Math.min(n,days.length))}
-function structuralSeries(days,span){const vals=days.map(x=>x.p);return ema(vals,span)}
-function structuralRow(name,series,span,volumeSeries){
-  if(!series.length)return null;const vals=series.map(x=>x.p||x.close);const base=ema(vals,span);const price=vals[vals.length-1],ref=base[base.length-1];const dev=ref?((price-ref)/ref)*100:0;const dir=direction(vals,Math.min(span,vals.length));
-  const vol=volumeSeries||series.map(x=>x.v||0);const recent=vol.slice(-Math.min(span,vol.length));const prior=vol.slice(-Math.min(span*2,vol.length),-Math.min(span,vol.length));const ravg=recent.length?recent.reduce((a,b)=>a+b,0)/recent.length:0;const pavg=prior.length?prior.reduce((a,b)=>a+b,0)/prior.length:0;const vr=pavg?ravg/pavg:1;
-  let verdict=dir==='ADVANCING'?(dev>3?'EXTENDED ADVANCE':'ADVANCING'):dir==='RETREATING'?(dev<-3?'EXTENDED RETREAT':'RETREATING'):'MIXED';
-  return {name,price,ref,dev,dir,vr,verdict,series,base};
-}
-function setState(id,text){$(id).textContent=text;$(id).className='entrynum '+(text==='ADVANCING'?'structurePositive':text==='RETREATING'?'structureNegative':'structureNeutral')}
-function loadCache(){try{const c=JSON.parse(localStorage.getItem(CACHE_KEY));if(c&&c.daily)state.market={...state.market,...c};}catch(e){}}
-function cacheMarket(){try{localStorage.setItem(CACHE_KEY,JSON.stringify({daily:state.market.daily,hourly:state.market.hourly,ticker:state.market.ticker,cachedAt:Date.now()}))}catch(e){}}
-async function getJson(url){const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);return await r.json()}
+const $=id=>document.getElementById(id), CACHE='baselineFarmerMarketV3';
+const state={target:15000,current:0,capital:15000,corePct:50,coreRemaining:7500,reserveRemaining:7500,coreStep:750,onboardingComplete:false,market:{}};
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const money=x=>(Number(x)||0).toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:0});
+const pct=x=>(x==null||!isFinite(x)?'—':(x>=0?'+':'')+x.toFixed(1)+'%');
+function save(){try{const s={...state,market:{}};localStorage.setItem('baselineFarmerState',JSON.stringify(s))}catch(e){}}
+function load(){try{const s=JSON.parse(localStorage.getItem('baselineFarmerState'));if(s&&typeof s.target==='number')Object.assign(state,s);state.market=state.market||{}}catch(e){}}
+function bindOnboarding(){const b=$('buildEntryPlan');if(!b||b.dataset.bound)return;b.dataset.bound='1';b.addEventListener('click',e=>{e.preventDefault();finishOnboarding()})}
+function finishOnboarding(){state.target=Math.max(0,Number($('obTarget').value)||0);state.current=Math.max(0,Number($('obCurrent').value)||0);state.capital=Math.max(0,Number($('obCapital').value)||0);state.corePct=Number($('obSplit').value)||50;const gap=Math.max(0,state.target-state.current),avail=Math.min(gap,state.capital);state.coreRemaining=avail*state.corePct/100;state.reserveRemaining=avail-state.coreRemaining;state.coreStep=Math.max(100,state.coreRemaining/10||100);state.onboardingComplete=true;$('onboarding').classList.add('hidden');update();save()}
+function ema(vals,period){if(!vals.length)return[];const k=2/(period+1),out=[];let e=vals[0];for(const v of vals){e=v*k+e*(1-k);out.push(e)}return out}
+function slope(vals,n){if(vals.length<2)return 0;const a=vals.slice(-n);return a.length>1?(a[a.length-1]-a[0])/(a.length-1):0}
+function avg(a){return a.length?a.reduce((x,y)=>x+y,0)/a.length:0}
+function parseDaily(a){return Array.isArray(a)?a.map(x=>({t:new Date(x.timestamp).getTime(),p:+x.price,v:+x.volume_24h||0})).filter(x=>x.p>0).sort((a,b)=>a.t-b.t):[]}
+function parseHourly(a){return Array.isArray(a)?a.map(x=>({t:x[0]*1000,low:+x[1],high:+x[2],open:+x[3],close:+x[4],v:+x[5]||0})).filter(x=>x.close>0).sort((a,b)=>a.t-b.t):[]}
+async function getJson(url){const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw Error(r.status);return r.json()}
 async function fetchTicker(){return getJson('https://api.coinpaprika.com/v1/tickers/btc-bitcoin')}
-async function fetchDaily(){const end=new Date();const start=new Date(end.getTime()-365*86400000);const iso=d=>d.toISOString().slice(0,10);return getJson('https://api.coinpaprika.com/v1/tickers/btc-bitcoin/historical?start='+iso(start)+'&end='+iso(end)+'&interval=1d')}
+async function fetchDaily(){return getJson('https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400').then(parseCoinbaseDaily)}
+function parseCoinbaseDaily(a){return parseHourly(a).map(x=>({t:x.t,p:x.close,v:x.v})).sort((a,b)=>a.t-b.t)}
 async function fetchHourly(){return getJson('https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=3600')}
-function renderTicker(t){
-  if(!t)return;const q=t.quotes.USD,ath=q.ath_price,price=q.price;const dist=ath?((price-ath)/ath*100):q.percent_from_price_ath;const days=t.ath_date?Math.floor((Date.now()-new Date(t.ath_date).getTime())/86400000):null;
-  $('btcPrice').textContent=money(price);$('btcUpdated').textContent=t.last_updated?'Updated '+new Date(t.last_updated).toLocaleString():'Live ticker';$('athPrice').textContent=money(ath);$('athDate').textContent=t.ath_date?'ATH '+new Date(t.ath_date).toLocaleDateString():'—';$('athDistance').textContent=fmtPct(dist);$('daysSinceAth').textContent=days==null?'—':days+' days since ATH';
-}
-function renderStructure(){
-  const d=state.market.daily||[],h=state.market.hourly||[];if(!d.length&&!h.length)return;
-  const rows=[];const h1=h.map(x=>({p:x.close,v:x.v,t:x.t}));const h4=aggregate4h(h).map(x=>({p:x.close,v:x.v,t:x.t}));
-  if(h1.length)rows.push(structuralRow('1H',h1,12,h1.map(x=>x.v)));
-  if(h4.length)rows.push(structuralRow('4H',h4,12,h4.map(x=>x.v)));
-  if(d.length)rows.push(structuralRow('7D',nearestDaily(d,30),7));
-  if(d.length)rows.push(structuralRow('30D',nearestDaily(d,90),30));
-  if(d.length)rows.push(structuralRow('90D',nearestDaily(d,180),90));
-  const tbody=$('structureTable').querySelector('tbody');tbody.innerHTML='';rows.filter(Boolean).forEach(r=>{const tr=document.createElement('tr');const dc=r.dev>0?'structurePositive':r.dev<0?'structureNegative':'structureNeutral';const vc=r.vr>1.25?'EXPANDING':r.vr<.8?'CONTRACTING':'NORMAL';tr.innerHTML='<td><strong>'+r.name+'</strong></td><td>'+r.dir+'</td><td class="'+dc+'">'+fmtPct(r.dev)+'</td><td>'+vc+' ('+r.vr.toFixed(2)+'×)</td><td><strong>'+r.verdict+'</strong></td>';tbody.appendChild(tr);});
-  const map={};rows.forEach(r=>map[r.name]=r);setState('state1h',map['1H']?.verdict||'—');setState('state4h',map['4H']?.verdict||'—');setState('state7d',map['7D']?.verdict||'—');setState('state30d',map['30D']?.verdict||'—');setState('state90d',map['90D']?.verdict||'—');
-  const dailyVals=d.map(x=>x.p), recent7=nearestDaily(d,7).map(x=>x.p);const volRecent=nearestDaily(d,7).map(x=>x.v),volPrior=d.slice(-14,-7).map(x=>x.v);const vr=(volPrior.length?volRecent.reduce((a,b)=>a+b,0)/volRecent.length:0)/(volPrior.length?volPrior.reduce((a,b)=>a+b,0)/volPrior.length:1);$('volumeState').textContent=vr>1.5?'EXPANDING':vr<.7?'CONTRACTING':'NORMAL';
-  const long=map['90D'],mid=map['30D'],short=map['7D'];
-  const price=(state.market.ticker?.quotes?.USD?.price)||dailyVals.at(-1);const ath=state.market.ticker?.quotes?.USD?.ath_price||Math.max(...dailyVals);const athDist=ath?((price-ath)/ath*100):-99;
-  const recentHigh=Math.max(...nearestDaily(d,30).map(x=>x.p));const recentLow=Math.min(...nearestDaily(d,30).map(x=>x.p));const recovery=recentHigh>recentLow?((price-recentLow)/(recentHigh-recentLow))*100:50;
-  const accelerating=short&&mid?slope(recent7,Math.min(7,recent7.length))>slope(nearestDaily(d,14).map(x=>x.p),Math.min(14,d.length))*1.15:false;
-  const reversalSupport=long&&(long.dir==='RETREATING'||long.dir==='MIXED')&&short&&(short.dir==='ADVANCING')&&recovery>50&&vr>1.1;
-  const continuationSupport=long&&mid&&short&&long.dir==='ADVANCING'&&mid.dir==='ADVANCING'&&short.dir==='ADVANCING'&&vr>=.9;
-  const fomoSupport=athDist>-15&&long&&mid&&long.dir==='ADVANCING'&&mid.dir==='ADVANCING'&&short&&short.dir==='ADVANCING'&&vr>1.3&&recovery>80&&accelerating;
-  $('reversalThesis').textContent=reversalSupport?'SUPPORTED':(short?.dir==='ADVANCING'?'POSSIBLE':'WEAK');$('reversalEvidence').textContent=reversalSupport?'Higher structure is damaged/mixed while short structure reverses with participation.':'A strong rally alone does not establish a bottom reversal.';
-  $('continuationThesis').textContent=continuationSupport?'SUPPORTED':'MIXED';$('continuationEvidence').textContent=continuationSupport?'Multiple scales agree and participation is not contradicting the advance.':'The nested structures disagree or participation is not sufficiently supportive.';
-  $('fomoThesis').textContent=fomoSupport?'BUILDING':'NOT ESTABLISHED';$('fomoEvidence').textContent=fomoSupport?'Near ATH + aligned advance + elevated participation + extension/acceleration.':'Strength is not automatically FOMO; location and participation do not yet form the late-stage thesis.';
-  let trajectory='MIXED';if(athDist>-20&&short?.dir==='ADVANCING')trajectory=fomoSupport?'LATE / CROWDED':'ADVANCING';else if(short?.dir==='ADVANCING'&&mid?.dir==='ADVANCING')trajectory='ADVANCING';else if(short?.dir==='RETREATING'&&mid?.dir==='RETREATING')trajectory='RETREATING';$('athTrajectory').textContent=trajectory;$('athTrajectoryWhy').textContent=trajectory==='LATE / CROWDED'?'Do not chase the approach to ATH.':'Descriptive trajectory, not a prediction.';
-  $('structureNarrative').textContent=buildNarrative(rows,trajectory,reversalSupport,fomoSupport);
-  renderVirtualBaseline(d,price);renderDecision(trajectory,reversalSupport,continuationSupport,fomoSupport);
-}
-function buildNarrative(rows,trajectory,reversal,fomo){const a=rows.filter(Boolean).map(r=>r.name+': '+r.verdict).join(' · ');if(fomo)return 'Nested structure is advancing into ATH territory while participation and extension are increasing. The exposure gap remains a capital fact; it does not create a buy signal. Preserve entry capacity rather than chasing.';if(reversal)return 'The market is rallying, but the rally is occurring against a damaged or mixed higher-order structure. That makes a bottom-reversal thesis more plausible than a FOMO thesis. Do not label strength as FOMO merely because it is strong.';return 'Current nested structure: '+a+'. The dashboard is showing disagreement instead of hiding it inside one score.'}
-function renderVirtualBaseline(d,price){
-  if(!d.length){$('virtualBaseline').textContent='—';$('virtualDeviation').textContent='—';return}
-  // Counterfactual replay anchor: pretend a clean position existed immediately before the
-  // tracked window. The reference is expressed in normalized exposure (1.00 = the clean
-  // starting baseline), while the market path supplies the actual deviations. No dollar
-  // target and no personal capital state is injected into this replay.
-  const start=d[0].p;const normalized=start?price/start:1;const dev=(normalized-1)*100;
-  $('virtualBaseline').textContent='1.00× ENTRY';$('virtualDeviation').textContent=fmtPct(dev);$('virtualDeviation').className='value '+(dev<0?'bad':dev>0?'good':'accent');
-  $('virtualFarmText').textContent='Counterfactual replay: pretend the position was cleanly established just before this tracked history. The virtual reference starts at 1.00× and lets the nested structural paths, volatility, volume, and local action determine whether today looks like weakness, continuation, or extension. It is deliberately separate from your personal baseline target.';
-}
-function renderDecision(trajectory,reversal,continuation,fomo){
-  const b=state.target,v=state.current,gap=Math.max(0,b-v);$('decisionTarget').textContent=money(b);$('decisionCurrent').textContent=money(v);$('decisionGap').textContent=money(gap);
-  let posture='WAIT / PRESERVE',text='You are below your target exposure, but that is only capacity. Wait for market topology to justify deployment.';
-  if(fomo){posture='DO NOT CHASE';text='You have room to establish exposure, but the market is presenting a late, crowded advance near ATH. Preserve tactical capital. A strong rally is not itself a buy signal.'}
-  else if(reversal){posture='WATCH REVERSAL';text='The rally is occurring from a damaged/mixed higher-order structure. Participation supports a possible reversal thesis. This is the kind of strength that can be constructive rather than FOMO; deploy only according to your actual farming judgment.'}
-  else if(continuation){posture='SELECTIVE DEPLOY';text='The advance is structurally supported. Maintain forward progress if desired, but do not confuse healthy continuation with a mandate to chase.'}
-  $('decisionPosture').textContent=posture;$('decisionNarrative').textContent=text;
-}
-function update(){
-  const b=state.target,v=state.current,d=v-b;$('baselineOut').textContent=money(b);$('valueOut').textContent=money(v);$('devOut').textContent=(d>=0?'+':'-')+money(Math.abs(d));
-  $('stateOut').textContent=d>0.5?'HARVEST':d<-0.5?(v===0?'ENTRY':'UNDER BASELINE'):'AT BASELINE';$('entryTarget').textContent=money(b);$('entryCurrent').textContent=money(v);$('entryGap').textContent=money(Math.max(0,b-v));
-  const progress=b?clamp(v/b*100,0,100):0;$('exposureFill').style.width=progress+'%';$('entryProgress').textContent=progress.toFixed(1)+'% of target exposure established.';$('marker').style.left=(b?clamp(50+(d/b)*50,0,100):50)+'%';
-  $('fundedBaseline').textContent=money(b);$('fundedValue').textContent=money(v);$('harvestable').textContent=money(Math.max(0,d));$('rebuildGap').textContent=money(Math.max(0,-d));const gap=Math.max(0,b-v),core=state.coreRemaining,reserve=state.reserveRemaining;
-  $('nextCore').textContent=money(Math.min(state.coreStep,core,gap));$('tacticalCapacity').textContent=money(reserve);$('entryState').textContent=v>=b?'ESTABLISHED':v===0?'READY TO BUILD':'BUILDING';$('entryState').className='bigstate '+(v>=b?'good':'accent');$('entryText').textContent=v>=b?'The target exposure is established. Market topology now governs rebuild and harvest decisions.':`You have ${money(gap)} of exposure left to establish. The gap is not a market signal; topology determines when capital should move.`;
-  const total=core+reserve;$('coreBar').style.width=(total?core/total*100:0)+'%';$('reserveBar').style.width=(total?reserve/total*100:0)+'%';
-  updateMarket();
-}
+function niceDate(t){return new Date(t).toLocaleDateString(undefined,{month:'short',day:'numeric'})}
+function renderLine(el,series,labels,colors){if(!series.length){el.innerHTML='<div class="mini">No chart data available.</div>';return}const w=900,h=300,p=28;let all=series.flat().filter(v=>v!=null&&isFinite(v));let lo=Math.min(...all),hi=Math.max(...all);if(lo===hi){lo*=.99;hi*=1.01}const x=i=>p+(w-2*p)*(i/(Math.max(1,series[0].length-1)));const y=v=>h-p-(h-2*p)*(v-lo)/(hi-lo);let paths=series.map((s,j)=>'<polyline fill="none" stroke="'+colors[j]+'" stroke-width="'+(j===0?2.4:1.5)+'" points="'+s.map((v,i)=>x(i)+','+y(v)).join(' ')+'"/>').join('');let grid='<line x1="'+p+'" y1="'+(h-p)+'" x2="'+(w-p)+'" y2="'+(h-p)+'" stroke="#2c3838"/><line x1="'+p+'" y1="'+p+'" x2="'+p+'" y2="'+p+'" stroke="#2c3838"/>';el.innerHTML='<svg viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none">'+grid+paths+'</svg>'}
+function renderVolume(el,vals){if(!vals.length){el.innerHTML='<div class="mini">No volume data available.</div>';return}const w=900,h=150,p=10,max=Math.max(...vals)||1,bw=(w-2*p)/vals.length;let bars=vals.map((v,i)=>'<rect x="'+(p+i*bw)+'" y="'+(h-p-v/max*(h-2*p))+'" width="'+Math.max(1,bw-.7)+'" height="'+(v/max*(h-2*p))+'" fill="#42d6c5" opacity=".7"/>').join('');el.innerHTML='<svg viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none"><line x1="0" y1="'+(h-p)+'" x2="'+w+'" y2="'+(h-p)+'" stroke="#2c3838"/>'+bars+'</svg>'}
+function renderTicker(t){const q=t?.quotes?.USD;if(!q)return;const price=+q.price,ath=+q.ath_price; $('btcPrice').textContent=money(price);$('btcUpdated').textContent=t.last_updated?'Updated '+new Date(t.last_updated).toLocaleString():'Current';$('athPrice').textContent=money(ath);$('athDate').textContent=t.ath_date?'ATH '+new Date(t.ath_date).toLocaleDateString():'—';$('athDistance').textContent=pct((price-ath)/ath*100);const days=t.ath_date?Math.floor((Date.now()-new Date(t.ath_date))/86400000):null;$('daysSinceAth').textContent=days==null?'—':days+' days since ATH';$('chg7').textContent=pct(q.percent_change_7d);$('chg30').textContent=pct(q.percent_change_30d);$('chg90').textContent='—';colorValue('chg7',q.percent_change_7d);colorValue('chg30',q.percent_change_30d)}
+function colorValue(id,v){$(id).className='value '+(v>0? 'good':v<0?'bad':'teal')}
+function aggregate4h(h){const out=[];for(let i=0;i<h.length;i+=4){const a=h.slice(i,i+4);if(a.length<2)continue;out.push({t:a[a.length-1].t,close:a[a.length-1].close,v:a.reduce((s,x)=>s+x.v,0)})}return out}
+function nearestDaily(d,days){if(!d.length)return[];const cutoff=Date.now()-days*86400000;return d.filter(x=>x.t>=cutoff)}
+function structuralInfo(data,period,name){if(data.length<4)return null;const p=data.map(x=>x.p),ref=ema(p,period),last=p.at(-1),r=ref.at(-1),prev=ref[Math.max(0,ref.length-4)],dir=slope(ref,Math.min(10,ref.length))>0.0001*last?'RISING':slope(ref,Math.min(10,ref.length))<-0.0001*last?'FALLING':'FLAT';const dev=(last-r)/r*100;const n=Math.min(Math.max(3,period),data.length);const recent=avg(data.slice(-n).map(x=>x.v)),prior=avg(data.slice(-2*n,-n).map(x=>x.v)),vr=prior?recent/prior:1;return{name,period,dir,dev,vr,ref:last?ref:[],last}}
+function renderStructure(d,h){const h1=h.slice(-240).map(x=>({p:x.close,v:x.v,t:x.t})),h4=aggregate4h(h).slice(-180).map(x=>({p:x.close,v:x.v,t:x.t})),d7=nearestDaily(d,14),d30=nearestDaily(d,60),d90=nearestDaily(d,180);const infos=[structuralInfo(h1,12,'1H'),structuralInfo(h4,12,'4H'),structuralInfo(d7,7,'7D'),structuralInfo(d30,30,'30D'),structuralInfo(d90,90,'90D')].filter(Boolean);const grid=$('tfGrid');grid.innerHTML=infos.map(r=>'<div class="tf"><div class="tfname">'+r.name+'</div><div class="tfdir '+(r.dir==='RISING'?'good':r.dir==='FALLING'?'bad':'warn')+'">'+r.dir+'</div><div class="tfnum">Price vs reference <strong>'+pct(r.dev)+'</strong></div><div class="tfnum">Volume '+(r.vr>1.2?'up':r.vr<.8?'down':'normal')+' · '+r.vr.toFixed(2)+'×</div></div>').join('');
+const daily=d90;const p=daily.map(x=>x.p),e7=ema(p,7),e30=ema(p,30),e90=ema(p,90);renderLine($('structureChart'),[p,e7,e30,e90],[],['#e9eeee','#42d6c5','#ffd166','#79a8ff']);
+const vol=daily.map(x=>x.v);renderVolume($('volumeChart'),vol);setVol('vol7',d,7);setVol('vol30',d,30);setVol('vol90',d,90);
+const map={};infos.forEach(x=>map[x.name]=x);['1H','4H','7D','30D','90D'].forEach(k=>{const r=map[k];if(r){$(k==='1H'?'shortRead':k==='90D'?'longRead':'shortRead').textContent=r.dir;}});
+const short=map['4H']||map['1H'],long=map['90D']||map['30D'];$('shortRead').textContent=short?short.dir:'—';$('shortWhy').textContent=short?'Price is '+pct(short.dev)+' vs its '+short.name+' reference.':'—';$('longRead').textContent=long?long.dir:'—';$('longWhy').textContent=long?'Price is '+pct(long.dev)+' vs its '+long.name+' reference.':'—';const v7=volRatio(d,7),v30=volRatio(d,30);$('volumeRead').textContent=v7>1.25?'EXPANDING':v7<.8?'CONTRACTING':'STEADY';$('volumeWhy').textContent='Recent 7D volume is '+v7.toFixed(2)+'× the prior 7D.';return {infos,map,p,e7,e30,e90,vol,daily}}
+function setVol(id,d,n){const r=volRatio(d,n);$(id).textContent=r.toFixed(2)+'×';$(id).className='value '+(r>1.2?'good':r<.8?'bad':'teal')}
+function volRatio(d,n){const recent=d.slice(-n).map(x=>x.v),prior=d.slice(-2*n,-n).map(x=>x.v);return avg(prior)?avg(recent)/avg(prior):1}
+function renderPriceChart(d,ticker){const data=d.slice(-180),p=data.map(x=>x.p),e7=ema(p,7),e30=ema(p,30),e90=ema(p,90);renderLine($('priceChart'),[p,e7,e30,e90],[],['#e9eeee','#42d6c5','#ffd166','#79a8ff'])}
+function renderRange(d,price){const a=nearestDaily(d,30);if(!a.length)return;const hi=Math.max(...a.map(x=>x.p)),lo=Math.min(...a.map(x=>x.p));const rows=[['30D high',hi],['30D low',lo],['Current',price],['30D range position',((price-lo)/(hi-lo)*100)]];$('rangeBars').innerHTML=rows.map(r=>{const isPct=r[0].includes('position');const val=isPct?r[1]:((r[1]-lo)/(hi-lo)*100);return '<div class="barrow"><span>'+r[0]+'</span><div class="barbg"><div class="barfill" style="width:'+clamp(val,0,100)+'%"></div></div><strong>'+(isPct?r[1].toFixed(0)+'%':money(r[1]))+'</strong></div>'}).join('')}
+function analyze(d,h,ticker,structure){const q=ticker?.quotes?.USD||{},price=+q.price||d.at(-1)?.p||0,ath=+q.ath_price||0,dist=ath?(price-ath)/ath*100:-99;const old90=d.length>90?d[d.length-91].p:d[0]?.p||price;$('chg90').textContent=pct((price-old90)/old90*100);colorValue('chg90',(price-old90)/old90*100);const m=structure.map,long=m['90D']||m['30D'],mid=m['30D']||m['7D'],short=m['4H']||m['1H'];const v7=volRatio(d,7),v30=volRatio(d,30),recent=nearestDaily(d,30),lo=Math.min(...recent.map(x=>x.p)),hi=Math.max(...recent.map(x=>x.p)),rangePos=hi>lo?(price-lo)/(hi-lo):.5;const higherDamaged=long&&(long.dir==='FALLING'||(long.dir==='FLAT'&&long.dev<0));const higherRising=long&&long.dir==='RISING';const shortRising=short&&short.dir==='RISING';const shortFalling=short&&short.dir==='FALLING';const reversal=higherDamaged&&shortRising&&rangePos>.35&&v7>1.05;const continuation=higherRising&&mid&&mid.dir==='RISING'&&shortRising&&v7>.85;const nearAth=dist>-18;const extended=rangePos>.8&&mid&&mid.dev>3&&shortRising;const fomo=nearAth&&higherRising&&mid?.dir==='RISING'&&shortRising&&v7>1.2&&extended;
+$('reversal').textContent=reversal?'SUPPORTED':'NOT YET';$('reversalWhy').textContent=reversal?'Short-term strength is appearing while the larger structure is still damaged.':'A rally by itself is not enough to call a reversal.';$('continuation').textContent=continuation?'SUPPORTED':'MIXED';$('continuationWhy').textContent=continuation?'The larger and shorter structures agree on the advance.':'The timeframes are not fully aligned.';$('fomo').textContent=fomo?'BUILDING':'NOT ESTABLISHED';$('fomoWhy').textContent=fomo?'Near ATH, extended, aligned and volume is increasing.':'Strong price action alone does not make this FOMO.';
+let trajectory='SIDEWAYS / MIXED';if(fomo)trajectory='LATE / CROWDED';else if(shortRising&&mid?.dir==='RISING')trajectory='ADVANCING';else if(shortFalling&&mid?.dir==='FALLING')trajectory='RETREATING';else if(shortRising)trajectory='RECOVERING';$('athTrajectory').textContent=trajectory;$('athWhy').textContent=trajectory==='LATE / CROWDED'?'Price is advancing toward ATH with increasing participation. New buying is not favored here.':trajectory==='RECOVERING'?'Price is recovering from weakness. A strong rally here is not automatically FOMO.':'This describes the recent path; it does not predict the next move.';
+let read='WAIT';let readText='The market is not giving a clean enough setup to force a decision.';if(fomo){read='DO NOT CHASE';readText='You may be below your target exposure, but the market itself is extended and crowded near ATH. Keep the entry capital available.'}else if(reversal){read='WATCH THE REVERSAL';readText='The rally is coming out of a damaged larger structure. Strength here can be constructive rather than FOMO.'}else if(continuation){read='HEALTHY ADVANCE';readText='The larger structures are rising with the shorter structures. Maintain exposure or make measured progress; strength alone is not a reason to chase.'}else if(shortFalling&&higherRising){read='PULLBACK IN AN ADVANCE';readText='Shorter structure is retreating while the larger structure remains up. This is the kind of disagreement that can create a useful farming opportunity if the weakness persists.'}
+$('marketRead').textContent=read;$('marketReadText').textContent=readText;return{price,ath,dist,reversal,continuation,fomo,trajectory,rangePos}}
+function virtualFarm(d){if(d.length<30)return null;const p=d.map(x=>x.p),ref=ema(p,30),v=[1],cash=0,asset=1;let exposure=1;for(let i=1;i<p.length;i++){const dev=(p[i]-ref[i])/ref[i];if(dev<-.06)exposure=Math.min(1.35,exposure+.035);else if(dev>.08)exposure=Math.max(.72,exposure-.035);v.push(exposure)}const currentRef=v.at(-1),priceNorm=p.at(-1)/p[0];const refSeries=v.map((x,i)=>p[0]*x);return{refSeries,currentRef,dev:priceNorm/currentRef-1}}
+function renderVirtual(d){const vf=virtualFarm(d);if(!vf){$('virtualState').textContent='—';return}const p=d.map(x=>x.p);renderLine($('virtualChart'),[p,vf.refSeries],[],['#e9eeee','#42d6c5']);const dev=vf.dev*100;$('virtualDeviation').textContent=pct(dev);$('virtualDeviation').className='value '+(dev<0?'bad':dev>0?'good':'teal');$('virtualState').textContent=dev<-5?'BELOW REFERENCE':dev>5?'ABOVE REFERENCE':'NEAR REFERENCE';$('virtualText').textContent='The reference is a hypothetical replay of the farming behavior through the tracked history. It gives the current price a reference built from the market path itself; it is separate from your dollar baseline and your exposure gap.'}
+function renderDecision(a){const gap=Math.max(0,state.target-state.current);$('decisionTarget').textContent=money(state.target);$('decisionCurrent').textContent=money(state.current);$('decisionGap').textContent=money(gap);let posture='WAIT / PRESERVE',text='Your exposure gap tells us how much room you have. It does not tell us that the market is cheap.';if(a.fomo){posture='DO NOT CHASE';text='You are below your target, but the market is extended near ATH with increasing participation. Preserve entry capital.'}else if(a.reversal){posture='WATCH REVERSAL';text='The market is showing strength from a damaged larger structure. That can be a constructive entry setup; do not confuse strength with FOMO.'}else if(a.continuation){posture='SELECTIVE';text='The advance is supported across scales. Keep forward progress measured rather than buying simply because price is rising.'}else if(a.trajectory==='PULLBACK IN AN ADVANCE'){posture='WATCH DIP';text='Short-term weakness is occurring inside a larger advance. Wait for the weakness to become a real deviation rather than treating every red move as a dip.'}$('decisionPosture').textContent=posture;$('decisionNarrative').textContent=text}
+function heikinAshi(h){if(!h.length)return[];const out=[];for(let i=0;i<h.length;i++){const x=h[i],c=(x.open+x.high+x.low+x.close)/4,o=i?((out[i-1].o+out[i-1].c)/2):((x.open+x.close)/2);out.push({t:x.t,o,c,h:Math.max(x.high,o,c),l:Math.min(x.low,o,c),v:x.v})}return out}
+function renderHA(h){const a=heikinAshi(h);if(!a.length)return;const n=a.slice(-24),last=n[n.length-1],prev=n[Math.max(0,n.length-2)],up=last.c>=last.o;const body=Math.abs(last.c-last.o),range=Math.max(.000001,last.h-last.l);$('haTrend').textContent=up?(last.c>prev.c?'RISING':'UP'):(last.c<prev.c?'FALLING':'DOWN');$('haTrend').className='value '+(up?'good':'bad');$('haVol').textContent=money(last.v);const vr=volRatio(state.market.daily||[],7);$('vol7top').textContent=vr?vr.toFixed(2)+'×':'—';}
+function update(){const b=state.target,v=state.current,d=v-b;$('baselineOut').textContent=money(b);$('valueOut').textContent=money(v);$('devOut').textContent=(d>=0?'+':'-')+money(Math.abs(d));$('capitalOut').textContent=money(state.capital);const prog=b?clamp(v/b*100,0,100):0;$('exposureFill').style.width=prog+'%';$('capitalLine').textContent=prog.toFixed(1)+'% of your target exposure established. '+money(Math.max(0,b-v))+' remains to establish.';const m=state.market||{},daily=m.daily||[],hourly=m.hourly||[];if(m.ticker)renderTicker(m.ticker);if(daily.length){renderPriceChart(daily,m.ticker);renderRange(daily,+m.ticker?.quotes?.USD?.price||daily.at(-1).p)}if(hourly.length)renderHA(hourly);if(daily.length){const s=renderStructure(daily,hourly);if(s){const a=analyze(daily,hourly,m.ticker,s);renderDecision(a);renderVirtual(daily)}}const ext=Number($('external').value)||0,ex=Number($('extracted').value)||0,rec=Number($('recycled').value)||0;$('selfFund').textContent=(ext?rec/ext*100:0).toFixed(1)+'%';$('valuePer').textContent=ext?money((v+ex)/ext):'—'}
 function deploy(kind){const gap=Math.max(0,state.target-state.current);if(!gap)return;const amount=kind==='core'?Math.min(state.coreStep,state.coreRemaining,gap):Math.min(state.reserveRemaining,gap);if(amount<=0)return;state.current+=amount;if(kind==='core')state.coreRemaining-=amount;else state.reserveRemaining-=amount;record(kind==='core'?'DEPLOY CORE':'DEPLOY TACTICAL');update();save()}
-function record(decision){const b=state.target,v=state.current,d=v-b,tr=document.createElement('tr');tr.innerHTML=`<td>${new Date().toLocaleString()}</td><td><span class="pill">${decision}</span></td><td>${money(b)}</td><td>${money(v)}</td><td class="${d<0?'bad':d>0?'good':''}">${d>=0?'+':''}${money(d)}</td>`;$('log').prepend(tr)}
-function raiseBaseline(){const rec=num('recycled');if(rec<=0)return;state.target+=rec;update();save();record('BASELINE RAISED +'+money(rec))}
-function updateMarket(){
-  const t=state.market.ticker;if(t){renderTicker(t);$('dataStatus').textContent='LIVE TICKER';$('dataStatus').title='Ticker supplied by CoinPaprika'}
-  renderStructure();
-}
-async function refreshMarket(){
-  loadCache();
-  if(state.market.ticker)renderTicker(state.market.ticker);if(state.market.daily||state.market.hourly)renderStructure();
-  const results=await Promise.allSettled([fetchTicker(),fetchDaily(),fetchHourly()]);let good=0;
-  if(results[0].status==='fulfilled'){state.market.ticker=results[0].value;good++}
-  if(results[1].status==='fulfilled'){state.market.daily=parseDaily(results[1].value);good++}
-  if(results[2].status==='fulfilled'){state.market.hourly=parseHourly(results[2].value);good++}
-  if(good){cacheMarket();$('dataStatus').textContent=good===3?'LIVE + HISTORY':'PARTIAL LIVE'}else if(state.market.daily||state.market.hourly||state.market.ticker)$('dataStatus').textContent='CACHED DATA';else $('dataStatus').textContent='DATA UNAVAILABLE';
-  updateMarket();
-}
-load();bindOnboarding();if(state.onboardingComplete)$('onboarding').classList.add('hidden');syncInputs();
-['external','extracted','recycled','friction'].forEach(id=>$(id).addEventListener('input',()=>{update();save()}));
-update();refreshMarket();setInterval(refreshMarket,300000);
-</script>
-</body>
-</html>
+function record(decision){const d=state.current-state.target,tr=document.createElement('tr');tr.innerHTML='<td>'+new Date().toLocaleString()+'</td><td><span class="pill">'+decision+'</span></td><td>'+money(state.current)+'</td><td>'+money(state.target)+'</td><td class="'+(d<0?'bad':d>0?'good':'')+'">'+(d>=0?'+':'')+money(d)+'</td>';$('log').prepend(tr)}
+function raiseBaseline(){const r=Number($('recycled').value)||0;if(r<=0)return;state.target+=r;update();save();record('BASELINE RAISED')}
+async function refresh(){let good=0;const next={};try{next.ticker=await fetchTicker();good++}catch(e){}try{next.daily=await fetchDaily();if(next.daily.length)good++}catch(e){}try{next.hourly=parseHourly(await fetchHourly());if(next.hourly.length)good++}catch(e){}if(good){state.market=Object.assign({},state.market,next);try{localStorage.setItem(CACHE,JSON.stringify(state.market))}catch(e){}}else{try{const c=JSON.parse(localStorage.getItem(CACHE));if(c)state.market=c}catch(e){}}$('dataStatus').textContent=good===3?'LIVE + HISTORY':good?'PARTIAL LIVE':(state.market.ticker||state.market.daily||state.market.hourly)?'CACHED':'DATA UNAVAILABLE';update()}
+load();bindOnboarding();if(state.onboardingComplete)$('onboarding').classList.add('hidden');update();refresh();setInterval(refresh,300000);['external','extracted','recycled','friction'].forEach(id=>$(id).addEventListener('input',()=>{update();save()}));
+</script></body></html>
