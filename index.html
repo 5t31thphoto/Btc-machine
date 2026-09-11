@@ -24,6 +24,10 @@
 .philosophyFooter{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;letter-spacing:.08em;font-weight:800;color:var(--muted)}
 .about h2{font-size:23px;margin-bottom:10px}.aboutGrid{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}.aboutGrid p{color:var(--muted);line-height:1.6}.plainTerms{margin-top:20px;padding-top:17px;border-top:1px solid var(--line)}.plainTerms h3{margin:0 0 12px;font-size:16px}.termGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.termGrid>div{background:var(--panel2);border-radius:9px;padding:11px 12px}.termGrid strong{display:block;margin-bottom:4px}.termGrid span{display:block;color:var(--muted);line-height:1.45;font-size:13px}.disclaimerBox{margin-top:18px;padding:15px 17px;border:1px solid var(--line);border-radius:11px;background:#131717}.disclaimerBox p{color:var(--muted);line-height:1.55;margin:8px 0}@media(max-width:800px){.aboutGrid,.termGrid{grid-template-columns:1fr}}
 @media(max-width:800px){.philosophyHero{align-items:flex-start;flex-direction:column}.philosophyBadge{white-space:normal}.philosophyGrid{grid-template-columns:1fr}}
+
+.structurePositive{color:var(--good)}.structureNegative{color:var(--bad)}.structureNeutral{color:var(--warn)}
+.thesis{font-weight:800}.smallcaps{font-size:11px;letter-spacing:.08em;font-weight:800}
+@media(max-width:800px){.cards[style*="repeat(3"]{grid-template-columns:1fr!important}}
 </style>
 </head>
 <body>
@@ -119,6 +123,84 @@
   <p class="mini">The reference is intentionally editable. Later, live market history can populate it; the capital logic should remain usable even when market-history data is unavailable.</p>
 </section>
 </div>
+
+<section class="panel sectiongap">
+  <div class="philosophyHero">
+    <div>
+      <div class="eyebrow">MARKET TOPOLOGY</div>
+      <h2>Price, structure, participation, and cycle context</h2>
+      <p class="lead">Your capital baseline is separate from the market's structural baselines. Each timeframe gets its own moving shape and its own verdict. The dashboard does not collapse them into one bullish/bearish score.</p>
+    </div>
+    <div class="philosophyBadge" id="dataStatus">LOADING MARKET DATA</div>
+  </div>
+
+  <div class="cards" style="margin-top:14px">
+    <div class="card"><div class="label">BTC</div><div class="value" id="btcPrice">—</div><div class="mini" id="btcUpdated">Waiting for ticker</div></div>
+    <div class="card"><div class="label">ALL-TIME HIGH</div><div class="value" id="athPrice">—</div><div class="mini" id="athDate">—</div></div>
+    <div class="card"><div class="label">FROM ATH</div><div class="value" id="athDistance">—</div><div class="mini" id="daysSinceAth">—</div></div>
+    <div class="card"><div class="label">ATH TRAJECTORY</div><div class="value accent" id="athTrajectory">—</div><div class="mini" id="athTrajectoryWhy">—</div></div>
+  </div>
+
+  <div class="grid sectiongap">
+    <section>
+      <h2>Nested structural baselines</h2>
+      <div class="tablewrap">
+        <table id="structureTable">
+          <thead><tr><th>Scale</th><th>Structure</th><th>Price vs structural path</th><th>Volume</th><th>Verdict</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="mini">Each row is a separate structural reference. Agreement is useful; disagreement is useful too. A short retreat inside a longer advance is not the same thesis as a synchronized breakdown.</p>
+    </section>
+    <section class="panel" style="background:#131717">
+      <h2>Current path</h2>
+      <div class="entrygrid">
+        <div class="entrycard"><div class="label">1H</div><div class="entrynum" id="state1h">—</div></div>
+        <div class="entrycard"><div class="label">4H</div><div class="entrynum" id="state4h">—</div></div>
+        <div class="entrycard"><div class="label">7D</div><div class="entrynum" id="state7d">—</div></div>
+      </div>
+      <div class="entrygrid" style="margin-top:10px">
+        <div class="entrycard"><div class="label">30D</div><div class="entrynum" id="state30d">—</div></div>
+        <div class="entrycard"><div class="label">90D</div><div class="entrynum" id="state90d">—</div></div>
+        <div class="entrycard"><div class="label">VOLUME</div><div class="entrynum" id="volumeState">—</div></div>
+      </div>
+      <div class="callout" style="margin-top:12px" id="structureNarrative">Waiting for enough market history to describe the nested structure.</div>
+    </section>
+  </div>
+</section>
+
+<section class="panel sectiongap">
+  <div class="grid">
+    <section>
+      <h2>Volume as thesis evidence</h2>
+      <p class="explain">Volume does not mean bullish or bearish by itself. It supports or contradicts a thesis formed from price structure, location, and cycle context.</p>
+      <div class="cards" style="margin-top:12px;grid-template-columns:repeat(3,1fr)">
+        <div class="card"><div class="label">REVERSAL THESIS</div><div class="value" id="reversalThesis">—</div><div class="mini" id="reversalEvidence">—</div></div>
+        <div class="card"><div class="label">CONTINUATION THESIS</div><div class="value" id="continuationThesis">—</div><div class="mini" id="continuationEvidence">—</div></div>
+        <div class="card"><div class="label">LATE EXTENSION / FOMO</div><div class="value" id="fomoThesis">—</div><div class="mini" id="fomoEvidence">—</div></div>
+      </div>
+    </section>
+    <section>
+      <h2>Virtual farming reference</h2>
+      <div class="callout" id="virtualFarmText">The dashboard will replay the tracked market window as a counterfactual farming reference. This is not your personal capital baseline and it is not a price target.</div>
+      <div class="row">
+        <div class="card"><div class="label">VIRTUAL REFERENCE</div><div class="value" id="virtualBaseline">—</div></div>
+        <div class="card"><div class="label">PRICE VS REFERENCE</div><div class="value" id="virtualDeviation">—</div></div>
+      </div>
+    </section>
+  </div>
+</section>
+
+<section class="panel sectiongap">
+  <h2>Entry decision: capital state × market topology</h2>
+  <div class="cards">
+    <div class="card"><div class="label">TARGET EXPOSURE</div><div class="value" id="decisionTarget">—</div></div>
+    <div class="card"><div class="label">CURRENT EXPOSURE</div><div class="value" id="decisionCurrent">—</div></div>
+    <div class="card"><div class="label">REMAINING GAP</div><div class="value" id="decisionGap">—</div></div>
+    <div class="card"><div class="label">ENTRY POSTURE</div><div class="value accent" id="decisionPosture">WAITING</div></div>
+  </div>
+  <div class="callout" style="margin-top:12px" id="decisionNarrative">Exposure below target creates capacity, not a buy signal. Market topology determines whether that capacity should be used.</div>
+</section>
 
 <section class="panel sectiongap">
   <h2>Funded position: the same strategy continues</h2>
@@ -272,86 +354,126 @@
 const $=id=>document.getElementById(id);
 const state={
   target:15000,current:0,capital:15000,corePct:50,
-  coreRemaining:7500,reserveRemaining:7500,
-  coreStep:750,
-  onboardingComplete:false
+  coreRemaining:7500,reserveRemaining:7500,coreStep:750,
+  onboardingComplete:false,
+  market:{ticker:null,daily:null,hourly:null,lastGood:null}
 };
+const CACHE_KEY='baselineFarmerMarketCacheV2';
 function money(x){return (Number(x)||0).toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:0})}
 function num(id){return Number($(id).value)||0}
-function save(){try{localStorage.setItem('baselineFarmerState',JSON.stringify(state))}catch(e){/* storage may be unavailable for local files/private browsing */}}
-function load(){try{const s=JSON.parse(localStorage.getItem('baselineFarmerState'));if(s&&typeof s.target==='number'){Object.assign(state,s);state.onboardingComplete=s.onboardingComplete===true}}catch(e){/* start clean when storage is unavailable */}}
-function hasSavedState(){try{return !!localStorage.getItem('baselineFarmerState')}catch(e){return false}}
+function save(){try{const copy={...state,market:undefined};localStorage.setItem('baselineFarmerState',JSON.stringify(copy))}catch(e){}}
+function load(){try{const s=JSON.parse(localStorage.getItem('baselineFarmerState'));if(s&&typeof s.target==='number'){Object.assign(state,s);state.onboardingComplete=s.onboardingComplete===true}}catch(e){}}
 function finishOnboarding(){
-  state.target=Math.max(0,num('obTarget')); state.current=Math.max(0,num('obCurrent')); state.capital=Math.max(0,num('obCapital')); state.corePct=num('obSplit');
-  const gap=Math.max(0,state.target-state.current); const available=Math.min(state.capital,gap);
-  state.coreRemaining=available*(state.corePct/100); state.reserveRemaining=available-state.coreRemaining;
-  state.coreStep=Math.max(100,state.coreRemaining/10||100);
-  state.onboardingComplete=true;
-  $('onboarding').classList.add('hidden'); syncInputs(); update(); save();
+  state.target=Math.max(0,num('obTarget'));state.current=Math.max(0,num('obCurrent'));state.capital=Math.max(0,num('obCapital'));state.corePct=num('obSplit');
+  const gap=Math.max(0,state.target-state.current),available=Math.min(state.capital,gap);
+  state.coreRemaining=available*(state.corePct/100);state.reserveRemaining=available-state.coreRemaining;state.coreStep=Math.max(100,state.coreRemaining/10||100);state.onboardingComplete=true;
+  $('onboarding').classList.add('hidden');syncInputs();update();save();
 }
-function bindOnboarding(){
-  const button=$('buildEntryPlan');
-  if(!button || button.dataset.bound==='1')return;
-  button.dataset.bound='1';
-  button.addEventListener('click',function(event){
-    event.preventDefault();
-    finishOnboarding();
-  });
-}
+function bindOnboarding(){const button=$('buildEntryPlan');if(!button)return;button.addEventListener('click',e=>{e.preventDefault();finishOnboarding()},{once:true})}
 function syncInputs(){
-  $('baselineOut').textContent=money(state.target); $('entryTarget').textContent=money(state.target); $('entryCurrent').textContent=money(state.current);
-  $('coreCapital').textContent=money(state.coreRemaining); $('reserveCapital').textContent=money(state.reserveRemaining);
+  $('baselineOut').textContent=money(state.target);$('entryTarget').textContent=money(state.target);$('entryCurrent').textContent=money(state.current);
+  $('coreCapital').textContent=money(state.coreRemaining);$('reserveCapital').textContent=money(state.reserveRemaining);
+}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function ema(values,span){if(!values.length)return[];const k=2/(span+1);let e=values[0];return values.map((v,i)=>i?e=e+k*(v-e):e)}
+function slope(values,n){if(values.length<Math.min(n,3))return 0;const a=values.slice(-n);const first=a[0],last=a[a.length-1];return first?((last-first)/first)*100:0}
+function direction(values,n){const s=slope(values,n);const recent=values.slice(-Math.min(n,values.length));const mid=recent.slice(0,Math.max(1,Math.floor(recent.length/2)));const s2=slope(mid,mid.length);if(s>1.2)return 'ADVANCING';if(s<-1.2)return 'RETREATING';return 'MIXED'}
+function fmtPct(x){return (x>=0?'+':'')+x.toFixed(1)+'%'}
+function parseDaily(raw){return Array.isArray(raw)?raw.map(x=>({t:new Date(x.timestamp).getTime(),p:Number(x.price),v:Number(x.volume_24h)||0})).filter(x=>x.p>0).sort((a,b)=>a.t-b.t):[]}
+function parseHourly(raw){return Array.isArray(raw)?raw.map(x=>({t:Number(x[0])*1000,low:Number(x[1]),high:Number(x[2]),open:Number(x[3]),close:Number(x[4]),v:Number(x[5])||0})).filter(x=>x.close>0).sort((a,b)=>a.t-b.t):[]}
+function aggregate4h(h){const out=[];for(let i=0;i<h.length;i+=4){const g=h.slice(i,i+4);if(g.length<2)continue;out.push({t:g[g.length-1].t,open:g[0].open,high:Math.max(...g.map(x=>x.high)),low:Math.min(...g.map(x=>x.low)),close:g[g.length-1].close,v:g.reduce((a,x)=>a+x.v,0)})}return out}
+function nearestDaily(days,n){return days.slice(-Math.min(n,days.length))}
+function structuralSeries(days,span){const vals=days.map(x=>x.p);return ema(vals,span)}
+function structuralRow(name,series,span,volumeSeries){
+  if(!series.length)return null;const vals=series.map(x=>x.p||x.close);const base=ema(vals,span);const price=vals[vals.length-1],ref=base[base.length-1];const dev=ref?((price-ref)/ref)*100:0;const dir=direction(vals,Math.min(span,vals.length));
+  const vol=volumeSeries||series.map(x=>x.v||0);const recent=vol.slice(-Math.min(span,vol.length));const prior=vol.slice(-Math.min(span*2,vol.length),-Math.min(span,vol.length));const ravg=recent.length?recent.reduce((a,b)=>a+b,0)/recent.length:0;const pavg=prior.length?prior.reduce((a,b)=>a+b,0)/prior.length:0;const vr=pavg?ravg/pavg:1;
+  let verdict=dir==='ADVANCING'?(dev>3?'EXTENDED ADVANCE':'ADVANCING'):dir==='RETREATING'?(dev<-3?'EXTENDED RETREAT':'RETREATING'):'MIXED';
+  return {name,price,ref,dev,dir,vr,verdict,series,base};
+}
+function setState(id,text){$(id).textContent=text;$(id).className='entrynum '+(text==='ADVANCING'?'structurePositive':text==='RETREATING'?'structureNegative':'structureNeutral')}
+function loadCache(){try{const c=JSON.parse(localStorage.getItem(CACHE_KEY));if(c&&c.daily)state.market={...state.market,...c};}catch(e){}}
+function cacheMarket(){try{localStorage.setItem(CACHE_KEY,JSON.stringify({daily:state.market.daily,hourly:state.market.hourly,ticker:state.market.ticker,cachedAt:Date.now()}))}catch(e){}}
+async function getJson(url){const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);return await r.json()}
+async function fetchTicker(){return getJson('https://api.coinpaprika.com/v1/tickers/btc-bitcoin')}
+async function fetchDaily(){const end=new Date();const start=new Date(end.getTime()-365*86400000);const iso=d=>d.toISOString().slice(0,10);return getJson('https://api.coinpaprika.com/v1/tickers/btc-bitcoin/historical?start='+iso(start)+'&end='+iso(end)+'&interval=1d')}
+async function fetchHourly(){return getJson('https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=3600')}
+function renderTicker(t){
+  if(!t)return;const q=t.quotes.USD,ath=q.ath_price,price=q.price;const dist=ath?((price-ath)/ath*100):q.percent_from_price_ath;const days=t.ath_date?Math.floor((Date.now()-new Date(t.ath_date).getTime())/86400000):null;
+  $('btcPrice').textContent=money(price);$('btcUpdated').textContent=t.last_updated?'Updated '+new Date(t.last_updated).toLocaleString():'Live ticker';$('athPrice').textContent=money(ath);$('athDate').textContent=t.ath_date?'ATH '+new Date(t.ath_date).toLocaleDateString():'—';$('athDistance').textContent=fmtPct(dist);$('daysSinceAth').textContent=days==null?'—':days+' days since ATH';
+}
+function renderStructure(){
+  const d=state.market.daily||[],h=state.market.hourly||[];if(!d.length&&!h.length)return;
+  const rows=[];const h1=h.map(x=>({p:x.close,v:x.v,t:x.t}));const h4=aggregate4h(h).map(x=>({p:x.close,v:x.v,t:x.t}));
+  if(h1.length)rows.push(structuralRow('1H',h1,12,h1.map(x=>x.v)));
+  if(h4.length)rows.push(structuralRow('4H',h4,12,h4.map(x=>x.v)));
+  if(d.length)rows.push(structuralRow('7D',nearestDaily(d,30),7));
+  if(d.length)rows.push(structuralRow('30D',nearestDaily(d,90),30));
+  if(d.length)rows.push(structuralRow('90D',nearestDaily(d,180),90));
+  const tbody=$('structureTable').querySelector('tbody');tbody.innerHTML='';rows.filter(Boolean).forEach(r=>{const tr=document.createElement('tr');const dc=r.dev>0?'structurePositive':r.dev<0?'structureNegative':'structureNeutral';const vc=r.vr>1.25?'EXPANDING':r.vr<.8?'CONTRACTING':'NORMAL';tr.innerHTML='<td><strong>'+r.name+'</strong></td><td>'+r.dir+'</td><td class="'+dc+'">'+fmtPct(r.dev)+'</td><td>'+vc+' ('+r.vr.toFixed(2)+'×)</td><td><strong>'+r.verdict+'</strong></td>';tbody.appendChild(tr);});
+  const map={};rows.forEach(r=>map[r.name]=r);setState('state1h',map['1H']?.verdict||'—');setState('state4h',map['4H']?.verdict||'—');setState('state7d',map['7D']?.verdict||'—');setState('state30d',map['30D']?.verdict||'—');setState('state90d',map['90D']?.verdict||'—');
+  const dailyVals=d.map(x=>x.p), recent7=nearestDaily(d,7).map(x=>x.p);const volRecent=nearestDaily(d,7).map(x=>x.v),volPrior=d.slice(-14,-7).map(x=>x.v);const vr=(volPrior.length?volRecent.reduce((a,b)=>a+b,0)/volRecent.length:0)/(volPrior.length?volPrior.reduce((a,b)=>a+b,0)/volPrior.length:1);$('volumeState').textContent=vr>1.5?'EXPANDING':vr<.7?'CONTRACTING':'NORMAL';
+  const long=map['90D'],mid=map['30D'],short=map['7D'];
+  const price=(state.market.ticker?.quotes?.USD?.price)||dailyVals.at(-1);const ath=state.market.ticker?.quotes?.USD?.ath_price||Math.max(...dailyVals);const athDist=ath?((price-ath)/ath*100):-99;
+  const recentHigh=Math.max(...nearestDaily(d,30).map(x=>x.p));const recentLow=Math.min(...nearestDaily(d,30).map(x=>x.p));const recovery=recentHigh>recentLow?((price-recentLow)/(recentHigh-recentLow))*100:50;
+  const accelerating=short&&mid?slope(recent7,Math.min(7,recent7.length))>slope(nearestDaily(d,14).map(x=>x.p),Math.min(14,d.length))*1.15:false;
+  const reversalSupport=long&&(long.dir==='RETREATING'||long.dir==='MIXED')&&short&&(short.dir==='ADVANCING')&&recovery>50&&vr>1.1;
+  const continuationSupport=long&&mid&&short&&long.dir==='ADVANCING'&&mid.dir==='ADVANCING'&&short.dir==='ADVANCING'&&vr>=.9;
+  const fomoSupport=athDist>-15&&long&&mid&&long.dir==='ADVANCING'&&mid.dir==='ADVANCING'&&short&&short.dir==='ADVANCING'&&vr>1.3&&recovery>80&&accelerating;
+  $('reversalThesis').textContent=reversalSupport?'SUPPORTED':(short?.dir==='ADVANCING'?'POSSIBLE':'WEAK');$('reversalEvidence').textContent=reversalSupport?'Higher structure is damaged/mixed while short structure reverses with participation.':'A strong rally alone does not establish a bottom reversal.';
+  $('continuationThesis').textContent=continuationSupport?'SUPPORTED':'MIXED';$('continuationEvidence').textContent=continuationSupport?'Multiple scales agree and participation is not contradicting the advance.':'The nested structures disagree or participation is not sufficiently supportive.';
+  $('fomoThesis').textContent=fomoSupport?'BUILDING':'NOT ESTABLISHED';$('fomoEvidence').textContent=fomoSupport?'Near ATH + aligned advance + elevated participation + extension/acceleration.':'Strength is not automatically FOMO; location and participation do not yet form the late-stage thesis.';
+  let trajectory='MIXED';if(athDist>-20&&short?.dir==='ADVANCING')trajectory=fomoSupport?'LATE / CROWDED':'ADVANCING';else if(short?.dir==='ADVANCING'&&mid?.dir==='ADVANCING')trajectory='ADVANCING';else if(short?.dir==='RETREATING'&&mid?.dir==='RETREATING')trajectory='RETREATING';$('athTrajectory').textContent=trajectory;$('athTrajectoryWhy').textContent=trajectory==='LATE / CROWDED'?'Do not chase the approach to ATH.':'Descriptive trajectory, not a prediction.';
+  $('structureNarrative').textContent=buildNarrative(rows,trajectory,reversalSupport,fomoSupport);
+  renderVirtualBaseline(d,price);renderDecision(trajectory,reversalSupport,continuationSupport,fomoSupport);
+}
+function buildNarrative(rows,trajectory,reversal,fomo){const a=rows.filter(Boolean).map(r=>r.name+': '+r.verdict).join(' · ');if(fomo)return 'Nested structure is advancing into ATH territory while participation and extension are increasing. The exposure gap remains a capital fact; it does not create a buy signal. Preserve entry capacity rather than chasing.';if(reversal)return 'The market is rallying, but the rally is occurring against a damaged or mixed higher-order structure. That makes a bottom-reversal thesis more plausible than a FOMO thesis. Do not label strength as FOMO merely because it is strong.';return 'Current nested structure: '+a+'. The dashboard is showing disagreement instead of hiding it inside one score.'}
+function renderVirtualBaseline(d,price){
+  if(!d.length){$('virtualBaseline').textContent='—';$('virtualDeviation').textContent='—';return}
+  // Counterfactual replay anchor: pretend a clean position existed immediately before the
+  // tracked window. The reference is expressed in normalized exposure (1.00 = the clean
+  // starting baseline), while the market path supplies the actual deviations. No dollar
+  // target and no personal capital state is injected into this replay.
+  const start=d[0].p;const normalized=start?price/start:1;const dev=(normalized-1)*100;
+  $('virtualBaseline').textContent='1.00× ENTRY';$('virtualDeviation').textContent=fmtPct(dev);$('virtualDeviation').className='value '+(dev<0?'bad':dev>0?'good':'accent');
+  $('virtualFarmText').textContent='Counterfactual replay: pretend the position was cleanly established just before this tracked history. The virtual reference starts at 1.00× and lets the nested structural paths, volatility, volume, and local action determine whether today looks like weakness, continuation, or extension. It is deliberately separate from your personal baseline target.';
+}
+function renderDecision(trajectory,reversal,continuation,fomo){
+  const b=state.target,v=state.current,gap=Math.max(0,b-v);$('decisionTarget').textContent=money(b);$('decisionCurrent').textContent=money(v);$('decisionGap').textContent=money(gap);
+  let posture='WAIT / PRESERVE',text='You are below your target exposure, but that is only capacity. Wait for market topology to justify deployment.';
+  if(fomo){posture='DO NOT CHASE';text='You have room to establish exposure, but the market is presenting a late, crowded advance near ATH. Preserve tactical capital. A strong rally is not itself a buy signal.'}
+  else if(reversal){posture='WATCH REVERSAL';text='The rally is occurring from a damaged/mixed higher-order structure. Participation supports a possible reversal thesis. This is the kind of strength that can be constructive rather than FOMO; deploy only according to your actual farming judgment.'}
+  else if(continuation){posture='SELECTIVE DEPLOY';text='The advance is structurally supported. Maintain forward progress if desired, but do not confuse healthy continuation with a mandate to chase.'}
+  $('decisionPosture').textContent=posture;$('decisionNarrative').textContent=text;
 }
 function update(){
-  const b=state.target,v=state.current,d=v-b;
-  $('baselineOut').textContent=money(b);$('valueOut').textContent=money(v);$('devOut').textContent=(d>=0?'+':'-')+money(Math.abs(d));
-  let stateText=d>0.5?'HARVEST':d<-0.5?(v===0?'ENTRY':'DIP / REBUILD'):'AT BASELINE';
-  $('stateOut').textContent=stateText;
-  $('entryTarget').textContent=money(b);$('entryCurrent').textContent=money(v);$('entryGap').textContent=money(Math.max(0,b-v));
-  const progress=b?Math.max(0,Math.min(100,v/b*100)):0;
-  $('exposureFill').style.width=progress+'%';$('entryProgress').textContent=progress.toFixed(1)+'% of target exposure established.';
-  const markerPct=b?Math.max(0,Math.min(100,50+(d/b)*50)):50;$('marker').style.left=markerPct+'%';
-  $('fundedBaseline').textContent=money(b);$('fundedValue').textContent=money(v);
-  $('harvestable').textContent=money(Math.max(0,d));$('rebuildGap').textContent=money(Math.max(0,-d));
-  const gap=Math.max(0,b-v), core=state.coreRemaining,reserve=state.reserveRemaining;
-  $('nextCore').textContent=money(Math.min(state.coreStep,core,gap));$('tacticalCapacity').textContent=money(reserve);
-  $('entryState').textContent=v>=b?'ESTABLISHED':v===0?'READY TO BUILD':'BUILDING';
-  $('entryState').className='bigstate '+(v>=b?'good':'accent');
-  $('entryText').textContent=v>=b?'The target exposure is established. The entry engine has become the normal baseline engine: future deviations can be rebuilt or harvested.':`You have ${money(gap)} of exposure left to establish. Keep forward progress, but preserve tactical capacity so meaningful weakness can improve the value locked into the baseline.`;
-  const total=core+reserve; $('coreBar').style.width=(total?core/total*100:0)+'%';$('reserveBar').style.width=(total?reserve/total*100:0)+'%';
-  const ext=num('external'),ex=num('extracted'),rec=num('recycled');$('selfFund').textContent=(ext?(rec/ext*100):0).toFixed(1)+'%';$('valuePer').textContent=ext?money((v+ex)/ext):'—';
+  const b=state.target,v=state.current,d=v-b;$('baselineOut').textContent=money(b);$('valueOut').textContent=money(v);$('devOut').textContent=(d>=0?'+':'-')+money(Math.abs(d));
+  $('stateOut').textContent=d>0.5?'HARVEST':d<-0.5?(v===0?'ENTRY':'UNDER BASELINE'):'AT BASELINE';$('entryTarget').textContent=money(b);$('entryCurrent').textContent=money(v);$('entryGap').textContent=money(Math.max(0,b-v));
+  const progress=b?clamp(v/b*100,0,100):0;$('exposureFill').style.width=progress+'%';$('entryProgress').textContent=progress.toFixed(1)+'% of target exposure established.';$('marker').style.left=(b?clamp(50+(d/b)*50,0,100):50)+'%';
+  $('fundedBaseline').textContent=money(b);$('fundedValue').textContent=money(v);$('harvestable').textContent=money(Math.max(0,d));$('rebuildGap').textContent=money(Math.max(0,-d));const gap=Math.max(0,b-v),core=state.coreRemaining,reserve=state.reserveRemaining;
+  $('nextCore').textContent=money(Math.min(state.coreStep,core,gap));$('tacticalCapacity').textContent=money(reserve);$('entryState').textContent=v>=b?'ESTABLISHED':v===0?'READY TO BUILD':'BUILDING';$('entryState').className='bigstate '+(v>=b?'good':'accent');$('entryText').textContent=v>=b?'The target exposure is established. Market topology now governs rebuild and harvest decisions.':`You have ${money(gap)} of exposure left to establish. The gap is not a market signal; topology determines when capital should move.`;
+  const total=core+reserve;$('coreBar').style.width=(total?core/total*100:0)+'%';$('reserveBar').style.width=(total?reserve/total*100:0)+'%';
   updateMarket();
 }
-function deploy(kind){
-  const gap=Math.max(0,state.target-state.current);if(!gap)return;
-  let amount=kind==='core'?Math.min(state.coreStep,state.coreRemaining,gap):Math.min(state.reserveRemaining,gap);
-  if(amount<=0)return;
-  state.current+=amount;
-  if(kind==='core')state.coreRemaining-=amount;else state.reserveRemaining-=amount;
-  record(kind==='core'?'DEPLOY CORE':'DEPLOY TACTICAL');update();save();
-}
-function record(decision){
-  const b=state.target,v=state.current,d=v-b;const tr=document.createElement('tr');
-  tr.innerHTML=`<td>${new Date().toLocaleString()}</td><td><span class="pill">${decision}</span></td><td>${money(b)}</td><td>${money(v)}</td><td class="${d<0?'bad':d>0?'good':''}">${d>=0?'+':''}${money(d)}</td>`;$('log').prepend(tr);
-}
-function raiseBaseline(){
-  const rec=num('recycled');if(rec<=0)return;
-  state.target+=rec; update(); save();
-  record('BASELINE RAISED +'+money(rec));
-}
+function deploy(kind){const gap=Math.max(0,state.target-state.current);if(!gap)return;const amount=kind==='core'?Math.min(state.coreStep,state.coreRemaining,gap):Math.min(state.reserveRemaining,gap);if(amount<=0)return;state.current+=amount;if(kind==='core')state.coreRemaining-=amount;else state.reserveRemaining-=amount;record(kind==='core'?'DEPLOY CORE':'DEPLOY TACTICAL');update();save()}
+function record(decision){const b=state.target,v=state.current,d=v-b,tr=document.createElement('tr');tr.innerHTML=`<td>${new Date().toLocaleString()}</td><td><span class="pill">${decision}</span></td><td>${money(b)}</td><td>${money(v)}</td><td class="${d<0?'bad':d>0?'good':''}">${d>=0?'+':''}${money(d)}</td>`;$('log').prepend(tr)}
+function raiseBaseline(){const rec=num('recycled');if(rec<=0)return;state.target+=rec;update();save();record('BASELINE RAISED +'+money(rec))}
 function updateMarket(){
-  const r=num('refValue'),m=num('marketValue'),pct=r?((m-r)/r*100):0;
-  $('marketDev').textContent=(pct>=0?'+':'')+pct.toFixed(1)+'%';
-  $('entryBias').textContent=pct<-2?'WEAKNESS':pct>2?'STRENGTH':'MIXED';
-  $('reservePosture').textContent=pct<-2?'TACTICAL CAPACITY USEFUL':pct>2?'PRESERVE RESERVE':'AVAILABLE';
-  $('marketDev').className='value '+(pct<0?'bad':pct>0?'good':'accent');
+  const t=state.market.ticker;if(t){renderTicker(t);$('dataStatus').textContent='LIVE TICKER';$('dataStatus').title='Ticker supplied by CoinPaprika'}
+  renderStructure();
 }
-load();
-bindOnboarding();
-if(state.onboardingComplete){$('onboarding').classList.add('hidden')}
-syncInputs();
-['external','extracted','recycled','friction','refValue','marketValue'].forEach(id=>$(id).addEventListener('input',()=>{update();save()}));
-update();
+async function refreshMarket(){
+  loadCache();
+  if(state.market.ticker)renderTicker(state.market.ticker);if(state.market.daily||state.market.hourly)renderStructure();
+  const results=await Promise.allSettled([fetchTicker(),fetchDaily(),fetchHourly()]);let good=0;
+  if(results[0].status==='fulfilled'){state.market.ticker=results[0].value;good++}
+  if(results[1].status==='fulfilled'){state.market.daily=parseDaily(results[1].value);good++}
+  if(results[2].status==='fulfilled'){state.market.hourly=parseHourly(results[2].value);good++}
+  if(good){cacheMarket();$('dataStatus').textContent=good===3?'LIVE + HISTORY':'PARTIAL LIVE'}else if(state.market.daily||state.market.hourly||state.market.ticker)$('dataStatus').textContent='CACHED DATA';else $('dataStatus').textContent='DATA UNAVAILABLE';
+  updateMarket();
+}
+load();bindOnboarding();if(state.onboardingComplete)$('onboarding').classList.add('hidden');syncInputs();
+['external','extracted','recycled','friction'].forEach(id=>$(id).addEventListener('input',()=>{update();save()}));
+update();refreshMarket();setInterval(refreshMarket,300000);
 </script>
 </body>
 </html>
