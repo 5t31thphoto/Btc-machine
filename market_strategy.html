@@ -1,72 +1,875 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Baseline Farmer — Market Strategy</title>
 <style>
-:root{--bg:#0d1111;--panel:#151b1b;--panel2:#1b2323;--line:#2c3838;--text:#e9eeee;--muted:#8fa0a0;--teal:#42d6c5;--green:#78e08f;--yellow:#ffd166;--red:#ff7b72;--blue:#79a8ff}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:1000px;margin:auto;padding:24px 20px 48px}.top{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:20px}h1{margin:0;font-size:28px}h2{font-size:18px;margin:0 0 10px}h3{font-size:14px;margin:0 0 6px}.sub,.mini{color:var(--muted)}.sub{margin-top:4px}.mini{font-size:12px;line-height:1.5}.badge{border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:var(--teal);font-size:12px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:17px;margin-top:14px}.lead{font-size:16px;line-height:1.6;max-width:820px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{background:var(--panel2);border-radius:10px;padding:13px}.label{font-size:11px;color:var(--muted);letter-spacing:.05em}.value{font-size:18px;font-weight:800;margin-top:4px}.copy{line-height:1.55;margin:6px 0 0}.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.flow .card{text-align:center}.arrow{color:var(--teal);font-size:20px;margin-top:7px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 7px;border-bottom:1px solid var(--line);font-size:12px}th{color:var(--muted);font-weight:500}strong{font-weight:750}a{color:var(--teal);text-decoration:none;font-weight:700}a:hover{text-decoration:underline}.quiet{color:var(--muted)}@media(max-width:700px){main{padding:16px 12px 36px}.grid,.flow{grid-template-columns:1fr}.top{align-items:start;flex-direction:column}}
+:root{
+  --bg:#101313;
+  --panel:#171b1b;
+  --panel2:#1d2222;
+  --text:#e8eeee;
+  --muted:#9aa8a8;
+  --line:#303838;
+  --accent:#42d6c5;
+  --good:#78e08f;
+  --warn:#ffd166;
+  --bad:#ff7b72
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font:15px system-ui,-apple-system,Segoe UI,sans-serif
+}
+main{max-width:1180px;margin:auto;padding:22px}
+.top{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:end;
+  margin-bottom:18px
+}
+h1{font-size:28px;margin:0}
+h2{font-size:19px;margin:0 0 12px}
+h3{font-size:16px;margin:0 0 8px}
+.sub{color:var(--muted);margin-top:5px}
+.badge{
+  padding:8px 12px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:var(--accent)
+}
+.panel{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:18px
+}
+.sectiongap{margin-top:14px}
+.eyebrow{
+  font-size:11px;
+  letter-spacing:.16em;
+  color:var(--accent);
+  font-weight:800;
+  margin-bottom:7px
+}
+.hero{
+  padding:20px
+}
+.hero h2{
+  font-size:27px;
+  line-height:1.18;
+  margin:0 0 10px;
+  max-width:850px
+}
+.lead{
+  font-size:16px;
+  color:var(--text);
+  line-height:1.55;
+  max-width:900px;
+  margin:0
+}
+p{
+  color:var(--muted);
+  line-height:1.6;
+  margin:8px 0
+}
+strong{color:var(--text)}
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px
+}
+.callout{
+  border-left:3px solid var(--accent);
+  background:#141919;
+  padding:13px 15px;
+  border-radius:0 9px 9px 0;
+  line-height:1.55
+}
+.callout.warning{border-left-color:var(--warn)}
+.callout.good{border-left-color:var(--good)}
+.loop{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:9px;
+  margin-top:14px
+}
+.step{
+  background:var(--panel2);
+  border-radius:10px;
+  padding:13px
+}
+.stepnum{
+  font-size:11px;
+  color:var(--accent);
+  font-weight:800;
+  letter-spacing:.08em
+}
+.step strong{
+  display:block;
+  margin:5px 0 3px
+}
+.step span{
+  display:block;
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.4
+}
+.diagram{
+  margin-top:14px;
+  padding:14px;
+  background:#131717;
+  border:1px solid var(--line);
+  border-radius:11px;
+  text-align:center
+}
+.diagramline{
+  font-weight:700;
+  line-height:2;
+  letter-spacing:.02em
+}
+.arrow{
+  color:var(--accent);
+  padding:0 7px
+}
+.axis{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px
+}
+.axis>div{
+  background:var(--panel2);
+  border-radius:10px;
+  padding:13px
+}
+.axis label{
+  display:block;
+  color:var(--accent);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.1em;
+  margin-bottom:5px
+}
+.refgrid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:8px;
+  margin-top:12px
+}
+.ref{
+  background:var(--panel2);
+  border-radius:10px;
+  padding:12px
+}
+.ref b{
+  display:block;
+  font-size:17px
+}
+.ref span{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.4;
+  margin-top:3px
+}
+.tablewrap{overflow:auto}
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:10px
+}
+th,td{
+  text-align:left;
+  padding:10px;
+  border-bottom:1px solid var(--line);
+  vertical-align:top
+}
+th{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:600
+}
+td{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.45
+}
+td:first-child{
+  color:var(--text);
+  font-weight:650
+}
+.termgrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:12px
+}
+.term{
+  background:var(--panel2);
+  border-radius:9px;
+  padding:12px
+}
+.term strong{
+  display:block;
+  margin-bottom:4px
+}
+.term span{
+  display:block;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.48
+}
+.quote{
+  font-size:18px;
+  line-height:1.55;
+  color:var(--text);
+  padding:4px 0 12px
+}
+.nav{
+  display:inline-block;
+  margin-top:14px;
+  color:var(--accent);
+  text-decoration:none;
+  border:1px solid var(--line);
+  padding:8px 11px;
+  border-radius:8px
+}
+.nav:hover{border-color:var(--accent)}
+.footer{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:18px;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+  font-size:11px;
+  letter-spacing:.08em;
+  font-weight:800;
+  color:var(--muted)
+}
+.disclaimer{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.55
+}
+@media(max-width:800px){
+  main{padding:15px}
+  .top{
+    align-items:flex-start;
+    flex-direction:column
+  }
+  .grid,.axis,.termgrid{
+    grid-template-columns:1fr
+  }
+  .loop{
+    grid-template-columns:1fr 1fr
+  }
+  .refgrid{
+    grid-template-columns:1fr 1fr
+  }
+  .hero h2{font-size:23px}
+}
 </style>
 </head>
-<body><main>
-<div class="top"><div><h1>Market Strategy</h1><div class="sub">How Baseline Farmer reads the market and manages exposure.</div></div><div class="badge">MODEL REFERENCE</div></div>
 
-<section class="panel">
-<p class="lead">The strategy is built around a simple idea: keep a target amount of crypto exposure, then use meaningful market movement to improve that position over time. The long cycle provides the backdrop; the farming process works the path between major moves.</p>
-<div class="flow"><div class="card"><div class="label">BUILD</div><div class="value">Move toward the baseline</div><div class="mini">Favor useful weakness rather than buying simply because exposure is below target.</div></div><div class="card"><div class="label">FARM</div><div class="value">Work meaningful swings</div><div class="mini">Use deviations, structure, and participation to manage tactical movement around the baseline.</div></div><div class="card"><div class="label">HARVEST</div><div class="value">Lock in excess</div><div class="mini">When exposure moves above the target, excess can be harvested without abandoning the baseline.</div></div></div>
-</section>
+<body>
+<main>
 
-<section class="panel">
-<h2>Two things are kept separate</h2>
-<div class="grid">
-<div class="card"><h3>Capital state</h3><p class="copy">How much exposure you have, how much remains to reach your target, and how much capital is available.</p><p class="mini">This determines your capacity to act. It does <strong>not</strong> tell us whether the market is cheap.</p></div>
-<div class="card"><h3>Market state</h3><p class="copy">Where price sits relative to its structural references, virtual farming reference, recent movement, volume, and the ATH/cycle context.</p><p class="mini">This determines whether a move looks useful, ordinary, extended, or worth waiting on.</p></div>
+<div class="top">
+  <div>
+    <h1>Market Strategy</h1>
+    <div class="sub">The market side of the Baseline Farmer framework.</div>
+  </div>
+  <div class="badge">STRATEGY REFERENCE</div>
 </div>
+
+
+<section class="panel hero">
+  <div class="eyebrow">THE PHILOSOPHY</div>
+
+  <h2>Farm the path. Protect the baseline. Let the market pay you for waiting.</h2>
+
+  <p class="lead">
+    Baseline Farmer is built around a simple idea: you do not have to predict every move to manage a crypto position intelligently. Establish the amount of exposure you actually want, then use meaningful movement around that position to build, harvest, and improve it over time.
+  </p>
+
+  <a class="nav" href="baseline_farmer.html">← Back to Dashboard</a>
 </section>
+
+
+<section class="panel sectiongap">
+  <h2>The strategy in one loop</h2>
+
+  <p>
+    At the highest level, the strategy remains deliberately simple:
+  </p>
+
+  <div class="loop">
+    <div class="step">
+      <div class="stepnum">01</div>
+      <strong>WAIT</strong>
+      <span>Keep capital available when the market is not offering a useful opportunity.</span>
+    </div>
+
+    <div class="step">
+      <div class="stepnum">02</div>
+      <strong>GO</strong>
+      <span>Put capital to work when the market presents a meaningful deviation.</span>
+    </div>
+
+    <div class="step">
+      <div class="stepnum">03</div>
+      <strong>HOLD</strong>
+      <span>Keep the desired exposure as the center of the position.</span>
+    </div>
+
+    <div class="step">
+      <div class="stepnum">04</div>
+      <strong>HARVEST</strong>
+      <span>Realize excess rather than needing to identify the exact top.</span>
+    </div>
+
+    <div class="step">
+      <div class="stepnum">05</div>
+      <strong>REPEAT</strong>
+      <span>Return capital to work when another useful deviation appears.</span>
+    </div>
+  </div>
+
+  <div class="diagram">
+    <div class="diagramline">
+      WAIT <span class="arrow">→</span>
+      GO <span class="arrow">→</span>
+      HARVEST <span class="arrow">→</span>
+      WAIT <span class="arrow">→</span>
+      GO
+    </div>
+  </div>
+</section>
+
+
+<section class="grid sectiongap">
 
 <section class="panel">
-<h2>Market structure</h2>
-<p class="copy">The market is viewed at several scales rather than reduced to one indicator.</p>
-<div class="grid">
-<div class="card"><h3>1H / 4H</h3><p class="mini">Shorter-term direction, acceleration, pullbacks, and changes in local behavior.</p></div>
-<div class="card"><h3>7D / 30D</h3><p class="mini">The swing environment: whether short-term movement is occurring inside strength, weakness, recovery, or extension.</p></div>
-<div class="card"><h3>90D</h3><p class="mini">The larger structural backdrop. It can disagree with shorter timeframes without either being wrong.</p></div>
-<div class="card"><h3>Volume</h3><p class="mini">Participation helps support or weaken an interpretation. Rising volume is evidence, not a direction by itself.</p></div>
-</div>
+  <h2>The long cycle</h2>
+
+  <p>
+    The larger crypto cycle provides the long-term reason to remain engaged with the asset. The halving is part of that thesis: it helps explain why another major expansion can eventually occur.
+  </p>
+
+  <p>
+    But the halving is not itself a trading signal, and the strategy does not require sitting idle for four or five years waiting for an all-time high.
+  </p>
+
+  <p>
+    A large cycle contains smaller advances, retreats, recoveries and extensions. The purpose of farming is to make those movements useful while retaining the longer-term position.
+  </p>
+
+  <div class="callout">
+    <strong>The long cycle provides the horizon. The path between major cycle points provides the opportunities.</strong>
+  </div>
 </section>
+
 
 <section class="panel">
-<h2>Virtual baseline</h2>
-<p class="copy">For a new position, the system can look backward through the market history already being tracked and ask a counterfactual question: <strong>what would the farming reference have looked like if the position had already been funded before this stretch?</strong></p>
-<p class="copy">The resulting virtual reference gives the entry process the same kind of market-relative context the funded strategy will use later. A price below the user's target exposure is therefore not automatically an entry dip.</p>
+  <h2>The baseline</h2>
+
+  <p>
+    Your <strong>baseline is the amount of crypto exposure you want to maintain under normal conditions.</strong>
+  </p>
+
+  <p>
+    It is a target amount of exposure. It is not a market price, a support line, or a floor that the market is expected to respect.
+  </p>
+
+  <div class="axis">
+
+    <div>
+      <label>BELOW YOUR BASELINE</label>
+      <strong>Rebuild territory</strong>
+      <p>
+        Your actual exposure is below your target. The difference tells you how much exposure has not yet been established or has been lost through a decline.
+      </p>
+      <p>
+        That gap alone does <strong>not</strong> mean the market is offering a dip.
+      </p>
+    </div>
+
+    <div>
+      <label>ABOVE YOUR BASELINE</label>
+      <strong>Harvest territory</strong>
+      <p>
+        Your actual exposure is above the target. The excess can be considered for realization while the desired baseline remains intact.
+      </p>
+      <p>
+        This does not require knowing exactly where the top is.
+      </p>
+    </div>
+
+  </div>
 </section>
+
+</section>
+
+
+<section class="panel sectiongap">
+  <h2>Entry is the first farming cycle</h2>
+
+  <p>
+    The entry process is not a separate investment strategy that gets discarded once the position is funded. It is the same farming framework operating before the baseline has been fully established.
+  </p>
+
+  <div class="axis">
+
+    <div>
+      <label>CAPITAL STATE</label>
+      <strong>How much position still needs to be built?</strong>
+
+      <p>
+        Target exposure, current exposure, available capital and remaining gap describe the position being built.
+      </p>
+
+      <p>
+        These are capital-management facts.
+      </p>
+    </div>
+
+    <div>
+      <label>MARKET STATE</label>
+      <strong>Is the market giving us a useful opportunity?</strong>
+
+      <p>
+        Price action, structural references, volume, volatility, historical behavior and cycle context describe what the market is doing.
+      </p>
+
+      <p>
+        These determine whether available capital should actually be deployed.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="callout warning" style="margin-top:13px">
+    <strong>The exposure gap is not a buy signal.</strong>
+    Being $800 below a $1,000 target does not mean the market is in a dip. If the market is extended and strong, preserving the remaining entry capital may be the correct action. If a genuine deviation appears later, that same capital becomes useful.
+  </div>
+</section>
+
+
+<section class="panel sectiongap">
+  <h2>Baseline-aware tactical DCA</h2>
+
+  <p>
+    Ordinary DCA gives the calendar control over when capital is deployed. Baseline Farmer uses the calendar less and the market's relative position more.
+  </p>
+
+  <p>
+    The position can continue making forward progress toward its target while tactical capital remains available. That reserve exists so meaningful weakness can receive additional allocation instead of having all available capital committed before the market offers a better opportunity.
+  </p>
+
+  <p>
+    This is not an attempt to buy every small decline. A useful deviation has to make sense in the context of the market's recent behavior and structure.
+  </p>
+
+  <div class="callout">
+    <strong>The goal is not the perfect entry.</strong><br><br>
+    The goal is to maximize the durable value that can be locked into the baseline while it is being established.
+  </div>
+</section>
+
+
+<section class="panel sectiongap">
+  <h2>Market structure exists at several scales</h2>
+
+  <p>
+    The market does not have one structural baseline. Different timeframes describe different pieces of the same market, and those references can have different shapes and different verdicts.
+  </p>
+
+  <div class="refgrid">
+
+    <div class="ref">
+      <b>1H</b>
+      <span>Immediate price action and short-term behavior.</span>
+    </div>
+
+    <div class="ref">
+      <b>4H</b>
+      <span>Short-cycle direction, persistence and local structure.</span>
+    </div>
+
+    <div class="ref">
+      <b>7D</b>
+      <span>Recent weekly movement and position.</span>
+    </div>
+
+    <div class="ref">
+      <b>30D</b>
+      <span>Intermediate structure and swing context.</span>
+    </div>
+
+    <div class="ref">
+      <b>90D</b>
+      <span>Broader recent trend and market regime.</span>
+    </div>
+
+  </div>
+
+  <p>
+    These references are not supposed to be collapsed into one magical number. A short-term retreat can occur inside a larger advance. Several timeframes can disagree while a larger structure remains intact. Conversely, synchronized deterioration across several scales can mean something quite different.
+  </p>
+
+  <div class="callout">
+    <strong>Disagreement is information.</strong> The point is to see the different structures, not hide them by forcing every timeframe to produce the same answer.
+  </div>
+</section>
+
+
+<section class="panel sectiongap">
+  <h2>The virtual baseline</h2>
+
+  <p>
+    The entry process needs a way to judge whether today's market looks like a useful deviation for a position that would actually be farmed. The answer comes from looking backward through the market history we already have.
+  </p>
+
+  <div class="diagram">
+
+    <div class="diagramline">OBSERVED MARKET HISTORY</div>
+    <div class="arrow">↓</div>
+
+    <div class="diagramline">PRETEND THE POSITION WAS ALREADY FUNDED</div>
+    <div class="arrow">↓</div>
+
+    <div class="diagramline">REPLAY THE FARMING MODEL THROUGH THAT HISTORY</div>
+    <div class="arrow">↓</div>
+
+    <div class="diagramline">FORM THE VIRTUAL BASELINE</div>
+    <div class="arrow">↓</div>
+
+    <div class="diagramline">COMPARE CURRENT MARKET ACTION WITH THAT REFERENCE</div>
+
+  </div>
+
+  <p>
+    The virtual baseline is therefore not simply a moving average and it is not a prediction of where price should go. It is a hypothetical reference produced by asking what the position and its baseline would look like if the farming process had already been running through the observed period.
+  </p>
+
+  <p>
+    That makes it possible to ask a much more useful entry question:
+  </p>
+
+  <div class="quote">
+    <strong>If we had already been farming this market, would the movement happening now look like a useful deviation from the reference we would actually have been managing?</strong>
+  </div>
+
+  <p>
+    This is why the entry engine can recognize a market as expensive or extended even when the user's own exposure is still far below the target.
+  </p>
+</section>
+
+
+<section class="panel sectiongap">
+  <h2>Price and volume tell the story together</h2>
+
+  <p>
+    Price describes what happened. Volume helps describe how much participation accompanied it. Neither one is sufficient by itself.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Market condition</th>
+        <th>What the framework looks for</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr>
+        <td>Weakness</td>
+        <td>
+          Is the decline meaningful relative to the applicable structural references and virtual baseline, or is it simply ordinary short-term noise?
+        </td>
+      </tr>
+
+      <tr>
+        <td>Recovery</td>
+        <td>
+          A strong rally after a damaged market can be evidence of a bottoming or recovery process. Strength by itself does not make the move FOMO.
+        </td>
+      </tr>
+
+      <tr>
+        <td>Continuation</td>
+        <td>
+          Price, structure and participation can reinforce an existing advance without implying that the move is already late.
+        </td>
+      </tr>
+
+      <tr>
+        <td>Extension</td>
+        <td>
+          Increasing distance from structural references, persistence, acceleration and position within the larger cycle can change the character of an otherwise bullish move.
+        </td>
+      </tr>
+
+      <tr>
+        <td>Possible FOMO</td>
+        <td>
+          Near major highs, strong extension and increasing participation can combine into a late-stage buying environment. Volume can support or challenge that interpretation.
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <div class="callout warning" style="margin-top:13px">
+    <strong>Strong rally ≠ FOMO.</strong>
+    A strong move out of a deep decline may be exactly the recovery we want to recognize. The same strength near an established ATH, with an increasingly extended structure and growing participation, can mean something very different.
+  </div>
+</section>
+
+
+<section class="grid sectiongap">
 
 <section class="panel">
-<h2>Reading strong moves</h2>
-<div class="grid">
-<div class="card"><h3>Recovery</h3><p class="mini">A strong rally after damaged or deeply depressed structure can be evidence of a bottom reversal. Strength alone does not make it FOMO.</p></div>
-<div class="card"><h3>Continuation</h3><p class="mini">A healthy advance can remain constructive when the larger structure supports it and price is not simply becoming more extended.</p></div>
-<div class="card"><h3>Pullback</h3><p class="mini">Short-term weakness can be useful without implying that the larger trend has failed.</p></div>
-<div class="card"><h3>Late / FOMO</h3><p class="mini">Near an ATH or major extension, accelerating price plus supporting participation can indicate a crowded late-stage move. That is a reason to avoid chasing, not proof of an exact top.</p></div>
-</div>
+  <h2>ATH and progressive harvesting</h2>
+
+  <p>
+    The strategy does not require identifying the exact all-time high.
+  </p>
+
+  <p>
+    As the market approaches a major high and the evidence increasingly resembles a late, extended or FOMO phase, the position can progressively harvest excess value rather than waiting for one perfect exit point.
+  </p>
+
+  <p>
+    Those harvests act as parachutes. If the market keeps running, some exposure remains. If it falls sharply, value has already been locked in.
+  </p>
+
+  <div class="callout">
+    <strong>The objective is not “sell the top.”</strong><br><br>
+    It is to avoid giving back everything the position has already earned simply because the exact top was unknowable.
+  </div>
 </section>
+
 
 <section class="panel">
-<h2>The operating loop</h2>
-<p class="lead">Wait → identify a meaningful deviation → act selectively → harvest excess when appropriate → establish the new baseline → repeat.</p>
-<p class="mini">The goal is not to predict every turn. It is to improve the amount of durable exposure created from the capital supplied while retaining a baseline through the larger cycle.</p>
+  <h2>Recycling profit</h2>
+
+  <p>
+    Harvested value does not necessarily have to leave the strategy permanently.
+  </p>
+
+  <p>
+    When realized profit is recycled, it can increase the amount of exposure the system is able to maintain as its new baseline.
+  </p>
+
+  <div class="diagram">
+    <div class="diagramline">
+      EXTERNAL CAPITAL
+      <span class="arrow">→</span>
+      BASELINE
+    </div>
+
+    <div class="diagramline">
+      BASELINE
+      <span class="arrow">→</span>
+      HARVEST
+    </div>
+
+    <div class="diagramline">
+      HARVEST
+      <span class="arrow">→</span>
+      REALIZED PROFIT
+    </div>
+
+    <div class="diagramline">
+      REALIZED PROFIT
+      <span class="arrow">→</span>
+      LARGER BASELINE
+    </div>
+  </div>
+
+  <p>
+    This is why the capital ledger matters. A growing baseline does not have to mean that more outside money was supplied.
+  </p>
 </section>
 
-<section class="panel">
-<h2>Terms</h2>
-<table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody>
-<tr><td>Baseline</td><td>Your target amount of crypto exposure under normal conditions. Not a price floor.</td></tr>
-<tr><td>Structural baseline</td><td>A market reference for a particular timeframe. Each timeframe has its own shape and verdict.</td></tr>
-<tr><td>Virtual baseline</td><td>A counterfactual reference created by replaying the farming approach through historical data from a hypothetical clean entry.</td></tr>
-<tr><td>Deviation</td><td>Distance from the relevant market or capital reference.</td></tr>
-<tr><td>Tactical reserve</td><td>Capital intentionally kept available for a meaningful opportunity.</td></tr>
-<tr><td>FOMO</td><td>A late or extended buying environment; not simply a strong rally.</td></tr>
-</tbody></table>
 </section>
 
-<p class="mini" style="margin:16px 3px"><a href="baseline_farmer.html">← Back to Baseline Farmer</a></p>
-</main></body></html>
+
+<section class="panel sectiongap">
+  <h2>What the tool actually does</h2>
+
+  <div class="quote">
+    The strategy already exists in the user's judgment. The tool makes that judgment easier to apply consistently.
+  </div>
+
+  <p>
+    Markets are difficult to manage partly because all of the relevant numbers keep moving. Target exposure, actual exposure, available capital, previous harvests, recycled profit and market references all have to be remembered at once.
+  </p>
+
+  <p>
+    Baseline Farmer externalizes that state. It keeps the capital plan and the market context together so a decision can be understood relative to what has already happened rather than reconstructed from memory.
+  </p>
+
+  <p>
+    The machine can calculate the measurements, maintain the history and display the relationships. It can help distinguish market state from capital state and show where different market references agree or disagree.
+  </p>
+
+  <p>
+    <strong>It does not need to replace human judgment to be useful.</strong> The purpose is to give that judgment a persistent baseline, a capital plan and a memory.
+  </p>
+</section>
+
+
+<section class="panel sectiongap">
+  <h2>The important terms</h2>
+
+  <div class="termgrid">
+
+    <div class="term">
+      <strong>Baseline</strong>
+      <span>
+        The target amount of crypto exposure you want to maintain under normal conditions. It is a centerline, not a price floor.
+      </span>
+    </div>
+
+    <div class="term">
+      <strong>Exposure</strong>
+      <span>
+        The current dollar value of the crypto position being managed.
+      </span>
+    </div>
+
+    <div class="term">
+      <strong>Capital state</strong>
+      <span>
+        Where the position stands relative to its target: current exposure, remaining gap, available capital and realized results.
+      </span>
+    </div>
+
+    <div class="term">
+      <strong>Market state</strong>
+      <span>
+        What the market itself is doing, based on price, structure, volume, volatility and its position within the larger cycle.
+      </span>
+    </div>
+
+    <div class="term">
+      <strong>Structural baseline</strong>
+      <span>
+        A market reference built from observed behavior at a particular timeframe. Different timeframes can have different shapes and different readings.
+      </span>
+    </div>
+
+    <div class="term">
+      <strong>Virtual baseline</strong>
+      <span>
+        A hypothetical reference created by replaying the farming approach through historical data as though the position had already been established.
+      </span>
+    </div>
+
+    <div class="term">
+      <strong>Deviation</strong>
+      <span>
+        How far something has moved from its relevant reference. Exposure deviation and market deviation are separate measurements.
+      </span>
+    </div>
+
+    <div class="term">
+      <strong>Dip / rebuild</strong>
+      <span>
+        A meaningful market deviation that may provide an opportunity to add exposure. Being below the user's target alone does not make the market a dip.
+      </span>
+    </div>
+
+    <div class="term">
+      <strong>Harvest</strong>
+      <span>
+        Realizing excess value above the desired baseline without requiring an exact top call.
+      </span>
+    </div>
+
+    <div class="term">
+      <strong>Tactical reserve</strong>
+      <span>
+        Capital deliberately kept available so a meaningful market deviation can receive additional allocation.
+      </span>
+    </div>
+
+    <div class="term">
+      <strong>Volume</strong>
+      <span>
+        Evidence of participation behind a price move. It can support or challenge an interpretation rather than automatically making the move bullish or bearish.
+      </span>
+    </div>
+
+    <div class="term">
+      <strong>FOMO</strong>
+      <span>
+        A late or increasingly crowded buying environment. A strong rally is not automatically FOMO; context determines the difference.
+      </span>
+    </div>
+
+    <div class="term">
+      <strong>Recycle</strong>
+      <span>
+        Returning realized internal profit to the system so it can support a larger baseline.
+      </span>
+    </div>
+
+    <div class="term">
+      <strong>Trajectory</strong>
+      <span>
+        A description of recent direction and market position. It describes what has been happening rather than promising what happens next.
+      </span>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="panel sectiongap">
+  <div class="eyebrow">IN ONE VIEW</div>
+
+  <h2>What Baseline Farmer is trying to accomplish</h2>
+
+  <p class="lead">
+    Maintain a target amount of crypto exposure. Build it without committing every dollar at once. Read the market relative to its own changing structure rather than confusing an exposure gap with a dip. Use meaningful weakness to improve the position, harvest excess when the market becomes sufficiently extended, and recycle realized profit when it makes sense to grow the baseline.
+  </p>
+
+  <div class="footer">
+    <span>ENTRY IS THE FIRST FARMING CYCLE.</span>
+    <span>THE BASELINE IS THE CENTERLINE.</span>
+    <span>THE MARKET PROVIDES THE DEVIATIONS.</span>
+  </div>
+</section>
+
+
+<section class="panel sectiongap">
+  <strong>This is a strategy ideation tool, not financial advice.</strong>
+
+  <p class="disclaimer">
+    Baseline Farmer does not promise returns, predict markets, recommend that anyone buy or sell anything, or claim that this philosophy will outperform another approach. Market measurements describe observed conditions and relationships; they do not remove uncertainty.
+  </p>
+
+  <p class="disclaimer">
+    A dip can continue falling. A rally can continue running. A recovery can become a larger advance, and an apparently strong market can eventually reverse. The framework provides context and preserves the capital plan; it does not eliminate uncertainty or replace judgment.
+  </p>
+</section>
+
+
+<p class="disclaimer sectiongap">
+  Strategy reference: externalize the strategy, market context and capital bookkeeping without turning intuition into arbitrary indicator thresholds merely because software makes them possible.
+</p>
+
+</main>
+</body>
+</html>
