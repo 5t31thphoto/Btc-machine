@@ -1,2541 +1,2526 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Baseline Farmer — BTC Market State</title>
+<meta name="theme-color" content="#080d0d">
+<title>Baseline Farmer</title>
 
 <style>
 :root{
-  --bg:#0d1111;
-  --panel:#151b1b;
-  --panel2:#1b2222;
-  --line:#2b3636;
-  --text:#edf3f2;
-  --muted:#8fa09f;
-  --teal:#36d4c2;
-  --green:#79df8b;
-  --yellow:#ffd166;
-  --red:#ff7770;
+  --bg:#080d0d;
+  --panel:#0d1515;
+  --panel2:#101c1c;
+  --line:#1c3030;
+  --text:#e6eeee;
+  --muted:#819090;
+  --teal:#00a6a6;
+  --teal2:#007373;
+  --green:#72e68a;
+  --lime:#b4ff72;
+  --yellow:#e8d36b;
+  --red:#ff6b6b;
+  --orange:#e6a85c;
+  --shadow:0 10px 30px rgba(0,0,0,.22);
 }
 
 *{box-sizing:border-box}
 
-body{
+html,body{
   margin:0;
+  padding:0;
   background:var(--bg);
   color:var(--text);
-  font:14px/1.4 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 
-main{
-  max-width:1250px;
-  margin:auto;
+body{
+  min-height:100vh;
   padding:20px;
 }
 
-.top{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-  gap:20px;
-  margin-bottom:15px;
-}
-
-h1{
-  margin:0;
-  font-size:29px;
-}
-
-.sub{
-  color:var(--muted);
-  margin-top:4px;
-}
-
-.badge{
-  border:1px solid var(--line);
-  padding:7px 11px;
-  border-radius:999px;
-  color:var(--teal);
-  white-space:nowrap;
-}
-
-.panel{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:16px;
-}
-
-.hero{
-  padding:20px;
-}
-
-.heroTop{
-  display:grid;
-  grid-template-columns:1.4fr 1fr;
-  gap:25px;
-}
-
-.eyebrow,
-.label,
-.hint{
-  font-size:11px;
-  letter-spacing:.08em;
-  color:var(--muted);
-  text-transform:uppercase;
-}
-
-.price{
-  font-size:48px;
-  font-weight:800;
-  letter-spacing:-.04em;
-  margin:3px 0;
-}
-
-.athline{
-  color:var(--muted);
-}
-
-.athline b{
-  color:var(--text);
-}
-
-.trajectory{
-  border-left:1px solid var(--line);
-  padding-left:24px;
-}
-
-.trajectoryState{
-  font-size:31px;
-  font-weight:800;
-  color:var(--teal);
-  margin:4px 0;
-}
-
-.range{
-  height:22px;
-  margin-top:24px;
-  position:relative;
-  background:linear-gradient(90deg,var(--line),#233b38);
-  border-radius:11px;
-}
-
-.rangeNow{
-  position:absolute;
-  top:-3px;
-  width:28px;
-  height:28px;
-  border-radius:50%;
-  background:var(--teal);
-  border:5px solid var(--bg);
-  transform:translateX(-50%);
-}
-
-.rangeLabels{
-  display:flex;
-  justify-content:space-between;
-  color:var(--muted);
-  font-size:11px;
-  margin-top:6px;
-}
-
-.scalegrid,
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-top:12px;
-}
-
-.grid{
-  grid-template-columns:1fr 1fr;
-}
-
-.scaleHead{
-  display:flex;
-  justify-content:space-between;
-}
-
-.bigstate{
-  font-size:23px;
-  font-weight:800;
-  margin:8px 0;
-  color:var(--teal);
-}
-
-.metrics{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:7px;
-}
-
-.metrics span{
-  background:var(--panel2);
-  padding:8px;
-  border-radius:8px;
-  color:var(--muted);
-}
-
-.metrics b{
-  color:var(--text);
-  display:block;
-}
-
-.paneltitle{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-}
-
-h2{
-  font-size:17px;
-  margin:0 0 12px;
-}
-
-.trajectoryGrid,
-.capitalcards{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:9px;
-}
-
-.trajectoryGrid>div,
-.capitalcards>div{
-  background:var(--panel2);
-  border-radius:9px;
-  padding:10px;
-}
-
-.trajectoryGrid strong,
-.capitalcards strong{
-  display:block;
-  margin-top:3px;
-  font-size:16px;
-}
-
-.signal{
-  margin-top:12px;
-  padding:12px;
-  border-left:3px solid var(--teal);
-  background:var(--panel2);
-  color:#c5d1d0;
-}
-
-.targetline{
-  height:24px;
-  background:var(--panel2);
-  border-radius:12px;
-  margin:15px 0 5px;
-  position:relative;
-}
-
-.targetline:before{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:0;
-  bottom:0;
-  border-left:2px dashed var(--yellow);
-}
-
-.capitalMarker{
-  position:absolute;
-  top:4px;
-  width:16px;
-  height:16px;
-  border-radius:50%;
-  background:var(--teal);
-  transform:translateX(-50%);
-}
-
-.targetlabels{
-  display:flex;
-  justify-content:space-between;
-  color:var(--muted);
-  font-size:10px;
-}
-
-.row{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-}
-
-label{
-  display:block;
-  margin-bottom:5px;
-  color:var(--muted);
-  font-size:11px;
-}
-
-input,
-select{
-  width:100%;
-  padding:10px;
-  background:#0e1313;
-  color:var(--text);
-  border:1px solid var(--line);
-  border-radius:8px;
+button,input{
   font:inherit;
 }
 
-.capitalcards{
-  margin-top:12px;
-  grid-template-columns:repeat(4,1fr);
-}
-
-.buttons{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:10px;
-}
-
 button{
-  background:#202929;
-  color:var(--text);
-  border:1px solid var(--line);
-  border-radius:8px;
-  padding:10px 12px;
-  font-weight:650;
   cursor:pointer;
 }
 
-button:hover{
-  border-color:var(--teal);
+.app{
+  max-width:1250px;
+  margin:0 auto;
 }
 
-button.primary{
-  border-color:var(--teal);
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:20px;
+  margin-bottom:18px;
 }
 
-.explain{
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo{
+  width:38px;
+  height:38px;
+  border:1px solid var(--teal2);
+  border-radius:10px;
+  display:grid;
+  place-items:center;
+  color:var(--lime);
+  font-weight:900;
+  font-size:20px;
+  background:#0b1818;
+}
+
+h1{
+  font-size:22px;
+  margin:0;
+  letter-spacing:.02em;
+}
+
+.subtitle{
   color:var(--muted);
-  max-width:700px;
+  font-size:12px;
+  margin-top:2px;
 }
 
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:10px;
+.status{
+  text-align:right;
+  font-size:11px;
+  color:var(--muted);
 }
 
-th,
-td{
-  text-align:left;
-  padding:9px 7px;
-  border-bottom:1px solid var(--line);
+.status strong{
+  color:var(--green);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:14px;
+}
+
+.card{
+  background:linear-gradient(145deg,var(--panel),#0a1111);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:16px;
+  box-shadow:var(--shadow);
+}
+
+.market-main{grid-column:span 5}
+.trajectory{grid-column:span 7}
+.short{grid-column:span 4}
+.swing{grid-column:span 4}
+.cycle{grid-column:span 4}
+.chart-card{grid-column:span 8}
+.capital{grid-column:span 4}
+.ledger{grid-column:span 7}
+.actions{grid-column:span 5}
+.history{grid-column:span 12}
+
+.card-title{
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  font-size:10px;
+  font-weight:700;
+  margin-bottom:12px;
+}
+
+.price{
+  font-size:42px;
+  font-weight:800;
+  line-height:1;
+  letter-spacing:-.04em;
+  margin:5px 0 13px;
+}
+
+.price-sub{
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+  color:var(--muted);
   font-size:12px;
 }
 
-th{
+.price-sub b{
+  color:var(--text);
+}
+
+.metric-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.metric{
+  min-width:0;
+}
+
+.metric-label{
   color:var(--muted);
-  font-weight:500;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  margin-bottom:3px;
 }
 
-.good{
-  color:var(--green)!important;
+.metric-value{
+  font-size:18px;
+  font-weight:750;
 }
 
-.bad{
-  color:var(--red)!important;
+.metric-small{
+  font-size:12px;
+  color:var(--muted);
 }
 
-.yellow{
-  color:var(--yellow)!important;
+.positive{color:var(--green)!important}
+.negative{color:var(--red)!important}
+.neutral{color:var(--yellow)!important}
+
+.trajectory-state{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:15px;
 }
 
-.teal{
-  color:var(--teal)!important;
+.state{
+  font-size:23px;
+  font-weight:850;
+  letter-spacing:.03em;
+}
+
+.state-detail{
+  max-width:450px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.45;
+  text-align:right;
+}
+
+.bar{
+  height:7px;
+  background:#182525;
+  border-radius:99px;
+  overflow:hidden;
+  margin:10px 0 6px;
+}
+
+.bar-fill{
+  height:100%;
+  background:var(--teal);
+  width:0%;
+  transition:width .4s ease;
+}
+
+.axis{
+  display:flex;
+  justify-content:space-between;
+  color:var(--muted);
+  font-size:9px;
+}
+
+.chart-wrap{
+  position:relative;
+  width:100%;
+  height:270px;
 }
 
 canvas{
   width:100%;
-  height:220px;
-  background:#101515;
-  border-radius:10px;
-  margin-top:12px;
+  height:100%;
+  display:block;
 }
 
-.mini{
+.chart-note{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:8px;
+}
+
+.capital-number{
+  font-size:31px;
+  font-weight:850;
+  line-height:1;
+  margin:4px 0 12px;
+}
+
+.deviation{
+  font-size:24px;
+  font-weight:800;
+}
+
+.farm-state{
+  margin:14px 0;
+  padding:11px 12px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#0b1313;
+}
+
+.farm-state .big{
+  font-size:17px;
+  font-weight:850;
+}
+
+.farm-state .small{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.field label{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-bottom:4px;
+}
+
+input{
+  width:100%;
+  background:#091010;
+  border:1px solid var(--line);
+  border-radius:8px;
+  color:var(--text);
+  padding:9px 10px;
+  outline:none;
+}
+
+input:focus{
+  border-color:var(--teal);
+}
+
+.buttons{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+}
+
+.action{
+  border:1px solid var(--line);
+  background:#0c1515;
+  color:var(--text);
+  border-radius:9px;
+  padding:13px 8px;
+  font-weight:800;
+  letter-spacing:.04em;
+}
+
+.action:hover{
+  border-color:var(--teal);
+}
+
+.action.go{color:var(--green)}
+.action.harvest{color:var(--lime)}
+.action.wait{color:var(--yellow)}
+.action.ath{color:var(--orange)}
+
+.friction{
+  margin-top:12px;
+  padding:11px;
+  border:1px solid var(--line);
+  border-radius:9px;
   font-size:11px;
   color:var(--muted);
+  line-height:1.45;
 }
 
-@media(max-width:850px){
-  main{
-    padding:12px;
+.history-row{
+  display:grid;
+  grid-template-columns:100px 90px 1fr 110px;
+  gap:10px;
+  padding:9px 0;
+  border-bottom:1px solid #142020;
+  font-size:11px;
+  align-items:center;
+}
+
+.history-row:last-child{
+  border-bottom:0;
+}
+
+.badge{
+  display:inline-block;
+  padding:3px 7px;
+  border-radius:99px;
+  border:1px solid var(--line);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.08em;
+}
+
+.empty{
+  color:var(--muted);
+  font-size:12px;
+  padding:12px 0;
+}
+
+.controls{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.small-btn{
+  border:1px solid var(--line);
+  background:#0b1414;
+  color:var(--muted);
+  border-radius:7px;
+  padding:7px 10px;
+  font-size:10px;
+}
+
+.small-btn:hover{
+  color:var(--text);
+  border-color:var(--teal);
+}
+
+.warning{
+  color:var(--orange)!important;
+}
+
+.data-status{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.4;
+}
+
+@media(max-width:900px){
+  body{padding:12px}
+  .market-main,
+  .trajectory,
+  .short,
+  .swing,
+  .cycle,
+  .chart-card,
+  .capital,
+  .ledger,
+  .actions,
+  .history{
+    grid-column:span 12;
   }
 
-  .heroTop,
-  .grid,
-  .scalegrid{
-    grid-template-columns:1fr;
+  header{
+    flex-direction:column;
   }
 
-  .trajectory{
-    border-left:0;
-    border-top:1px solid var(--line);
-    padding:14px 0 0;
-  }
-
-  .row{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .capitalcards,
-  .trajectoryGrid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .price{
-    font-size:39px;
+  .status{
+    text-align:left;
   }
 }
 
-@media(max-width:520px){
-  .row,
-  .capitalcards,
-  .trajectoryGrid{
-    grid-template-columns:1fr 1fr;
+@media(max-width:550px){
+  .price{font-size:34px}
+  .metric-grid{grid-template-columns:1fr 1fr}
+  .form-grid{grid-template-columns:1fr}
+  .history-row{
+    grid-template-columns:75px 70px 1fr;
   }
-
-  .price{
-    font-size:34px;
+  .history-row .history-price{
+    display:none;
   }
 }
 </style>
 </head>
 
 <body>
+<div class="app">
 
-<main>
-
-<header class="top">
-  <div>
-    <h1>Baseline Farmer</h1>
-    <div class="sub">
-      BTC market topology + target-based capital farming
+<header>
+  <div class="brand">
+    <div class="logo">B</div>
+    <div>
+      <h1>BASELINE FARMER</h1>
+      <div class="subtitle">Capital state · market state · harvest discipline</div>
     </div>
   </div>
 
-  <div id="feed" class="badge">
-    CONNECTING…
+  <div class="status">
+    <div id="connectionStatus">INITIALIZING</div>
+    <div id="lastUpdated">No market data yet</div>
   </div>
 </header>
 
+<main class="grid">
 
-<!-- =========================================================
-     BTC MARKET STATE
-     ========================================================= -->
+  <!-- MARKET -->
+  <section class="card market-main">
+    <div class="card-title">BTC Market State</div>
 
-<section class="panel hero">
+    <div id="btcPrice" class="price">—</div>
 
-  <div class="heroTop">
+    <div class="price-sub">
+      <span>24H <b id="change24">—</b></span>
+      <span>1H <b id="change1h">—</b></span>
+      <span>7D <b id="change7d">—</b></span>
+      <span>30D <b id="change30d">—</b></span>
+    </div>
 
-    <div>
-      <div class="eyebrow">BITCOIN NOW</div>
+    <div style="height:18px"></div>
 
-      <div id="price" class="price">
-        —
+    <div class="metric-grid">
+      <div class="metric">
+        <div class="metric-label">ATH</div>
+        <div id="athPrice" class="metric-value">—</div>
       </div>
 
-      <div class="athline">
-        ATH
-        <b id="ath">—</b>
-        ·
-        <b id="athGap">—</b>
-        ·
-        <span id="athAge">—</span>
-        days since ATH
+      <div class="metric">
+        <div class="metric-label">From ATH</div>
+        <div id="athGap" class="metric-value">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">ATH Date</div>
+        <div id="athDate" class="metric-value metric-small">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Days Since ATH</div>
+        <div id="daysSinceAth" class="metric-value">—</div>
       </div>
     </div>
 
-
-    <div class="trajectory">
-
-      <div class="eyebrow">
-        ARE WE TRENDING TOWARD ATH?
-      </div>
-
-      <div id="trajectory" class="trajectoryState">
-        LOADING
-      </div>
-
-      <div id="trajectoryText" class="mini">
-        Reading multiple windows of actual market data.
-      </div>
-
+    <div id="marketDataStatus" class="data-status">
+      Waiting for ticker...
     </div>
-
-  </div>
-
-
-  <div class="range">
-    <div
-      id="rangeNow"
-      class="rangeNow"
-      style="left:50%">
-    </div>
-  </div>
-
-  <div class="rangeLabels">
-    <span>FAR FROM ATH</span>
-    <span>RECOVERY / ADVANCE</span>
-    <span>ATH</span>
-  </div>
-
-</section>
-
-
-<!-- =========================================================
-     MULTI-SCALE STATE
-     ========================================================= -->
-
-<section class="scalegrid">
-
-  <section class="panel">
-
-    <div class="scaleHead">
-      <span class="eyebrow">NOW</span>
-      <span class="hint">1H / 4H</span>
-    </div>
-
-    <div id="shortState" class="bigstate">
-      —
-    </div>
-
-    <div id="shortMetrics" class="metrics"></div>
-
   </section>
 
 
-  <section class="panel">
+  <!-- TRAJECTORY -->
+  <section class="card trajectory">
+    <div class="card-title">ATH Trajectory</div>
 
-    <div class="scaleHead">
-      <span class="eyebrow">SWING</span>
-      <span class="hint">7D / 30D / 90D</span>
+    <div class="trajectory-state">
+      <div>
+        <div id="trajectoryState" class="state neutral">WAITING</div>
+      </div>
+
+      <div id="trajectoryDetail" class="state-detail">
+        Waiting for enough market history to describe trajectory.
+      </div>
     </div>
 
-    <div id="swingState" class="bigstate">
-      —
+    <div class="metric-grid">
+      <div class="metric">
+        <div class="metric-label">90D Direction</div>
+        <div id="dir90" class="metric-value">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">30D Direction</div>
+        <div id="dir30" class="metric-value">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">7D Direction</div>
+        <div id="dir7" class="metric-value">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Persistence</div>
+        <div id="persistence" class="metric-value">—</div>
+      </div>
     </div>
 
-    <div id="swingMetrics" class="metrics"></div>
-
+    <div style="margin-top:15px">
+      <div class="metric-label">Recovery From 90D Low</div>
+      <div class="bar">
+        <div id="recoveryBar" class="bar-fill"></div>
+      </div>
+      <div class="axis">
+        <span>90D LOW</span>
+        <span id="recoveryText">—</span>
+        <span>90D HIGH</span>
+      </div>
+    </div>
   </section>
 
 
-  <section class="panel">
+  <!-- SHORT -->
+  <section class="card short">
+    <div class="card-title">Short-Term State</div>
 
-    <div class="scaleHead">
-      <span class="eyebrow">CYCLE</span>
-      <span class="hint">ATH CONTEXT</span>
+    <div class="metric-grid">
+      <div class="metric">
+        <div class="metric-label">1H</div>
+        <div id="short1h" class="metric-value">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">24H</div>
+        <div id="short24" class="metric-value">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Momentum</div>
+        <div id="momentum" class="metric-value">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Acceleration</div>
+        <div id="acceleration" class="metric-value">—</div>
+      </div>
     </div>
-
-    <div id="cycleState" class="bigstate">
-      —
-    </div>
-
-    <div id="cycleMetrics" class="metrics"></div>
-
   </section>
 
-</section>
+
+  <!-- SWING -->
+  <section class="card swing">
+    <div class="card-title">Current Swing</div>
+
+    <div class="metric-grid">
+      <div class="metric">
+        <div class="metric-label">90D Low</div>
+        <div id="low90" class="metric-value">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">90D High</div>
+        <div id="high90" class="metric-value">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Position</div>
+        <div id="swingPosition" class="metric-value">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Range</div>
+        <div id="swingRange" class="metric-value">—</div>
+      </div>
+    </div>
+  </section>
 
 
-<!-- =========================================================
-     EVIDENCE + CAPITAL
-     ========================================================= -->
+  <!-- CYCLE -->
+  <section class="card cycle">
+    <div class="card-title">Macro Context</div>
 
-<section class="grid">
+    <div class="metric-grid">
+      <div class="metric">
+        <div class="metric-label">ATH Horizon</div>
+        <div id="athHorizon" class="metric-value">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Distance</div>
+        <div id="athDistance" class="metric-value">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Cycle Mode</div>
+        <div id="cycleMode" class="metric-value">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Data Quality</div>
+        <div id="dataQuality" class="metric-value">—</div>
+      </div>
+    </div>
+  </section>
 
 
-<section class="panel">
+  <!-- CHART -->
+  <section class="card chart-card">
+    <div class="card-title">90D Price Path</div>
 
-  <div class="paneltitle">
-    <h2>Trajectory Evidence</h2>
-    <span class="hint">
-      descriptive, not predictive
-    </span>
-  </div>
-
-
-  <div class="trajectoryGrid">
-
-    <div>
-      <label>Direction</label>
-      <strong id="dir">—</strong>
+    <div class="chart-wrap">
+      <canvas id="priceChart"></canvas>
     </div>
 
-    <div>
-      <label>Persistence</label>
-      <strong id="persist">—</strong>
+    <div id="chartNote" class="chart-note">
+      Daily historical price points. This is a descriptive path, not a prediction.
+    </div>
+  </section>
+
+
+  <!-- CAPITAL -->
+  <section class="card capital">
+    <div class="card-title">Your Capital</div>
+
+    <div class="metric-label">Baseline Target</div>
+    <div id="baselineDisplay" class="capital-number">$0</div>
+
+    <div class="metric-grid">
+      <div class="metric">
+        <div class="metric-label">Current Value</div>
+        <div id="currentValueDisplay" class="metric-value">$0</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Deviation</div>
+        <div id="deviationDisplay" class="metric-value">$0</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">External Capital</div>
+        <div id="externalDisplay" class="metric-value">$0</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Extracted</div>
+        <div id="extractedDisplay" class="metric-value">$0</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Recycled</div>
+        <div id="recycledDisplay" class="metric-value">$0</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Friction</div>
+        <div id="frictionDisplay" class="metric-value">$0</div>
+      </div>
     </div>
 
-    <div>
-      <label>Acceleration</label>
-      <strong id="accel">—</strong>
+    <div class="farm-state">
+      <div id="farmState" class="big">AT TARGET</div>
+      <div id="farmStateDetail" class="small">
+        Baseline is the target amount, not a floor.
+      </div>
     </div>
 
-    <div>
-      <label>ATH distance</label>
-      <strong id="distance">—</strong>
+    <div class="metric-grid">
+      <div class="metric">
+        <div class="metric-label">Harvestable Excess</div>
+        <div id="harvestableDisplay" class="metric-value">$0</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Dip Gap</div>
+        <div id="dipGapDisplay" class="metric-value">$0</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Self-Funding</div>
+        <div id="selfFundingDisplay" class="metric-value">0%</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Value / External $</div>
+        <div id="valuePerDollarDisplay" class="metric-value">0.00×</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- LEDGER -->
+  <section class="card ledger">
+    <div class="card-title">Capital Ledger</div>
+
+    <div class="form-grid">
+
+      <div class="field">
+        <label for="baselineInput">Baseline Target</label>
+        <input id="baselineInput" type="number" min="0" step="0.01">
+      </div>
+
+      <div class="field">
+        <label for="currentInput">Current Crypto Value</label>
+        <input id="currentInput" type="number" min="0" step="0.01">
+      </div>
+
+      <div class="field">
+        <label for="externalInput">External Capital Supplied</label>
+        <input id="externalInput" type="number" min="0" step="0.01">
+      </div>
+
+      <div class="field">
+        <label for="extractedInput">Cumulative Extracted</label>
+        <input id="extractedInput" type="number" min="0" step="0.01">
+      </div>
+
+      <div class="field">
+        <label for="recycledInput">Realized Profit Recycled</label>
+        <input id="recycledInput" type="number" min="0" step="0.01">
+      </div>
+
+      <div class="field">
+        <label for="frictionInput">Fees / Spread / Tax Friction</label>
+        <input id="frictionInput" type="number" min="0" step="0.01">
+      </div>
+
     </div>
 
-    <div>
-      <label>Recovery from 90D low</label>
-      <strong id="recovery">—</strong>
+    <div class="controls" style="margin-top:12px">
+      <button class="small-btn" id="saveLedger">SAVE LEDGER</button>
+      <button class="small-btn" id="resetLedger">RESET LEDGER</button>
+      <button class="small-btn" id="exportData">EXPORT JSON</button>
     </div>
+  </section>
 
-    <div>
-      <label>90D range position</label>
-      <strong id="position">—</strong>
-    </div>
 
-  </div>
-
-
-  <canvas
-    id="chart"
-    width="1000"
-    height="220">
-  </canvas>
-
-
-  <div id="signal" class="signal">
-    Waiting for market data…
-  </div>
-
-</section>
-
-
-<section class="panel">
-
-  <div class="paneltitle">
-    <h2>Your Farm</h2>
-    <span class="hint">
-      baseline = target
-    </span>
-  </div>
-
-
-  <div class="capitalcards">
-
-    <div>
-      <label>Baseline target</label>
-      <strong id="base">$15,000</strong>
-    </div>
-
-    <div>
-      <label>Current value</label>
-      <strong id="value">$15,000</strong>
-    </div>
-
-    <div>
-      <label>Deviation</label>
-      <strong id="deviation">$0</strong>
-    </div>
-
-    <div>
-      <label>Farm state</label>
-      <strong id="farm">AT BASELINE</strong>
-    </div>
-
-  </div>
-
-
-  <div class="targetline">
-    <div
-      id="capitalMarker"
-      class="capitalMarker"
-      style="left:50%">
-    </div>
-  </div>
-
-  <div class="targetlabels">
-    <span>DIP / REBUILD</span>
-    <span>BASELINE TARGET</span>
-    <span>HARVEST EXCESS</span>
-  </div>
-
-
-  <div
-    class="capitalcards"
-    style="margin-top:12px">
-
-    <div>
-      <label>Harvestable excess</label>
-      <strong id="harvest">$0</strong>
-    </div>
-
-    <div>
-      <label>Dip gap</label>
-      <strong id="dip">$0</strong>
-    </div>
-
-    <div>
-      <label>Self-funding ratio</label>
-      <strong id="self">0%</strong>
-    </div>
-
-    <div>
-      <label>Value / external $</label>
-      <strong id="vper">$1.50</strong>
-    </div>
-
-  </div>
-
-</section>
-
-</section>
-
-
-<!-- =========================================================
-     CAPITAL LEDGER
-     ========================================================= -->
-
-<section class="panel" style="margin-top:12px">
-
-  <div class="paneltitle">
-    <h2>Capital Ledger</h2>
-
-    <span class="hint">
-      saved locally in this browser
-    </span>
-  </div>
-
-
-  <div class="row">
-
-    <div>
-      <label>Baseline target ($)</label>
-      <input
-        id="baseline"
-        type="number"
-        step="100"
-        value="15000">
-    </div>
-
-    <div>
-      <label>Current crypto value ($)</label>
-      <input
-        id="current"
-        type="number"
-        step="100"
-        value="15000">
-    </div>
-
-    <div>
-      <label>External capital supplied ($)</label>
-      <input
-        id="external"
-        type="number"
-        step="100"
-        value="10000">
-    </div>
-
-    <div>
-      <label>Cumulative capital extracted ($)</label>
-      <input
-        id="extracted"
-        type="number"
-        step="100"
-        value="0">
-    </div>
-
-    <div>
-      <label>Realized capital recycled ($)</label>
-      <input
-        id="recycled"
-        type="number"
-        step="100"
-        value="0">
-    </div>
-
-    <div>
-      <label>All-in round-trip friction (%)</label>
-      <input
-        id="friction"
-        type="number"
-        step="0.01"
-        value="0.80">
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================================================
-     DECISION + FRICTION
-     ========================================================= -->
-
-<section class="grid">
-
-
-<section class="panel">
-
-  <div class="paneltitle">
-    <h2>Decision Layer</h2>
-    <span class="hint">
-      you decide; the machine remembers
-    </span>
-  </div>
-
-
-  <p class="explain">
-    The market layer surfaces the actual evidence.
-    The baseline layer tells you what the target says.
-    The tool does not pretend to know when your brain sees
-    a real opportunity.
-  </p>
-
-
-  <div class="buttons">
-
-    <button
-      class="primary"
-      onclick="decision('GO')">
-      GO — deploy / rebuild
-    </button>
-
-    <button
-      onclick="decision('HARVEST')">
-      HARVEST — sell excess
-    </button>
-
-    <button
-      onclick="decision('WAIT')">
-      WAIT — baseline behavior
-    </button>
-
-    <button
-      onclick="decision('ATH WATCH')">
-      ATH WATCH — progressive extraction
-    </button>
-
-  </div>
-
-</section>
-
-
-<section class="panel">
-
-  <div class="paneltitle">
-    <h2>Friction Gate</h2>
-    <span class="hint">
-      don't farm noise
-    </span>
-  </div>
-
-
-  <div id="frictionText" class="explain">
-    Enter your real all-in round-trip friction.
-    The tool will show the minimum gross move required
-    just to overcome it.
-  </div>
-
-
-  <div
-    class="capitalcards"
-    style="margin-top:12px">
-
-    <div>
-      <label>Round-trip friction</label>
-      <strong id="frictionOut">0.80%</strong>
-    </div>
-
-    <div>
-      <label>Break-even move</label>
-      <strong id="breakeven">0.80%</strong>
-    </div>
-
-    <div>
-      <label>Current 7D move</label>
-      <strong id="move7">—</strong>
-    </div>
-
-    <div>
-      <label>Current 30D move</label>
-      <strong id="move30">—</strong>
-    </div>
-
-  </div>
-
-</section>
-
-</section>
-
-
-<!-- =========================================================
-     DECISION HISTORY
-     ========================================================= -->
-
-<section class="panel" style="margin-top:12px">
-
-  <div class="paneltitle">
-
-    <h2>Decision History</h2>
+  <!-- ACTIONS -->
+  <section class="card actions">
+    <div class="card-title">Decision Log</div>
 
     <div class="buttons">
-
-      <button onclick="exportState()">
-        Export JSON
-      </button>
-
-      <button onclick="clearHistory()">
-        Clear
-      </button>
-
+      <button class="action go" data-action="GO">GO</button>
+      <button class="action harvest" data-action="HARVEST">HARVEST</button>
+      <button class="action wait" data-action="WAIT">WAIT</button>
+      <button class="action ath" data-action="ATH WATCH">ATH WATCH</button>
     </div>
 
-  </div>
+    <div class="friction">
+      <strong>Friction gate</strong><br>
+      The tool does not assume that every visible movement is worth trading.
+      Shorter horizons only matter when expected movement is economically
+      larger than fees, spread, slippage, taxes and the opportunity cost of
+      acting.
+    </div>
+
+    <div style="margin-top:12px">
+      <div class="metric-grid">
+        <div class="metric">
+          <div class="metric-label">Last Action</div>
+          <div id="lastAction" class="metric-value">—</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-label">Action Price</div>
+          <div id="lastActionPrice" class="metric-value">—</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
 
-  <table>
-
-    <thead>
-      <tr>
-        <th>Time</th>
-        <th>Decision</th>
-        <th>BTC</th>
-        <th>Baseline</th>
-        <th>Value</th>
-        <th>Deviation</th>
-        <th>ATH gap</th>
-        <th>Trajectory</th>
-      </tr>
-    </thead>
-
-    <tbody id="history"></tbody>
-
-  </table>
-
-</section>
-
-
-<p class="mini" style="margin:12px 3px">
-  Market data: CoinPaprika public REST API.
-  This page uses no API key and computes the derived state locally.
-  The historical data availability of the free endpoint can change;
-  if the feed fails, the capital-management portion of this page
-  remains usable offline.
-</p>
+  <!-- HISTORY -->
+  <section class="card history">
+    <div class="card-title">Decision History</div>
+    <div id="historyList"></div>
+  </section>
 
 </main>
+</div>
 
 
 <script>
-
-/* ============================================================
-   CONFIGURATION
-   ============================================================ */
-
-const API =
-  'https://api.coinpaprika.com/v1';
-
-const COIN =
-  'btc-bitcoin';
-
-
-/* ============================================================
-   UTILITIES
-   ============================================================ */
-
-const $ = id =>
-  document.getElementById(id);
-
-
-function num(id){
-  return Number($(id).value) || 0;
-}
-
-
-function money(x){
-  return Number.isFinite(x)
-    ? x.toLocaleString(
-        undefined,
-        {
-          style:'currency',
-          currency:'USD',
-          maximumFractionDigits:0
-        }
-      )
-    : '—';
-}
-
-
-function pct(x){
-  return Number.isFinite(x)
-    ? (x >= 0 ? '+' : '') +
-      x.toFixed(1) +
-      '%'
-    : '—';
-}
-
-
-function avg(a){
-  return a.length
-    ? a.reduce((s,x)=>s+x,0)/a.length
-    : 0;
-}
-
-
-function change(now,then){
-  return then
-    ? ((now / then) - 1) * 100
-    : 0;
-}
-
+"use strict";
 
 /*
-  Linear regression slope.
+  BASELINE FARMER
+  ----------------
+  Single-file application.
 
-  This is intentionally descriptive:
-  it tells us whether the observed path is rising/falling
-  rather than claiming to predict the future.
+  Market source:
+    CoinPaprika public REST API
+    No API key required.
+
+  Important:
+    CoinPaprika historical ticker data is PRICE POINT data.
+    It is NOT OHLC candle data.
+    Therefore this application does not fabricate candles or
+    calculate fake Heikin-Ashi from historical price points.
+
+  Architecture:
+    ticker -> live market state
+    daily history -> trajectory/swing state
+    hourly history -> optional short-term price path
+    capital ledger -> independent of market API
+    localStorage -> persistent state/cache
 */
-function slope(a){
-
-  if(a.length < 2)
-    return 0;
-
-  const n = a.length;
-
-  const mx = (n - 1) / 2;
-
-  const my = avg(a);
-
-  let numerator = 0;
-  let denominator = 0;
-
-  for(let i=0;i<n;i++){
-
-    numerator +=
-      (i - mx) *
-      (a[i] - my);
-
-    denominator +=
-      (i - mx) *
-      (i - mx);
-  }
-
-  return denominator
-    ? numerator / denominator
-    : 0;
-}
 
 
-/* ============================================================
-   HEIKIN-ASHI
-   ============================================================ */
+const API = "https://api.coinpaprika.com/v1";
+const COIN = "btc-bitcoin";
 
-function heikinAshi(candles){
-
-  const output = [];
-
-  let previous = null;
-
-  for(const c of candles){
-
-    const close =
-      (
-        c.open +
-        c.high +
-        c.low +
-        c.close
-      ) / 4;
-
-    const open =
-      previous
-        ? (
-            previous.open +
-            previous.close
-          ) / 2
-        : (
-            c.open +
-            c.close
-          ) / 2;
-
-    const high =
-      Math.max(
-        c.high,
-        open,
-        close
-      );
-
-    const low =
-      Math.min(
-        c.low,
-        open,
-        close
-      );
-
-    const candle = {
-      open,
-      close,
-      high,
-      low
-    };
-
-    output.push(candle);
-
-    previous = candle;
-  }
-
-  return output;
-}
-
-
-/* ============================================================
-   MARKET STATE
-   ============================================================ */
-
-let market = {
-
-  price:null,
-
-  ath:null,
-
-  athDate:null,
-
-  daily:[],
-
-  hourly:[],
-
-  updated:null,
-
-  trajectory:'—'
-
+const KEYS = {
+  ledger: "baseline-farmer-ledger-v3",
+  history: "baseline-farmer-decisions-v3",
+  market: "baseline-farmer-market-cache-v3",
+  daily: "baseline-farmer-daily-cache-v3",
+  hourly: "baseline-farmer-hourly-cache-v3"
 };
 
+const DEFAULT_LEDGER = {
+  baseline: 15000,
+  currentValue: 15000,
+  externalCapital: 15000,
+  extracted: 0,
+  recycled: 0,
+  friction: 0
+};
 
-/* ============================================================
-   NETWORK
-   ============================================================ */
+let ledger = loadJSON(KEYS.ledger, DEFAULT_LEDGER);
+let decisions = loadJSON(KEYS.history, []);
 
-async function get(url){
+let market = {
+  price: null,
+  ath: null,
+  athDate: null,
+  athGap: null,
+  change1h: null,
+  change24h: null,
+  change7d: null,
+  change30d: null,
+  lastUpdated: null,
+  tickerFresh: false,
+  tickerError: null
+};
 
-  const response =
-    await fetch(
-      url,
-      {
-        cache:'no-store'
-      }
-    );
+let daily = [];
+let hourly = [];
 
-  if(!response.ok)
-    throw new Error(
-      'HTTP ' +
-      response.status
-    );
+let previousPrice = null;
+let previousChange1h = null;
 
-  return response.json();
+
+/* ---------------------------------------------------------
+   UTILITIES
+--------------------------------------------------------- */
+
+function $(id){
+  return document.getElementById(id);
 }
 
-
-/* ============================================================
-   LOCAL CAPITAL STATE
-   ============================================================ */
-
-function loadLocal(){
-
-  const saved =
-    JSON.parse(
-      localStorage.getItem(
-        'bf-capital'
-      ) || 'null'
-    );
-
-  if(saved){
-
-    for(
-      const key of [
-        'baseline',
-        'current',
-        'external',
-        'extracted',
-        'recycled',
-        'friction'
-      ]
-    ){
-
-      if(saved[key] != null)
-        $(key).value = saved[key];
-
-    }
-
-  }
-
-
-  const history =
-    JSON.parse(
-      localStorage.getItem(
-        'bf-history'
-      ) || '[]'
-    );
-
-
-  for(const item of history){
-
-    addHistoryRow(
-      item,
-      false
-    );
-
-  }
-
+function num(v, fallback=0){
+  const n = Number(v);
+  return Number.isFinite(n) ? n : fallback;
 }
 
-
-function saveCapital(){
-
-  const state = {};
-
-  for(
-    const key of [
-      'baseline',
-      'current',
-      'external',
-      'extracted',
-      'recycled',
-      'friction'
-    ]
-  ){
-
-    state[key] = $(key).value;
-
+function fmtUSD(v, digits=0){
+  if(v === null || v === undefined || !Number.isFinite(Number(v))){
+    return "—";
   }
 
-  localStorage.setItem(
-    'bf-capital',
-    JSON.stringify(state)
+  return new Intl.NumberFormat("en-US", {
+    style:"currency",
+    currency:"USD",
+    minimumFractionDigits:digits,
+    maximumFractionDigits:digits
+  }).format(Number(v));
+}
+
+function fmtPct(v, digits=1){
+  if(v === null || v === undefined || !Number.isFinite(Number(v))){
+    return "—";
+  }
+
+  const n = Number(v);
+  return `${n >= 0 ? "+" : ""}${n.toFixed(digits)}%`;
+}
+
+function signedUSD(v){
+  if(v === null || v === undefined || !Number.isFinite(Number(v))){
+    return "—";
+  }
+
+  const n = Number(v);
+  return `${n >= 0 ? "+" : "-"}${fmtUSD(Math.abs(n))}`;
+}
+
+function clamp(v,min,max){
+  return Math.max(min,Math.min(max,v));
+}
+
+function daysBetween(a,b){
+  const ms = Math.abs(new Date(b)-new Date(a));
+  return Math.floor(ms / 86400000);
+}
+
+function formatDate(d){
+  if(!d) return "—";
+
+  const date = new Date(d);
+
+  if(Number.isNaN(date.getTime())) return "—";
+
+  return date.toLocaleDateString(undefined,{
+    year:"numeric",
+    month:"short",
+    day:"numeric"
+  });
+}
+
+function formatTime(d){
+  if(!d) return "—";
+
+  const date = new Date(d);
+
+  if(Number.isNaN(date.getTime())) return "—";
+
+  return date.toLocaleTimeString(undefined,{
+    hour:"numeric",
+    minute:"2-digit"
+  });
+}
+
+function directionClass(v){
+  if(v > 0) return "positive";
+  if(v < 0) return "negative";
+  return "neutral";
+}
+
+function directionWord(v){
+  if(v > 0.5) return "RISING";
+  if(v < -0.5) return "FALLING";
+  return "MIXED";
+}
+
+function saveJSON(key,value){
+  try{
+    localStorage.setItem(key,JSON.stringify(value));
+  }catch(e){
+    console.warn("localStorage write failed",e);
+  }
+}
+
+function loadJSON(key,fallback){
+  try{
+    const raw = localStorage.getItem(key);
+    if(!raw) return fallback;
+    return JSON.parse(raw);
+  }catch(e){
+    console.warn("localStorage read failed",e);
+    return fallback;
+  }
+}
+
+async function fetchJSON(url, timeout=15000){
+  const controller = new AbortController();
+
+  const timer = setTimeout(
+    ()=>controller.abort(),
+    timeout
   );
 
+  try{
+    const response = await fetch(url,{
+      method:"GET",
+      cache:"no-store",
+      signal:controller.signal
+    });
+
+    if(!response.ok){
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    return await response.json();
+  }finally{
+    clearTimeout(timer);
+  }
 }
 
 
-/* ============================================================
-   CAPITAL RENDERING
-   ============================================================ */
+/* ---------------------------------------------------------
+   LEDGER
+--------------------------------------------------------- */
+
+function normalizeLedger(){
+  ledger = {
+    baseline:Math.max(0,num(ledger.baseline)),
+    currentValue:Math.max(0,num(ledger.currentValue)),
+    externalCapital:Math.max(0,num(ledger.externalCapital)),
+    extracted:Math.max(0,num(ledger.extracted)),
+    recycled:Math.max(0,num(ledger.recycled)),
+    friction:Math.max(0,num(ledger.friction))
+  };
+}
+
+function loadLedgerIntoInputs(){
+  $("baselineInput").value = ledger.baseline;
+  $("currentInput").value = ledger.currentValue;
+  $("externalInput").value = ledger.externalCapital;
+  $("extractedInput").value = ledger.extracted;
+  $("recycledInput").value = ledger.recycled;
+  $("frictionInput").value = ledger.friction;
+}
+
+function readLedgerFromInputs(){
+  ledger.baseline = Math.max(0,num($("baselineInput").value));
+  ledger.currentValue = Math.max(0,num($("currentInput").value));
+  ledger.externalCapital = Math.max(0,num($("externalInput").value));
+  ledger.extracted = Math.max(0,num($("extractedInput").value));
+  ledger.recycled = Math.max(0,num($("recycledInput").value));
+  ledger.friction = Math.max(0,num($("frictionInput").value));
+}
 
 function renderCapital(){
 
-  const baseline =
-    num('baseline');
-
-  const value =
-    num('current');
+  normalizeLedger();
 
   const deviation =
-    value - baseline;
+    ledger.currentValue - ledger.baseline;
 
-  const external =
-    num('external');
+  const harvestable =
+    Math.max(0,deviation);
 
-  const extracted =
-    num('extracted');
-
-  const friction =
-    num('friction');
-
-
-  $('base').textContent =
-    money(baseline);
-
-  $('value').textContent =
-    money(value);
-
-
-  $('deviation').textContent =
-    (
-      deviation >= 0
-        ? '+'
-        : ''
-    ) +
-    money(deviation);
-
-
-  $('deviation').className =
-    deviation >= 0
-      ? 'good'
-      : 'bad';
-
-
-  /*
-    Baseline is the target centerline.
-
-    Above baseline:
-      excess exists to harvest.
-
-    Below baseline:
-      target gap exists to rebuild.
-
-    It is NOT a floor.
-  */
-
-  if(deviation > 0.5){
-
-    $('farm').textContent =
-      'HARVEST';
-
-    $('farm').className =
-      'good';
-
-  }
-  else if(deviation < -0.5){
-
-    $('farm').textContent =
-      'DIP / REBUILD';
-
-    $('farm').className =
-      'bad';
-
-  }
-  else{
-
-    $('farm').textContent =
-      'AT BASELINE';
-
-    $('farm').className =
-      'teal';
-
-  }
-
-
-  $('harvest').textContent =
-    money(
-      Math.max(0,deviation)
-    );
-
-
-  $('dip').textContent =
-    money(
-      Math.max(0,-deviation)
-    );
-
+  const dipGap =
+    Math.max(0,-deviation);
 
   const selfFunding =
-    external
-      ? extracted / external * 100
+    ledger.externalCapital > 0
+      ? ledger.extracted / ledger.externalCapital
       : 0;
 
+  const totalEconomicValue =
+    ledger.currentValue + ledger.extracted;
 
-  $('self').textContent =
-    external
-      ? selfFunding.toFixed(1) + '%'
-      : '—';
+  const valuePerExternalDollar =
+    ledger.externalCapital > 0
+      ? totalEconomicValue / ledger.externalCapital
+      : 0;
 
+  $("baselineDisplay").textContent =
+    fmtUSD(ledger.baseline);
 
-  $('vper').textContent =
-    external
-      ? money(
-          (
-            value +
-            extracted
-          ) / external
-        )
-      : '—';
+  $("currentValueDisplay").textContent =
+    fmtUSD(ledger.currentValue);
 
+  $("deviationDisplay").textContent =
+    signedUSD(deviation);
 
-  /*
-    Put the marker around the baseline center.
+  $("deviationDisplay").className =
+    "metric-value " + directionClass(deviation);
 
-    This intentionally shows deviation rather than
-    pretending baseline is a floor.
-  */
+  $("externalDisplay").textContent =
+    fmtUSD(ledger.externalCapital);
 
-  let position =
-    baseline
-      ? 50 + (
-          deviation / baseline
-        ) * 50
-      : 50;
+  $("extractedDisplay").textContent =
+    fmtUSD(ledger.extracted);
 
-  position =
-    Math.max(
-      2,
-      Math.min(
-        98,
-        position
-      )
-    );
+  $("recycledDisplay").textContent =
+    fmtUSD(ledger.recycled);
 
+  $("frictionDisplay").textContent =
+    fmtUSD(ledger.friction);
 
-  $('capitalMarker')
-    .style
-    .left =
-    position + '%';
+  $("harvestableDisplay").textContent =
+    fmtUSD(harvestable);
 
+  $("dipGapDisplay").textContent =
+    fmtUSD(dipGap);
 
-  $('frictionOut').textContent =
-    friction.toFixed(2) + '%';
+  $("selfFundingDisplay").textContent =
+    `${(selfFunding * 100).toFixed(1)}%`;
 
-  $('breakeven').textContent =
-    friction.toFixed(2) + '%';
+  $("valuePerDollarDisplay").textContent =
+    `${valuePerExternalDollar.toFixed(2)}×`;
 
+  let state;
+  let detail;
 
-  saveCapital();
+  if(Math.abs(deviation) < 0.005){
+    state = "AT TARGET";
+    detail =
+      "Current value is sitting on the baseline target.";
+  }
+  else if(deviation > 0){
+    state = "ABOVE TARGET";
+    detail =
+      "Excess above the baseline is harvestable capital.";
+  }
+  else{
+    state = "BELOW TARGET";
+    detail =
+      "The portfolio is below the baseline target; the gap is the dip/rebuild amount.";
+  }
 
+  $("farmState").textContent = state;
+  $("farmStateDetail").textContent = detail;
+
+  $("farmState").className =
+    "big " +
+    (deviation > 0
+      ? "positive"
+      : deviation < 0
+        ? "negative"
+        : "neutral");
 }
 
 
-/* ============================================================
-   MARKET RENDERING
-   ============================================================ */
+/* ---------------------------------------------------------
+   MARKET TICKER
+--------------------------------------------------------- */
+
+async function fetchTicker(){
+
+  try{
+
+    const ticker =
+      await fetchJSON(`${API}/tickers/${COIN}`);
+
+    if(!ticker || !ticker.quotes || !ticker.quotes.USD){
+      throw new Error("Ticker response missing USD quote");
+    }
+
+    const q = ticker.quotes.USD;
+
+    const oldPrice = market.price;
+
+    market.price =
+      Number.isFinite(Number(q.price))
+        ? Number(q.price)
+        : null;
+
+    market.ath =
+      Number.isFinite(Number(q.ath_price))
+        ? Number(q.ath_price)
+        : null;
+
+    market.athDate =
+      q.ath_date || null;
+
+    market.athGap =
+      Number.isFinite(Number(q.percent_from_price_ath))
+        ? Number(q.percent_from_price_ath)
+        : null;
+
+    market.change1h =
+      Number.isFinite(Number(q.percent_change_1h))
+        ? Number(q.percent_change_1h)
+        : null;
+
+    market.change24h =
+      Number.isFinite(Number(q.percent_change_24h))
+        ? Number(q.percent_change_24h)
+        : null;
+
+    market.change7d =
+      Number.isFinite(Number(q.percent_change_7d))
+        ? Number(q.percent_change_7d)
+        : null;
+
+    market.change30d =
+      Number.isFinite(Number(q.percent_change_30d))
+        ? Number(q.percent_change_30d)
+        : null;
+
+    market.lastUpdated =
+      ticker.last_updated || new Date().toISOString();
+
+    market.tickerFresh = true;
+    market.tickerError = null;
+
+    previousPrice = oldPrice;
+    previousChange1h = market.change1h;
+
+    saveJSON(KEYS.market,market);
+
+    renderMarket();
+
+    return true;
+
+  }catch(error){
+
+    console.error("Ticker error:",error);
+
+    market.tickerFresh = false;
+    market.tickerError = error.message;
+
+    const cached =
+      loadJSON(KEYS.market,null);
+
+    if(cached && cached.price){
+
+      market = {
+        ...market,
+        ...cached,
+        tickerFresh:false,
+        tickerError:error.message
+      };
+
+      renderMarket();
+      return false;
+    }
+
+    renderMarket();
+
+    return false;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   DAILY HISTORY
+--------------------------------------------------------- */
+
+async function fetchDailyHistory(){
+
+  try{
+
+    const start =
+      new Date(
+        Date.now() - 95 * 86400000
+      );
+
+    const date =
+      start.toISOString().slice(0,10);
+
+    const url =
+      `${API}/tickers/${COIN}/historical` +
+      `?start=${date}` +
+      `&interval=1d` +
+      `&quote=usd` +
+      `&limit=200`;
+
+    const data =
+      await fetchJSON(url);
+
+    if(!Array.isArray(data) || data.length < 2){
+      throw new Error("Daily history returned insufficient data");
+    }
+
+    daily =
+      data
+        .filter(x =>
+          x &&
+          Number.isFinite(Number(x.price)) &&
+          x.timestamp
+        )
+        .map(x => ({
+          timestamp:x.timestamp,
+          price:Number(x.price),
+          volume:Number(x.volume_24h)||0,
+          marketCap:Number(x.market_cap)||0
+        }))
+        .sort(
+          (a,b)=>
+            new Date(a.timestamp) -
+            new Date(b.timestamp)
+        );
+
+    if(daily.length < 2){
+      throw new Error("No usable daily price points");
+    }
+
+    saveJSON(KEYS.daily,daily);
+
+    renderHistoryState();
+
+    return true;
+
+  }catch(error){
+
+    console.warn("Daily history unavailable:",error);
+
+    const cached =
+      loadJSON(KEYS.daily,[]);
+
+    if(Array.isArray(cached) && cached.length >= 2){
+      daily = cached;
+      renderHistoryState();
+    }
+
+    updateHistoryStatus("daily",error.message);
+
+    return false;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   HOURLY HISTORY
+--------------------------------------------------------- */
+
+async function fetchHourlyHistory(){
+
+  try{
+
+    const start =
+      new Date(
+        Date.now() - 24 * 3600000
+      );
+
+    const date =
+      start.toISOString();
+
+    const url =
+      `${API}/tickers/${COIN}/historical` +
+      `?start=${encodeURIComponent(date)}` +
+      `&interval=1h` +
+      `&quote=usd` +
+      `&limit=48`;
+
+    const data =
+      await fetchJSON(url);
+
+    if(!Array.isArray(data) || data.length < 2){
+      throw new Error("Hourly history returned insufficient data");
+    }
+
+    hourly =
+      data
+        .filter(x =>
+          x &&
+          Number.isFinite(Number(x.price)) &&
+          x.timestamp
+        )
+        .map(x => ({
+          timestamp:x.timestamp,
+          price:Number(x.price)
+        }))
+        .sort(
+          (a,b)=>
+            new Date(a.timestamp) -
+            new Date(b.timestamp)
+        );
+
+    saveJSON(KEYS.hourly,hourly);
+
+    renderShortTerm();
+
+    return true;
+
+  }catch(error){
+
+    console.warn("Hourly history unavailable:",error);
+
+    const cached =
+      loadJSON(KEYS.hourly,[]);
+
+    if(Array.isArray(cached) && cached.length >= 2){
+      hourly = cached;
+      renderShortTerm();
+    }
+
+    updateHistoryStatus("hourly",error.message);
+
+    return false;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   MARKET RENDER
+--------------------------------------------------------- */
 
 function renderMarket(){
 
-  const price =
-    market.price;
+  $("btcPrice").textContent =
+    fmtUSD(market.price,2);
 
-  const ath =
-    market.ath;
+  $("athPrice").textContent =
+    fmtUSD(market.ath,0);
 
-  const daily =
-    market.daily;
+  $("athGap").textContent =
+    fmtPct(market.athGap);
 
-  const hourly =
-    market.hourly;
+  $("athGap").className =
+    "metric-value negative";
 
+  $("athDate").textContent =
+    formatDate(market.athDate);
 
-  if(!price)
-    return;
+  $("daysSinceAth").textContent =
+    market.athDate
+      ? daysBetween(
+          market.athDate,
+          new Date()
+        )
+      : "—";
 
+  setPct("change1h",market.change1h);
+  setPct("change24",market.change24h);
+  setPct("change7d",market.change7d);
+  setPct("change30d",market.change30d);
 
-  $('price').textContent =
-    money(price);
+  if(market.ath && market.price){
 
-  $('ath').textContent =
-    money(ath);
+    const distance =
+      ((market.ath - market.price) / market.ath) * 100;
 
+    $("athDistance").textContent =
+      `${distance.toFixed(1)}%`;
 
-  const athGap =
-    change(
-      price,
-      ath
-    );
+    if(distance <= 5){
+      $("athHorizon").textContent = "NEAR ATH";
+      $("athHorizon").className = "metric-value warning";
+    }
+    else if(distance <= 15){
+      $("athHorizon").textContent = "APPROACHING";
+      $("athHorizon").className = "metric-value neutral";
+    }
+    else{
+      $("athHorizon").textContent = "DISTANT";
+      $("athHorizon").className = "metric-value";
+    }
+  }
 
+  if(market.tickerFresh){
 
-  $('athGap').textContent =
-    pct(athGap);
+    $("connectionStatus").innerHTML =
+      "<strong>LIVE TICKER</strong>";
 
+    $("lastUpdated").textContent =
+      `Updated ${formatTime(market.lastUpdated)}`;
 
-  const age =
-    (
-      Date.now() -
-      new Date(
-        market.athDate
-      ).getTime()
-    ) / 86400000;
+    $("marketDataStatus").textContent =
+      "Live ticker connected. Historical layers load independently.";
 
+  }else if(market.price){
 
-  $('athAge').textContent =
-    Math.max(
-      0,
-      Math.round(age)
-    );
+    $("connectionStatus").innerHTML =
+      '<span class="warning">CACHED TICKER</span>';
 
+    $("lastUpdated").textContent =
+      "Live ticker unavailable";
 
-  const dailyPrices =
-    daily
-      .map(x=>x.price)
-      .filter(
-        Number.isFinite
-      );
+    $("marketDataStatus").textContent =
+      `Showing cached ticker. ${market.tickerError || ""}`;
 
+  }else{
 
-  if(dailyPrices.length < 2)
-    return;
+    $("connectionStatus").textContent =
+      "NO TICKER DATA";
 
+    $("lastUpdated").textContent =
+      "Waiting for connection";
 
-  /*
-    These windows deliberately represent
-    different economic scales.
+    $("marketDataStatus").textContent =
+      `Ticker unavailable. ${market.tickerError || ""}`;
+  }
+}
 
-    7D  = short swing
-    30D = medium swing
-    90D = larger tactical movement
-  */
+function setPct(id,value){
 
-  const p7 =
-    dailyPrices[
-      Math.max(
-        0,
-        dailyPrices.length - 8
-      )
-    ];
+  const el = $(id);
 
-  const p30 =
-    dailyPrices[
-      Math.max(
-        0,
-        dailyPrices.length - 31
-      )
-    ];
+  el.textContent =
+    fmtPct(value);
 
-  const p90 =
-    dailyPrices[0];
+  el.className =
+    directionClass(num(value,0));
+}
 
 
-  const c7 =
-    change(
-      price,
-      p7
-    );
+/* ---------------------------------------------------------
+   DAILY ANALYSIS
+--------------------------------------------------------- */
 
-  const c30 =
-    change(
-      price,
-      p30
-    );
+function sliceDays(days){
 
-  const c90 =
-    change(
-      price,
-      p90
-    );
+  if(!daily.length){
+    return [];
+  }
 
+  const cutoff =
+    Date.now() - days * 86400000;
 
-  /*
-    Recent 90-day topology.
-  */
-
-  const low90 =
-    Math.min(
-      ...dailyPrices
-    );
-
-  const high90 =
-    Math.max(
-      ...dailyPrices
-    );
-
-
-  const position =
-    high90 > low90
-      ? (
-          (price - low90) /
-          (high90 - low90)
-        ) * 100
-      : 50;
-
-
-  const recovery =
-    change(
-      price,
-      low90
-    );
-
-
-  /*
-    Heikin-Ashi is built from the available
-    recent hourly observations.
-
-    If the free endpoint does not supply candles,
-    we simply show the state as unavailable.
-  */
-
-  const hourlyCandles =
-    hourly.map(
-      x=>({
-        open:x.price,
-        high:x.price,
-        low:x.price,
-        close:x.price
-      })
-    );
-
-
-  const ha =
-    heikinAshi(
-      hourlyCandles
-    );
-
-
-  const lastHA =
-    ha.slice(-8);
-
-
-  const haUp =
-    lastHA.filter(
-      x=>x.close>x.open
-    ).length;
-
-  const haDown =
-    lastHA.length - haUp;
-
-
-  const haDirection =
-    haUp > haDown
-      ? 'UP'
-      : haDown > haUp
-        ? 'DOWN'
-        : 'MIXED';
-
-
-  /*
-    Descriptive slope / acceleration.
-
-    The comparison is normalized by the number
-    of observations so that 7D and 30D are
-    roughly comparable.
-  */
-
-  const s7 =
-    slope(
-      dailyPrices.slice(-7)
-    );
-
-  const s30 =
-    slope(
-      dailyPrices.slice(-30)
-    );
-
-
-  const acceleration =
-    s7 -
-    (
-      s30 / 4.285
-    );
-
-
-  const positive =
-    [
-      c7,
-      c30,
-      c90
-    ].filter(
-      x=>x>0
-    ).length;
-
-
-  let direction;
-
-  if(positive >= 2)
-    direction='ADVANCING';
-  else if(positive === 0)
-    direction='RETREATING';
-  else
-    direction='MIXED';
-
-
-  let persistence;
-
-  if(positive === 3)
-    persistence='STRONG';
-  else if(positive >= 2)
-    persistence='BUILDING';
-  else if(positive === 0)
-    persistence='WEAK';
-  else
-    persistence='MIXED';
-
-
-  let accelerationLabel;
-
-  if(acceleration > 0)
-    accelerationLabel='ACCELERATING';
-  else if(acceleration < 0)
-    accelerationLabel='DECELERATING';
-  else
-    accelerationLabel='FLAT';
-
-
-  market.trajectory =
-    direction;
-
-
-  $('trajectory').textContent =
-    direction;
-
-
-  $('trajectory').className =
-    'trajectoryState ' +
-    (
-      direction === 'ADVANCING'
-        ? 'good'
-        : direction === 'RETREATING'
-          ? 'bad'
-          : 'yellow'
-    );
-
-
-  $('trajectoryText').textContent =
-    persistence +
-    ' persistence · ' +
-    accelerationLabel.toLowerCase() +
-    ' · ' +
-    pct(c90) +
-    ' over 90 days. ' +
-    'This is measured path behavior, not a price prediction.';
-
-
-  /*
-    ATH-relative position.
-
-    0 = essentially no recovery
-    100 = ATH
-
-    This is visual context, not probability.
-  */
-
-  const athPosition =
-    Math.max(
-      2,
-      Math.min(
-        98,
-        (
-          1 -
-          Math.abs(athGap) / 100
-        ) * 100
-      )
-    );
-
-
-  $('rangeNow')
-    .style
-    .left =
-    athPosition + '%';
-
-
-  /*
-    Short-term state.
-  */
-
-  $('shortState').textContent =
-    haDirection;
-
-
-  $('shortState').className =
-    'bigstate ' +
-    (
-      haDirection === 'UP'
-        ? 'good'
-        : haDirection === 'DOWN'
-          ? 'bad'
-          : 'yellow'
-    );
-
-
-  $('shortMetrics').innerHTML =
-    `
-      <span>
-        7D
-        <b>${pct(c7)}</b>
-      </span>
-
-      <span>
-        1H HA
-        <b>
-          ${
-            ha.length
-              ? (
-                  ha[
-                    ha.length-1
-                  ].close >
-                  ha[
-                    ha.length-1
-                  ].open
-                    ? 'bullish'
-                    : 'bearish'
-                )
-              : '—'
-          }
-        </b>
-      </span>
-
-      <span>
-        4H trend
-        <b>${trend4(ha)}</b>
-      </span>
-
-      <span>
-        HA run
-        <b>${haRun(ha)}</b>
-      </span>
-    `;
-
-
-  /*
-    Swing state.
-  */
-
-  $('swingState').textContent =
-    c90 > 0
-      ? 'RECOVERING'
-      : 'RETRACING';
-
-
-  $('swingMetrics').innerHTML =
-    `
-      <span>
-        30D
-        <b>${pct(c30)}</b>
-      </span>
-
-      <span>
-        90D
-        <b>${pct(c90)}</b>
-      </span>
-
-      <span>
-        90D low
-        <b>${money(low90)}</b>
-      </span>
-
-      <span>
-        range position
-        <b>${position.toFixed(0)}%</b>
-      </span>
-    `;
-
-
-  /*
-    Cycle context.
-  */
-
-  $('cycleState').textContent =
-    Math.abs(athGap) < 20
-      ? 'ATH APPROACH'
-      : athGap > -50
-        ? 'RECOVERY'
-        : 'DEEP DISCOUNT';
-
-
-  $('cycleMetrics').innerHTML =
-    `
-      <span>
-        ATH gap
-        <b>${pct(athGap)}</b>
-      </span>
-
-      <span>
-        days since ATH
-        <b>${Math.round(age)}</b>
-      </span>
-
-      <span>
-        ATH
-        <b>${money(ath)}</b>
-      </span>
-
-      <span>
-        90D recovery
-        <b>${pct(recovery)}</b>
-      </span>
-    `;
-
-
-  /*
-    Evidence panel.
-  */
-
-  $('dir').textContent =
-    direction;
-
-  $('persist').textContent =
-    persistence;
-
-  $('accel').textContent =
-    accelerationLabel;
-
-  $('distance').textContent =
-    pct(athGap);
-
-  $('recovery').textContent =
-    pct(recovery);
-
-  $('position').textContent =
-    position.toFixed(0) +
-    '%';
-
-
-  $('move7').textContent =
-    pct(c7);
-
-  $('move30').textContent =
-    pct(c30);
-
-
-  $('signal').textContent =
-    'The measured evidence is ' +
-    direction.toLowerCase() +
-    ' with ' +
-    persistence.toLowerCase() +
-    ' persistence and ' +
-    accelerationLabel.toLowerCase() +
-    ' momentum. ' +
-    'Short-term Heikin-Ashi is ' +
-    haDirection.toLowerCase() +
-    '. ' +
-    'The machine surfaces this; it does not turn it into an automatic trade.';
-
-
-  drawChart(
-    dailyPrices
+  return daily.filter(
+    x => new Date(x.timestamp).getTime() >= cutoff
   );
-
 }
 
-
-/* ============================================================
-   SHORT-TERM HELPERS
-   ============================================================ */
-
-function trend4(ha){
-
-  if(ha.length < 8)
-    return '—';
-
-  const recent =
-    ha.slice(-8);
-
-  const up =
-    recent.filter(
-      x=>x.close>x.open
-    ).length;
-
-  if(up >= 5)
-    return 'up';
-
-  if(up <= 3)
-    return 'down';
-
-  return 'mixed';
+function firstPrice(points){
+  return points.length
+    ? points[0].price
+    : null;
 }
 
+function lastPrice(points){
+  return points.length
+    ? points[points.length-1].price
+    : null;
+}
 
-function haRun(ha){
+function pctMove(points){
 
-  if(!ha.length)
-    return '—';
+  if(points.length < 2) return null;
 
-  const up =
-    ha[
-      ha.length-1
-    ].close >
-    ha[
-      ha.length-1
-    ].open;
+  const first =
+    firstPrice(points);
 
-  let count=0;
+  const last =
+    lastPrice(points);
 
-  for(
-    let i=ha.length-1;
-    i>=0;
-    i--
-  ){
+  if(!first) return null;
 
-    const thisUp =
-      ha[i].close >
-      ha[i].open;
+  return ((last-first)/first)*100;
+}
 
-    if(thisUp === up)
-      count++;
-    else
-      break;
+function linearSlope(points){
+
+  if(points.length < 3){
+    return null;
+  }
+
+  const n = points.length;
+
+  let sx=0;
+  let sy=0;
+  let sxy=0;
+  let sx2=0;
+
+  for(let i=0;i<n;i++){
+
+    const x=i;
+    const y=points[i].price;
+
+    sx += x;
+    sy += y;
+    sxy += x*y;
+    sx2 += x*x;
+  }
+
+  const denominator =
+    n*sx2 - sx*sx;
+
+  if(!denominator){
+    return null;
   }
 
   return (
-    up ? '↑' : '↓'
-  ) + count;
+    (n*sxy - sx*sy) /
+    denominator
+  );
+}
+
+function renderHistoryState(){
+
+  if(!daily.length){
+
+    $("dataQuality").textContent =
+      "TICKER ONLY";
+
+    $("trajectoryState").textContent =
+      "WAITING";
+
+    $("trajectoryDetail").textContent =
+      "No daily history available yet.";
+
+    return;
+  }
+
+  const p7 = sliceDays(7);
+  const p30 = sliceDays(30);
+  const p90 = sliceDays(90);
+
+  const m7 = pctMove(p7);
+  const m30 = pctMove(p30);
+  const m90 = pctMove(p90);
+
+  setDirectionMetric("dir7",m7);
+  setDirectionMetric("dir30",m30);
+  setDirectionMetric("dir90",m90);
+
+  const positives =
+    [m7,m30,m90]
+      .filter(x => x !== null && x > 0.5)
+      .length;
+
+  const negatives =
+    [m7,m30,m90]
+      .filter(x => x !== null && x < -0.5)
+      .length;
+
+  let persistence;
+
+  if(positives === 3){
+    persistence = "STRONG";
+  }
+  else if(positives >= 2){
+    persistence = "BUILDING";
+  }
+  else if(negatives === 3){
+    persistence = "STRONG DOWN";
+  }
+  else if(negatives >= 2){
+    persistence = "WEAKENING";
+  }
+  else{
+    persistence = "MIXED";
+  }
+
+  $("persistence").textContent =
+    persistence;
+
+  let trajectory;
+  let detail;
+
+  /*
+    Descriptive trajectory only.
+
+    This does NOT predict price.
+    It answers:
+      advancing?
+      retreating?
+      mixed/noisy?
+  */
+
+  if(positives === 3){
+
+    trajectory = "ADVANCING";
+
+    detail =
+      "7D, 30D and 90D paths are all rising. " +
+      "That is persistent advancement toward the ATH, " +
+      "not a prediction of continuation.";
+  }
+  else if(negatives === 3){
+
+    trajectory = "RETREATING";
+
+    detail =
+      "7D, 30D and 90D paths are all falling. " +
+      "The market is moving away from the ATH across multiple windows.";
+  }
+  else if(positives > negatives){
+
+    trajectory = "ADVANCING / MIXED";
+
+    detail =
+      "The larger structure is stronger than the shorter-term weakness. " +
+      "The path is advancing, but not uniformly.";
+  }
+  else if(negatives > positives){
+
+    trajectory = "RETREATING / MIXED";
+
+    detail =
+      "The larger structure is weaker than the shorter-term strength. " +
+      "The path is retreating, but not uniformly.";
+  }
+  else{
+
+    trajectory = "SIDEWAYS / NOISY";
+
+    detail =
+      "The available windows disagree. " +
+      "There is no clean directional path to describe.";
+  }
+
+  $("trajectoryState").textContent =
+    trajectory;
+
+  $("trajectoryState").className =
+    "state " +
+    (
+      trajectory.startsWith("ADVANCING")
+        ? "positive"
+        : trajectory.startsWith("RETREATING")
+          ? "negative"
+          : "neutral"
+    );
+
+  $("trajectoryDetail").textContent =
+    detail;
+
+  renderSwing(p90);
+  renderRecovery(p90);
+  renderChart(p90);
+
+  $("dataQuality").textContent =
+    daily.length >= 60
+      ? "GOOD"
+      : "LIMITED";
+
+  renderMacroState();
+}
+
+function setDirectionMetric(id,v){
+
+  const el = $(id);
+
+  el.textContent =
+    v === null
+      ? "—"
+      : directionWord(v);
+
+  el.className =
+    "metric-value " +
+    (
+      v > 0.5
+        ? "positive"
+        : v < -0.5
+          ? "negative"
+          : "neutral"
+    );
 }
 
 
-/* ============================================================
-   CHART
-   ============================================================ */
+/* ---------------------------------------------------------
+   SWING / RECOVERY
+--------------------------------------------------------- */
 
-function drawChart(values){
+function renderSwing(points){
+
+  if(!points.length){
+    return;
+  }
+
+  const prices =
+    points.map(x=>x.price);
+
+  const low =
+    Math.min(...prices);
+
+  const high =
+    Math.max(...prices);
+
+  const current =
+    market.price !== null
+      ? market.price
+      : lastPrice(points);
+
+  const range =
+    high-low;
+
+  const position =
+    range > 0
+      ? clamp(
+          ((current-low)/range)*100,
+          0,100
+        )
+      : 50;
+
+  $("low90").textContent =
+    fmtUSD(low);
+
+  $("high90").textContent =
+    fmtUSD(high);
+
+  $("swingPosition").textContent =
+    `${position.toFixed(0)}%`;
+
+  $("swingRange").textContent =
+    fmtUSD(range);
+}
+
+function renderRecovery(points){
+
+  if(!points.length){
+    return;
+  }
+
+  const prices =
+    points.map(x=>x.price);
+
+  const low =
+    Math.min(...prices);
+
+  const high =
+    Math.max(...prices);
+
+  const current =
+    market.price !== null
+      ? market.price
+      : lastPrice(points);
+
+  const range =
+    high-low;
+
+  const recovery =
+    range > 0
+      ? clamp(
+          ((current-low)/range)*100,
+          0,100
+        )
+      : 50;
+
+  $("recoveryBar").style.width =
+    `${recovery}%`;
+
+  $("recoveryText").textContent =
+    `${recovery.toFixed(0)}% recovered`;
+}
+
+
+/* ---------------------------------------------------------
+   SHORT TERM
+--------------------------------------------------------- */
+
+function renderShortTerm(){
+
+  setPct("short1h",market.change1h);
+  setPct("short24",market.change24h);
+
+  let momentum = null;
+
+  if(hourly.length >= 4){
+
+    const recent =
+      hourly.slice(-4);
+
+    momentum =
+      pctMove(recent);
+  }
+  else{
+    momentum =
+      market.change1h;
+  }
+
+  if(momentum !== null){
+
+    $("momentum").textContent =
+      fmtPct(momentum);
+
+    $("momentum").className =
+      "metric-value " +
+      directionClass(momentum);
+  }
+
+  /*
+    Acceleration is deliberately conservative.
+
+    We compare the latest 1h change with the 1h change
+    from the preceding point where possible.
+
+    It is a description of change in movement,
+    not a predictive oscillator.
+  */
+
+  if(hourly.length >= 4){
+
+    const a =
+      hourly[hourly.length-4].price;
+
+    const b =
+      hourly[hourly.length-3].price;
+
+    const c =
+      hourly[hourly.length-2].price;
+
+    const d =
+      hourly[hourly.length-1].price;
+
+    const move1 =
+      a !== 0
+        ? ((b-a)/a)*100
+        : 0;
+
+    const move2 =
+      c !== 0
+        ? ((d-c)/c)*100
+        : 0;
+
+    const accel =
+      move2-move1;
+
+    let label;
+
+    if(accel > 0.1){
+      label = "BUILDING";
+    }
+    else if(accel < -0.1){
+      label = "WEAKENING";
+    }
+    else{
+      label = "FLAT";
+    }
+
+    $("acceleration").textContent =
+      label;
+
+    $("acceleration").className =
+      "metric-value " +
+      (
+        accel > 0.1
+          ? "positive"
+          : accel < -0.1
+            ? "negative"
+            : "neutral"
+      );
+
+  }else{
+
+    $("acceleration").textContent =
+      "—";
+  }
+}
+
+
+/* ---------------------------------------------------------
+   MACRO STATE
+--------------------------------------------------------- */
+
+function renderMacroState(){
+
+  if(!market.price || !market.ath){
+    return;
+  }
+
+  const distance =
+    ((market.ath-market.price)/market.ath)*100;
+
+  let mode;
+
+  if(distance <= 5){
+    mode = "ATH ZONE";
+  }
+  else if(distance <= 15){
+    mode = "ATH APPROACH";
+  }
+  else if(market.change90 > 0){
+    mode = "ADVANCE";
+  }
+  else{
+    mode = "NORMAL";
+  }
+
+  /*
+    We intentionally do not infer a four-year cycle phase
+    from an arbitrary date.
+
+    The macro card describes the current relationship
+    to the ATH rather than pretending to know the exact
+    cycle position.
+  */
+
+  const trajectory =
+    $("trajectoryState").textContent;
+
+  if(trajectory === "ADVANCING"){
+    mode = distance <= 15
+      ? "ATH APPROACH"
+      : "ADVANCE";
+  }
+
+  $("cycleMode").textContent =
+    mode;
+}
+
+
+/* ---------------------------------------------------------
+   CHART
+--------------------------------------------------------- */
+
+function renderChart(points){
 
   const canvas =
-    $('chart');
+    $("priceChart");
 
-  const ctx =
-    canvas.getContext(
-      '2d'
-    );
+  const rect =
+    canvas.getBoundingClientRect();
+
+  const dpr =
+    window.devicePixelRatio || 1;
 
   const width =
-    canvas.width;
+    Math.max(300,rect.width);
 
   const height =
-    canvas.height;
+    Math.max(180,rect.height);
 
+  canvas.width =
+    Math.round(width*dpr);
 
-  ctx.clearRect(
-    0,
-    0,
-    width,
-    height
+  canvas.height =
+    Math.round(height*dpr);
+
+  const ctx =
+    canvas.getContext("2d");
+
+  ctx.setTransform(
+    dpr,0,0,dpr,0,0
   );
 
+  ctx.clearRect(
+    0,0,width,height
+  );
 
-  if(values.length < 2)
+  if(!points.length){
     return;
+  }
 
+  const values =
+    points.map(x=>x.price);
 
-  const min =
-    Math.min(
-      ...values
-    );
+  let min =
+    Math.min(...values);
 
-  const max =
-    Math.max(
-      ...values
-    );
+  let max =
+    Math.max(...values);
 
-  const padding=18;
+  if(min === max){
+    min -= 1;
+    max += 1;
+  }
 
+  const padLeft = 10;
+  const padRight = 10;
+  const padTop = 12;
+  const padBottom = 18;
+
+  const chartW =
+    width-padLeft-padRight;
+
+  const chartH =
+    height-padTop-padBottom;
 
   /*
     Grid.
   */
 
-  ctx.strokeStyle =
-    '#2b3636';
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = "#172525";
 
-  ctx.lineWidth=1;
-
-
-  for(let i=0;i<5;i++){
+  for(let i=0;i<4;i++){
 
     const y =
-      padding +
-      i *
-      (
-        height -
-        padding * 2
-      ) / 4;
+      padTop +
+      chartH*(i/3);
 
     ctx.beginPath();
-
-    ctx.moveTo(
-      0,
-      y
-    );
-
-    ctx.lineTo(
-      width,
-      y
-    );
-
+    ctx.moveTo(padLeft,y);
+    ctx.lineTo(width-padRight,y);
     ctx.stroke();
-
   }
 
-
   /*
-    Price path.
+    Path.
   */
-
-  ctx.strokeStyle =
-    '#36d4c2';
-
-  ctx.lineWidth=3;
 
   ctx.beginPath();
 
+  points.forEach((point,i)=>{
 
-  values.forEach(
-    (value,index)=>{
+    const x =
+      padLeft +
+      chartW *
+      (i/(points.length-1));
 
-      const x =
-        index *
-        (
-          width - 1
-        ) /
-        (
-          values.length - 1
-        );
-
-      const y =
-        padding +
-        (
-          (max-value) /
-          (
-            max-min || 1
-          )
-        ) *
-        (
-          height -
-          padding * 2
-        );
-
-
-      if(index)
-        ctx.lineTo(
-          x,
-          y
-        );
-      else
-        ctx.moveTo(
-          x,
-          y
-        );
-
-    }
-  );
-
-
-  ctx.stroke();
-
-}
-
-
-/* ============================================================
-   DECISION LOG
-   ============================================================ */
-
-function decision(decisionName){
-
-  const entry = {
-
-    time:
-      new Date()
-        .toLocaleString(),
-
-    decision:
-      decisionName,
-
-    price:
-      market.price,
-
-    baseline:
-      num('baseline'),
-
-    value:
-      num('current'),
-
-    deviation:
-      num('current') -
-      num('baseline'),
-
-    athGap:
-      market.ath
-        ? pct(
-            change(
-              market.price,
-              market.ath
-            )
-          )
-        : '—',
-
-    trajectory:
-      market.trajectory
-
-  };
-
-
-  addHistoryRow(
-    entry,
-    true
-  );
-
-}
-
-
-function addHistoryRow(
-  entry,
-  save
-){
-
-  const row =
-    document.createElement(
-      'tr'
-    );
-
-
-  row.innerHTML =
-    `
-      <td>${entry.time}</td>
-
-      <td>
-        <b>${entry.decision}</b>
-      </td>
-
-      <td>
-        ${money(entry.price)}
-      </td>
-
-      <td>
-        ${money(entry.baseline)}
-      </td>
-
-      <td>
-        ${money(entry.value)}
-      </td>
-
-      <td class="${
-        entry.deviation >= 0
-          ? 'good'
-          : 'bad'
-      }">
-        ${
-          entry.deviation >= 0
-            ? '+'
-            : ''
-        }${money(entry.deviation)}
-      </td>
-
-      <td>
-        ${entry.athGap}
-      </td>
-
-      <td>
-        ${entry.trajectory}
-      </td>
-    `;
-
-
-  $('history')
-    .prepend(row);
-
-
-  if(save){
-
-    const history =
-      JSON.parse(
-        localStorage.getItem(
-          'bf-history'
-        ) || '[]'
+    const y =
+      padTop +
+      chartH *
+      (
+        1 -
+        ((point.price-min)/(max-min))
       );
 
+    if(i===0){
+      ctx.moveTo(x,y);
+    }else{
+      ctx.lineTo(x,y);
+    }
+  });
 
-    history.unshift(
-      entry
-    );
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = "#00a6a6";
+  ctx.stroke();
 
+  /*
+    Current marker.
+  */
 
-    localStorage.setItem(
-      'bf-history',
-      JSON.stringify(
-        history.slice(
-          0,
-          250
-        )
-      )
-    );
+  if(market.price !== null){
 
+    const x =
+      width-padRight;
+
+    const y =
+      padTop +
+      chartH *
+      (
+        1 -
+        ((market.price-min)/(max-min))
+      );
+
+    ctx.beginPath();
+    ctx.arc(x,y,4,0,Math.PI*2);
+    ctx.fillStyle = "#b4ff72";
+    ctx.fill();
   }
 
+  $("chartNote").textContent =
+    `90D daily price path · ${points.length} observations · ` +
+    `descriptive only, not predictive.`;
 }
 
 
-function clearHistory(){
+/* ---------------------------------------------------------
+   HISTORY STATUS
+--------------------------------------------------------- */
 
-  localStorage.removeItem(
-    'bf-history'
-  );
+function updateHistoryStatus(layer,error){
 
-  $('history').innerHTML =
-    '';
+  const current =
+    $("marketDataStatus").textContent;
 
+  if(layer === "daily"){
+    $("marketDataStatus").textContent =
+      current +
+      ` Daily history unavailable; cached history used if available.`;
+  }
+
+  if(layer === "hourly"){
+    /*
+      Do not turn hourly failure into a global failure.
+      The dashboard remains valid because ticker + daily data
+      are independent.
+    */
+  }
 }
 
 
-/* ============================================================
-   EXPORT
-   ============================================================ */
+/* ---------------------------------------------------------
+   DECISION LOG
+--------------------------------------------------------- */
 
-function exportState(){
+function logDecision(action){
 
-  const state = {
-
-    exported:
-      new Date()
-        .toISOString(),
-
-    market,
-
-    capital:{
-
-      baseline:
-        num('baseline'),
-
-      current:
-        num('current'),
-
-      external:
-        num('external'),
-
-      extracted:
-        num('extracted'),
-
-      recycled:
-        num('recycled'),
-
-      friction:
-        num('friction')
-
-    },
-
-    decisions:
-      JSON.parse(
-        localStorage.getItem(
-          'bf-history'
-        ) || '[]'
-      )
-
+  const entry = {
+    id:Date.now(),
+    time:new Date().toISOString(),
+    action,
+    price:market.price,
+    baseline:ledger.baseline,
+    currentValue:ledger.currentValue,
+    deviation:
+      ledger.currentValue-ledger.baseline,
+    athGap:market.athGap
   };
 
+  decisions.unshift(entry);
+
+  /*
+    Keep a reasonable local history.
+  */
+
+  decisions =
+    decisions.slice(0,100);
+
+  saveJSON(
+    KEYS.history,
+    decisions
+  );
+
+  $("lastAction").textContent =
+    action;
+
+  $("lastActionPrice").textContent =
+    fmtUSD(entry.price,2);
+
+  renderDecisionHistory();
+}
+
+function renderDecisionHistory(){
+
+  const el =
+    $("historyList");
+
+  if(!decisions.length){
+
+    el.innerHTML =
+      '<div class="empty">No decisions logged yet.</div>';
+
+    return;
+  }
+
+  el.innerHTML =
+    decisions
+      .map(d => {
+
+        const cls =
+          d.action === "GO"
+            ? "positive"
+            : d.action === "HARVEST"
+              ? "positive"
+              : d.action === "ATH WATCH"
+                ? "warning"
+                : "neutral";
+
+        return `
+          <div class="history-row">
+            <div>${formatDate(d.time)} ${formatTime(d.time)}</div>
+            <div>
+              <span class="badge ${cls}">
+                ${escapeHTML(d.action)}
+              </span>
+            </div>
+            <div>
+              BTC ${fmtUSD(d.price,2)}
+              · deviation ${signedUSD(d.deviation)}
+            </div>
+            <div class="history-price">
+              ATH gap ${fmtPct(d.athGap)}
+            </div>
+          </div>
+        `;
+      })
+      .join("");
+}
+
+function escapeHTML(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+
+/* ---------------------------------------------------------
+   EXPORT
+--------------------------------------------------------- */
+
+function exportData(){
+
+  const payload = {
+    exportedAt:new Date().toISOString(),
+
+    ledger,
+
+    market:{
+      ...market
+    },
+
+    daily,
+
+    decisions
+  };
 
   const blob =
     new Blob(
-      [
-        JSON.stringify(
-          state,
-          null,
-          2
-        )
-      ],
-      {
-        type:
-          'application/json'
-      }
+      [JSON.stringify(payload,null,2)],
+      {type:"application/json"}
     );
 
+  const url =
+    URL.createObjectURL(blob);
 
-  const link =
-    document.createElement(
-      'a'
-    );
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+  a.download =
+    `baseline-farmer-${new Date()
+      .toISOString()
+      .slice(0,10)}.json`;
+
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  setTimeout(
+    ()=>URL.revokeObjectURL(url),
+    1000
+  );
+}
 
 
-  link.href =
-    URL.createObjectURL(
-      blob
-    );
+/* ---------------------------------------------------------
+   RESET
+--------------------------------------------------------- */
 
-  link.download =
-    'baseline-farmer-state.json';
+function resetLedger(){
 
-  link.click();
+  if(!confirm(
+    "Reset the capital ledger to its default values?"
+  )){
+    return;
+  }
 
+  ledger = {
+    ...DEFAULT_LEDGER
+  };
 
-  URL.revokeObjectURL(
-    link.href
+  saveJSON(
+    KEYS.ledger,
+    ledger
   );
 
+  loadLedgerIntoInputs();
+  renderCapital();
 }
 
 
-/* ============================================================
-   MARKET REFRESH
-   ============================================================ */
+/* ---------------------------------------------------------
+   REFRESH
+--------------------------------------------------------- */
 
-async function refresh(){
+async function refreshMarket(){
 
-  try{
+  /*
+    IMPORTANT:
+    These requests are intentionally NOT Promise.all().
 
-    /*
-      Current ticker.
-    */
+    Ticker success must survive historical failure.
+    Daily success must survive hourly failure.
+  */
 
-    const ticker =
-      await get(
-        API +
-        '/tickers/' +
-        COIN +
-        '?quotes=USD'
-      );
+  await fetchTicker();
 
+  /*
+    Historical data is enrichment.
+    If it fails, the live ticker remains usable.
+  */
 
-    market.price =
-      ticker
-        .quotes
-        .USD
-        .price;
+  await fetchDailyHistory();
 
+  await fetchHourlyHistory();
 
-    market.ath =
-      ticker
-        .quotes
-        .USD
-        .ath;
+  renderMarket();
+  renderHistoryState();
+  renderShortTerm();
+  renderCapital();
+}
 
 
-    market.athDate =
-      ticker
-        .quotes
-        .USD
-        .ath_date;
+/* ---------------------------------------------------------
+   EVENT HANDLERS
+--------------------------------------------------------- */
 
+$("saveLedger").addEventListener(
+  "click",
+  ()=>{
+    readLedgerFromInputs();
 
-    /*
-      Historical windows.
-
-      Daily history gives the larger swing context.
-
-      Hourly history is limited by the free endpoint;
-      we only ask for the recent day.
-    */
-
-    const start90 =
-      new Date(
-        Date.now() -
-        365 *
-        86400000
-      );
-
-
-    const startHourly =
-      new Date(
-        Date.now() -
-        24 *
-        3600000
-      );
-
-
-    const [
-      daily,
-      hourly
-    ] =
-      await Promise.all([
-
-        get(
-          API +
-          '/tickers/' +
-          COIN +
-          '/historical' +
-          '?start=' +
-          start90
-            .toISOString()
-            .slice(0,10) +
-          '&interval=1d'
-        ),
-
-        get(
-          API +
-          '/tickers/' +
-          COIN +
-          '/historical' +
-          '?start=' +
-          startHourly
-            .toISOString()
-            .slice(0,10) +
-          '&interval=1h'
-        )
-
-      ]);
-
-
-    market.daily =
-      daily
-        .filter(
-          x=>Number.isFinite(
-            x.price
-          )
-        )
-        .sort(
-          (a,b)=>
-            new Date(
-              a.timestamp
-            ) -
-            new Date(
-              b.timestamp
-            )
-        );
-
-
-    market.hourly =
-      hourly
-        .filter(
-          x=>Number.isFinite(
-            x.price
-          )
-        )
-        .sort(
-          (a,b)=>
-            new Date(
-              a.timestamp
-            ) -
-            new Date(
-              b.timestamp
-            )
-        );
-
-
-    market.updated =
-      new Date()
-        .toISOString();
-
-
-    renderMarket();
-
-
-    $('feed').textContent =
-      'LIVE • COINPAPRIKA';
-
-    $('feed').className =
-      'badge good';
-
-  }
-
-  catch(error){
-
-    console.error(
-      error
+    saveJSON(
+      KEYS.ledger,
+      ledger
     );
 
-
-    $('feed').textContent =
-      'DATA ERROR';
-
-    $('feed').className =
-      'badge bad';
-
-
-    $('trajectoryText').textContent =
-      'Live market feed failed; ' +
-      'the capital layer remains available offline. ' +
-      error.message;
-
+    renderCapital();
   }
+);
 
-}
+$("resetLedger").addEventListener(
+  "click",
+  resetLedger
+);
 
-
-/* ============================================================
-   EVENTS + STARTUP
-   ============================================================ */
+$("exportData").addEventListener(
+  "click",
+  exportData
+);
 
 document
-  .querySelectorAll('input')
-  .forEach(
-    input=>{
-      input.addEventListener(
-        'input',
-        renderCapital
-      );
-    }
-  );
+  .querySelectorAll("[data-action]")
+  .forEach(button => {
 
-
-loadLocal();
-
-renderCapital();
-
-refresh();
+    button.addEventListener(
+      "click",
+      ()=>{
+        logDecision(
+          button.dataset.action
+        );
+      }
+    );
+  });
 
 
 /*
-  Deliberately modest polling frequency.
-
-  This is not a high-frequency trading interface.
-  The meaningful economic layer is the larger movement.
+  If the user edits ledger fields, update the display
+  immediately without silently persisting every keystroke.
 */
 
-setInterval(
-  refresh,
-  120000
+[
+  "baselineInput",
+  "currentInput",
+  "externalInput",
+  "extractedInput",
+  "recycledInput",
+  "frictionInput"
+].forEach(id => {
+
+  $(id).addEventListener(
+    "input",
+    ()=>{
+      readLedgerFromInputs();
+      renderCapital();
+    }
+  );
+});
+
+
+window.addEventListener(
+  "resize",
+  ()=>{
+    if(daily.length){
+      renderChart(sliceDays(90));
+    }
+  }
 );
 
-</script>
 
+/* ---------------------------------------------------------
+   INITIALIZATION
+--------------------------------------------------------- */
+
+function initialize(){
+
+  /*
+    Load cached market/history immediately.
+    This means the application can still display its
+    previous known state while the network request runs.
+  */
+
+  const cachedMarket =
+    loadJSON(KEYS.market,null);
+
+  if(cachedMarket && cachedMarket.price){
+    market = {
+      ...market,
+      ...cachedMarket,
+      tickerFresh:false
+    };
+  }
+
+  const cachedDaily =
+    loadJSON(KEYS.daily,[]);
+
+  if(Array.isArray(cachedDaily)){
+    daily = cachedDaily;
+  }
+
+  const cachedHourly =
+    loadJSON(KEYS.hourly,[]);
+
+  if(Array.isArray(cachedHourly)){
+    hourly = cachedHourly;
+  }
+
+  normalizeLedger();
+
+  loadLedgerIntoInputs();
+
+  renderCapital();
+  renderMarket();
+  renderHistoryState();
+  renderShortTerm();
+  renderDecisionHistory();
+
+  if(decisions.length){
+
+    const last =
+      decisions[0];
+
+    $("lastAction").textContent =
+      last.action;
+
+    $("lastActionPrice").textContent =
+      fmtUSD(last.price,2);
+  }
+
+  refreshMarket();
+
+  /*
+    CoinPaprika's free ticker is not a second-by-second feed.
+    Polling every two minutes is deliberately conservative.
+  */
+
+  setInterval(
+    refreshMarket,
+    120000
+  );
+}
+
+initialize();
+
+</script>
 </body>
 </html>
