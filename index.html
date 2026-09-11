@@ -192,7 +192,6 @@ function finishOnboarding(){
 function syncInputs(){
   $('baselineOut').textContent=money(state.target); $('entryTarget').textContent=money(state.target); $('entryCurrent').textContent=money(state.current);
   $('coreCapital').textContent=money(state.coreRemaining); $('reserveCapital').textContent=money(state.reserveRemaining);
-  $('baseline').value=state.target; $('current').value=state.current;
 }
 function update(){
   const b=state.target,v=state.current,d=v-b;
@@ -214,16 +213,13 @@ function update(){
   const ext=num('external'),ex=num('extracted'),rec=num('recycled');$('selfFund').textContent=(ext?(rec/ext*100):0).toFixed(1)+'%';$('valuePer').textContent=ext?money((v+ex)/ext):'—';
   updateMarket();
 }
-function setStateInputs(){
-  state.target=num('baseline');state.current=num('current');update();save();
-}
 function deploy(kind){
   const gap=Math.max(0,state.target-state.current);if(!gap)return;
   let amount=kind==='core'?Math.min(state.coreStep,state.coreRemaining,gap):Math.min(state.reserveRemaining,gap);
   if(amount<=0)return;
   state.current+=amount;
   if(kind==='core')state.coreRemaining-=amount;else state.reserveRemaining-=amount;
-  $('current').value=Math.round(state.current);record(kind==='core'?'DEPLOY CORE':'DEPLOY TACTICAL');update();save();
+  record(kind==='core'?'DEPLOY CORE':'DEPLOY TACTICAL');update();save();
 }
 function record(decision){
   const b=state.target,v=state.current,d=v-b;const tr=document.createElement('tr');
@@ -231,7 +227,7 @@ function record(decision){
 }
 function raiseBaseline(){
   const rec=num('recycled');if(rec<=0)return;
-  state.target+=rec; $('baseline').value=Math.round(state.target); update(); save();
+  state.target+=rec; update(); save();
   record('BASELINE RAISED +'+money(rec));
 }
 function updateMarket(){
@@ -243,8 +239,8 @@ function updateMarket(){
 }
 load();
 if(localStorage.getItem('baselineFarmerState')){syncInputs();$('onboarding').classList.add('hidden')}
-else{$('baseline').value=state.target;$('current').value=state.current}
-['baseline','current','external','extracted','recycled','friction','refValue','marketValue'].forEach(id=>$(id).addEventListener('input',()=>{if(id==='baseline'||id==='current'){state.target=num('baseline');state.current=num('current');}update();save()}));
+else{}
+['external','extracted','recycled','friction','refValue','marketValue'].forEach(id=>$(id).addEventListener('input',()=>{update();save()}));
 update();
 </script>
 </body>
