@@ -10,6 +10,54 @@
 .stageInfo{position:absolute;left:18px;bottom:18px}.state{font-size:12px;letter-spacing:.1em;color:var(--teal);font-weight:850}.guess{font-size:34px;font-weight:900;margin-top:3px}.speech{position:absolute;right:22px;top:20px;max-width:310px;background:#edf4f1;color:#172020;border-radius:16px;padding:12px 15px;font-weight:750;line-height:1.35;box-shadow:0 10px 35px rgba(0,0,0,.25)}.speech:after{content:"";position:absolute;left:22px;bottom:-12px;border:7px solid transparent;border-top-color:#edf4f1;border-left-color:#edf4f1}.speech small{display:block;font-size:9px;opacity:.55;margin-top:5px;text-transform:uppercase;letter-spacing:.08em}.stageTools{position:absolute;right:18px;bottom:18px;display:flex;gap:6px}.stageTools button{border:1px solid var(--line);background:#111919;color:var(--muted);border-radius:8px;padding:7px 9px;cursor:pointer}.stageTools button:hover{color:var(--text);border-color:var(--teal)}
 .dash{padding:15px;background:#0e1414}.dashTop{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-bottom:11px}.dashTop h2{margin:0;font-size:18px}.dashTop p{margin:3px 0 0;color:var(--muted);font-size:12px}.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:11px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.card,.panel{background:var(--panel2);border-radius:10px;padding:11px;border:1px solid #223030}.label{font-size:10px;color:var(--muted);letter-spacing:.06em}.value{font-size:20px;font-weight:850;margin-top:3px}.green{color:var(--green)}.yellow{color:var(--yellow)}.red{color:var(--red)}.teal{color:var(--teal)}.bar{height:8px;background:#0b1010;border-radius:4px;overflow:hidden;margin-top:8px}.bar>i{display:block;height:100%;background:var(--teal)}.panel h3{font-size:13px;margin:0 0 9px}.tfgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.tf{background:#111919;border-radius:8px;padding:8px}.tf b{font-size:11px}.tf div{font-weight:850;font-size:16px;margin-top:3px}.tf span{font-size:10px;color:var(--muted)}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:7px}.metric{background:#111919;border-radius:8px;padding:9px}.metric b{display:block;font-size:11px}.metric span{display:block;color:var(--muted);font-size:11px;margin-top:3px;line-height:1.35}.learning{margin-top:11px;border:1px dashed #304040;border-radius:10px;padding:10px;background:#0c1212}.learningHead{display:flex;justify-content:space-between;align-items:center}.learningHead b{font-size:12px}.learningHead span{font-size:10px;color:var(--teal);border:1px solid var(--line);padding:3px 6px;border-radius:99px}.learning p{margin:6px 0 0;color:var(--muted);font-size:11px;line-height:1.45}.history{max-height:220px;overflow:auto;margin-top:7px}.history table{width:100%;border-collapse:collapse}.history th,.history td{padding:6px;border-bottom:1px solid var(--line);font-size:10px;text-align:left}.history th{color:var(--muted)}.pill{display:inline-block;padding:3px 6px;border-radius:99px;background:#232d2d}.foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;color:var(--muted);font-size:11px}.linkBtn{background:none;border:0;color:var(--teal);cursor:pointer;font:inherit;font-weight:700}.empty{padding:20px;text-align:center;color:var(--muted)}@media(max-width:850px){main{padding:11px}.top{align-items:flex-start;flex-direction:column}.stage{min-height:500px}.speech{right:12px;top:12px;max-width:220px;font-size:12px}.stageInfo{left:13px;bottom:13px}.guess{font-size:27px}.stageTools{right:12px;bottom:13px}.grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.tfgrid{grid-template-columns:1fr 1fr}.twocol{grid-template-columns:1fr} .spriteWrap{transform:scale(.88);transform-origin:center bottom}}
 
+  <script>
+(async () => {
+  if (!confirm('DELETE THE GUESSER COMPLETELY AND RETURN TO SETUP?')) return;
+
+  // Close every connection this page currently knows about.
+  try {
+    if (window.__bfDB) {
+      window.__bfDB.close();
+      window.__bfDB = null;
+    }
+  } catch (_) {}
+
+  // Clear the legacy Guesser storage too.
+  try {
+    localStorage.removeItem('baselineFarmerGuesserV3');
+    localStorage.removeItem('baselineFarmerGuesserV4');
+    localStorage.removeItem('baselineFarmerGuesserVisualTier');
+    localStorage.removeItem('baselineFarmerGuesserSetupDraft');
+  } catch (_) {}
+
+  try {
+    sessionStorage.clear();
+  } catch (_) {}
+
+  // Delete the actual Guesser database.
+  await new Promise((resolve, reject) => {
+    const req = indexedDB.deleteDatabase('baselineFarmerDB');
+
+    req.onsuccess = () => resolve();
+    req.onerror = () => reject(req.error);
+    req.onblocked = () => {
+      alert(
+        'RESET IS BLOCKED because another Baseline Farmer page ' +
+        'still has the database open. Close the other Baseline Farmer ' +
+        'tabs/pages, then run the reset again.'
+      );
+      reject(new Error('IndexedDB deletion blocked'));
+    };
+  });
+
+  // Only reload AFTER the database was actually deleted.
+  const url = new URL(location.href);
+  url.searchParams.set('__BF_FRESH__', Date.now());
+
+  location.replace(url.href);
+})();
+</script>
+  
 /* Runtime sprite atlas: extracted from the Guesser artwork sheet. */
 .avatar{width:240px;height:240px;display:block;background-repeat:no-repeat;background-size:2160px 960px;background-position:0 0;background-color:transparent;image-rendering:auto;animation:avatarFloat 3.6s ease-in-out infinite;filter:drop-shadow(0 20px 34px rgba(0,0,0,.55));transition:filter .45s ease,transform .45s ease}.avatar.state-celebrate{animation:celebrateFloat .72s ease-in-out infinite}.avatar.state-setback{animation:setback .9s ease-in-out infinite}.avatar.evolution{animation:growthPulse .55s ease-in-out infinite}.avatar.glowup{filter:drop-shadow(0 0 18px rgba(66,214,197,.65)) drop-shadow(0 20px 34px rgba(0,0,0,.5))}@keyframes growthPulse{50%{transform:translateY(-12px) scale(1.035)}}
 </style>
