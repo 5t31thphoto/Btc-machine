@@ -38,6 +38,119 @@ main{max-width:920px;margin:0 auto;padding:28px 20px 48px}
     </div>
   </div>
 
+  <script>
+(() => {
+  const btn = document.createElement('button');
+
+  btn.textContent = 'DELETE EVERYTHING AND START OVER';
+
+  Object.assign(btn.style, {
+    display: 'block',
+    width: 'calc(100% - 24px)',
+    margin: '40px 12px 24px',
+    padding: '16px',
+    background: '#8b0000',
+    color: '#fff',
+    border: '2px solid #ff4444',
+    borderRadius: '8px',
+    font: 'bold 16px system-ui, sans-serif',
+    cursor: 'pointer',
+    position: 'relative',
+    zIndex: '2147483647'
+  });
+
+  btn.onclick = async () => {
+    if (!confirm(
+      'DELETE EVERYTHING AND START OVER?\\n\\n' +
+      'This will erase ALL Baseline Farmer data stored by this site ' +
+      'on this device and reload the site from scratch.'
+    )) return;
+
+    btn.disabled = true;
+    btn.textContent = 'DELETING EVERYTHING...';
+
+    // 1. localStorage
+    try {
+      localStorage.clear();
+    } catch (_) {}
+
+    // 2. sessionStorage
+    try {
+      sessionStorage.clear();
+    } catch (_) {}
+
+    // 3. IndexedDB — delete every database visible to this origin
+    try {
+      if (indexedDB.databases) {
+        const databases = await indexedDB.databases();
+
+        await Promise.all(
+          databases
+            .map(db => db.name)
+            .filter(Boolean)
+            .map(name => new Promise(resolve => {
+              const request = indexedDB.deleteDatabase(name);
+
+              request.onsuccess = resolve;
+              request.onerror = resolve;
+              request.onblocked = resolve;
+            }))
+        );
+      }
+    } catch (_) {}
+
+    // 4. Cache Storage
+    try {
+      if (window.caches) {
+        const cacheNames = await caches.keys();
+
+        await Promise.all(
+          cacheNames.map(name => caches.delete(name))
+        );
+      }
+    } catch (_) {}
+
+    // 5. Service workers
+    try {
+      if (navigator.serviceWorker) {
+        const registrations =
+          await navigator.serviceWorker.getRegistrations();
+
+        await Promise.all(
+          registrations.map(reg => reg.unregister())
+        );
+      }
+    } catch (_) {}
+
+    // 6. Force a genuinely new document URL so we don't simply
+    // reload the exact cached URL.
+    const url = new URL(location.href);
+
+    url.searchParams.set(
+      '__BF_HARD_RESET__',
+      Date.now().toString()
+    );
+
+    url.hash = '';
+
+    location.replace(url.href);
+  };
+
+  // Put it at the absolute bottom of the document.
+  function addButton() {
+    if (document.body) {
+      document.body.appendChild(btn);
+    } else {
+      document.addEventListener('DOMContentLoaded', addButton, {
+        once: true
+      });
+    }
+  }
+
+  addButton();
+})();
+</script>
+  
   <section class="hero">
     <h1>Hold a baseline in a market that keeps moving around it.</h1>
     <p>Baseline Farmer is for building toward a level of exposure you actually want to own, buying when the market offers a useful dip, taking something off when you’re ahead, and keeping a clear record of what you did — without needing to predict every turn.</p>
