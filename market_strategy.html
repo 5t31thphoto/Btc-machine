@@ -25,7 +25,7 @@
     <div class="eyebrow">THE PHILOSOPHY</div>
     <h2>Farm the path. Protect the baseline. Let the market pay you for waiting.</h2>
     <p class="lead">Baseline Farmer is built around a simple idea: you do not have to predict every move to think clearly about a market that moves above and below a level of exposure you actually want to own.</p>
-    <a class="nav" href="https://5t31thphoto.github.io/Btc-machine/">← Back to Dashboard</a>
+    <a class="nav" href="baseline_farmer.html">← Back to Dashboard</a>
   </div>
   <img class="heroLogo" src="baseline-farmer-logo.png" alt="Holographic Bitcoin farmer">
 </section>
@@ -34,13 +34,13 @@
 <h2>The strategy in one loop</h2>
 <p>At the highest level, the strategy remains deliberately simple:</p>
 <div class="loop">
-<div class="step"><div class="stepnum">01</div><strong>WAIT</strong><span>Keep capital available when the market is not offering a useful opportunity.</span></div>
-<div class="step"><div class="stepnum">02</div><strong>GO</strong><span>Put capital to work when the market presents a meaningful deviation.</span></div>
-<div class="step"><div class="stepnum">03</div><strong>HOLD</strong><span>Keep the desired exposure as the center of the position.</span></div>
-<div class="step"><div class="stepnum">04</div><strong>HARVEST</strong><span>Realize excess rather than needing to identify the exact top.</span></div>
-<div class="step"><div class="stepnum">05</div><strong>REPEAT</strong><span>Return capital to work when another useful deviation appears.</span></div>
+<div class="step"><div class="stepnum">01</div><strong>HELD</strong><span>Keep the position unchanged when the current setup does not justify a change.</span></div>
+<div class="step"><div class="stepnum">02</div><strong>BOUGHT</strong><span>Add exposure when the market presents a useful deviation and capital is available.</span></div>
+<div class="step"><div class="stepnum">03</div><strong>HELD</strong><span>Keep the baseline as the center of the position while the market moves around it.</span></div>
+<div class="step"><div class="stepnum">04</div><strong>HARVESTED</strong><span>Realize excess value without needing to identify the exact top.</span></div>
+<div class="step"><div class="stepnum">05</div><strong>HELD / BOUGHT / HARVESTED</strong><span>Keep recording what actually happened so the strategy builds a memory.</span></div>
 </div>
-<div class="diagram"><div class="diagramline">WAIT <span class="arrow">→</span> GO <span class="arrow">→</span> HARVEST <span class="arrow">→</span> WAIT <span class="arrow">→</span> GO</div></div>
+<div class="diagram"><div class="diagramline">HELD <span class="arrow">→</span> BOUGHT <span class="arrow">→</span> HELD <span class="arrow">→</span> HARVESTED <span class="arrow">→</span> HELD</div></div>
 </section>
 
 <section class="grid sectiongap">
@@ -117,6 +117,18 @@
 </section>
 
 <section class="panel sectiongap"><h2>What the tool actually does</h2><div class="quote">The strategy already exists in the user's judgment. The tool makes that judgment easier to apply consistently.</div><p>Markets are difficult to manage partly because all of the relevant numbers keep moving. Target exposure, actual exposure, available capital, previous harvests, recycled profit and market references all have to be remembered at once.</p><p>Baseline Farmer externalizes that state. It keeps the capital plan and the market context together so a decision can be understood relative to what has already happened rather than reconstructed from memory.</p><p>The machine can calculate the measurements, maintain the history and display the relationships. It can help distinguish market state from capital state and show where different market references agree or disagree.</p><p><strong>It does not need to replace human judgment to be useful.</strong> The purpose is to give that judgment a persistent baseline, a capital plan and a memory.</p></section>
+
+<section class="panel sectiongap">
+<h2>Why the buttons are there</h2>
+<p>The dashboard shows what the market looks like. The buttons record what <strong>you actually did about it</strong>. That distinction matters because the strategy is not just a collection of market readings; it is a capital-management process that unfolds over time.</p>
+<div class="termgrid">
+<div class="term"><strong>Held</strong><span>Press this when you looked at the setup and kept your existing position unchanged. The system records the decision and the market state around it.</span></div>
+<div class="term"><strong>Bought · Core</strong><span>Press this when you made the normal planned addition toward your baseline. The dashboard can update the simulated exposure and remaining entry capital.</span></div>
+<div class="term"><strong>Bought · Tactical</strong><span>Press this when you used reserved capital because the market presented a meaningful deviation worth exploiting.</span></div>
+<div class="term"><strong>Harvested</strong><span>Press this when you actually realized excess value. The decision log remembers that action; the capital ledger is where the resulting dollars and any recycled profit are accounted for.</span></div>
+</div>
+<div class="callout" style="margin-top:12px"><strong>The buttons are a memory system, not a trading interface.</strong> They let the future version of the dashboard answer: what did I see, what did I do, how much exposure did I have, and what happened afterward?</div>
+</section>
 
 <section class="panel sectiongap"><h2>The important terms</h2><div class="termgrid">
 <div class="term"><strong>Baseline</strong><span>The target amount of crypto exposure you want to maintain under normal conditions. It is a centerline, not a price floor.</span></div>
