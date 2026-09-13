@@ -6,7 +6,7 @@
 <title>Baseline Farmer</title>
 <style>
 :root{--bg:#0d1111;--panel:#151b1b;--panel2:#1b2323;--line:#2c3838;--text:#e9eeee;--muted:#8fa0a0;--teal:#42d6c5;--green:#78e08f;--yellow:#ffd166;--red:#ff7b72;--blue:#79a8ff}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:1240px;margin:auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:16px}h1{margin:0;font-size:28px}h2{margin:0 0 12px;font-size:18px}h3{margin:0 0 8px;font-size:15px}.sub,.muted,.mini{color:var(--muted)}.sub{margin-top:4px}.mini{font-size:12px;line-height:1.45}.badge{border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:var(--teal);font-size:12px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px}.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:14px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.card{background:var(--panel2);border-radius:10px;padding:12px}.label{font-size:11px;color:var(--muted);letter-spacing:.05em}.value{font-size:22px;font-weight:750;margin-top:3px}.big{font-size:30px;font-weight:800}.good{color:var(--green)}.bad{color:var(--red)}.warn{color:var(--yellow)}.teal{color:var(--teal)}button{background:#202929;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-weight:650;cursor:pointer}button:hover{border-color:var(--teal)}button.primary{border-color:var(--teal)}input,select{width:100%;background:#0f1414;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:9px;font:inherit}label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.sectiongap{margin-top:14px}.progress{height:14px;background:#0b0f0f;border-radius:7px;overflow:hidden;margin:10px 0}.progress>div{height:100%;background:var(--teal)}.decision{border:1px solid var(--line);border-radius:12px;padding:14px;background:#121818}.decisionTitle{font-size:28px;font-weight:850}.decisionText{line-height:1.5;margin-top:6px}.prototype{border:1px solid var(--line);border-radius:12px;padding:13px;background:#101616}.prototypeHead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.prototypeTitle{font-size:22px;font-weight:850;margin-top:3px}.prototypeBadge{border:1px solid var(--line);border-radius:999px;padding:5px 8px;color:var(--yellow);font-size:10px;font-weight:800;letter-spacing:.06em}.prototypeCase{font-size:13px;line-height:1.5;margin-top:9px}.prototypeLearning{margin-top:9px;padding:8px 10px;border:1px dashed var(--line);border-radius:8px;background:#0d1313;color:var(--muted);font-size:11px;line-height:1.45}.prototypeLearning strong{color:var(--text)}.prototypeEvidenceWrap{margin-top:10px}.prototypeEvidenceWrap summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0d1313;border:1px solid var(--line);border-radius:9px;padding:9px 11px;color:var(--muted);font-size:11px;font-weight:750}.prototypeEvidenceWrap summary::-webkit-details-marker{display:none}.prototypeEvidenceWrap summary:after{content:"＋";font-size:16px;color:var(--teal);line-height:1}.prototypeEvidenceWrap[open] summary:after{content:"−"}.prototypeEvidenceWrap summary:hover{border-color:var(--teal);color:var(--text)}.prototypeEvidence{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:8px}.evidence{background:var(--panel2);border-radius:8px;padding:8px}.evidence strong{display:block;font-size:11px}.evidence span{display:block;color:var(--muted);font-size:11px;line-height:1.35;margin-top:2px}@media(max-width:850px){.prototypeEvidence{grid-template-columns:1fr 1fr}}.chart{height:300px;width:100%;overflow:hidden}.chart svg{width:100%;height:100%;display:block}.chartSmall{height:150px}.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:6px}.legend span:before{content:"";display:inline-block;width:12px;border-top:2px solid currentColor;margin:0 5px 3px 0}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{padding:9px 7px;border-bottom:1px solid var(--line);text-align:left;font-size:12px}th{color:var(--muted);font-weight:500}.pill{display:inline-block;border-radius:999px;padding:3px 7px;background:#232b2b}.topologyGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.tf{background:var(--panel2);border-radius:10px;padding:11px}.tf .tfname{font-weight:800;font-size:13px}.tf .tfdir{font-size:18px;font-weight:800;margin-top:5px}.tf .tfnum{font-size:12px;margin-top:4px}.bars{display:grid;gap:8px}.barrow{display:grid;grid-template-columns:42px 1fr 70px;gap:8px;align-items:center;font-size:12px}.barbg{height:9px;background:#0d1111;border-radius:5px;overflow:hidden}.barfill{height:100%;background:var(--teal)}.actionHelp{background:#121818;border:1px solid var(--line);border-radius:10px;padding:11px 13px}.actionHelpTitle{font-weight:800;color:var(--text);margin-bottom:3px}.actionHelpText{font-size:12px;color:var(--muted);line-height:1.5}.actionGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.actionButton{text-align:left;padding:11px;background:var(--panel2)}.actionButton strong{display:block;font-size:14px;margin-bottom:4px}.actionButton span{display:block;color:var(--muted);font-size:11px;font-weight:500;line-height:1.4}.actionButton.buy{border-color:#347b73}.actionButton.harvest{border-color:#806b32}.actionNote{margin-top:7px}.journalLearning{margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}.journalLearningRow{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.journalLearningTitle{font-weight:800}.journalLearningText{font-size:11px;color:var(--muted);line-height:1.45;margin-top:3px;max-width:720px}.learnStatus{font-size:11px;color:var(--muted);margin-top:7px}.callout{padding:11px 13px;border-left:3px solid var(--teal);background:#121818;border-radius:0 9px 9px 0;line-height:1.45}.ath{display:grid;grid-template-columns:1fr 1fr;gap:9px}.modal{position:fixed;inset:0;background:rgba(0,0,0,.82);display:flex;align-items:center;justify-content:center;padding:18px;z-index:10}.modal.hidden{display:none}.modalbox{width:min(620px,100%);background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:21px;box-shadow:0 20px 70px #000}.modalbox p{color:var(--muted);line-height:1.5}.amountPrompt{display:grid;gap:10px}.amountPrompt .hint{font-size:12px;color:var(--muted);line-height:1.45}.buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.hidden{display:none!important}@media(max-width:850px){main{padding:13px}.grid,.grid2{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.actionGrid{grid-template-columns:1fr 1fr}.topologyGrid{grid-template-columns:1fr 1fr}.row{grid-template-columns:1fr}.top{align-items:start;flex-direction:column}.chart{height:240px}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:1240px;margin:auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:16px}h1{margin:0;font-size:28px}h2{margin:0 0 12px;font-size:18px}h3{margin:0 0 8px;font-size:15px}.sub,.muted,.mini{color:var(--muted)}.sub{margin-top:4px}.mini{font-size:12px;line-height:1.45}.badge{border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:var(--teal);font-size:12px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px}.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:14px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.card{background:var(--panel2);border-radius:10px;padding:12px}.label{font-size:11px;color:var(--muted);letter-spacing:.05em}.value{font-size:22px;font-weight:750;margin-top:3px}.big{font-size:30px;font-weight:800}.good{color:var(--green)}.bad{color:var(--red)}.warn{color:var(--yellow)}.teal{color:var(--teal)}button{background:#202929;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-weight:650;cursor:pointer}button:hover{border-color:var(--teal)}button.primary{border-color:var(--teal)}input,select{width:100%;background:#0f1414;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:9px;font:inherit}label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.sectiongap{margin-top:14px}.progress{height:14px;background:#0b0f0f;border-radius:7px;overflow:hidden;margin:10px 0}.progress>div{height:100%;background:var(--teal)}.decision{border:1px solid var(--line);border-radius:12px;padding:14px;background:#121818}.decisionTitle{font-size:28px;font-weight:850}.decisionText{line-height:1.5;margin-top:6px}.prototype{border:1px solid var(--line);border-radius:12px;padding:13px;background:#101616}.prototypeHead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.prototypeTitle{font-size:22px;font-weight:850;margin-top:3px}.prototypeBadge{border:1px solid var(--line);border-radius:999px;padding:5px 8px;color:var(--yellow);font-size:10px;font-weight:800;letter-spacing:.06em}.prototypeCase{font-size:13px;line-height:1.5;margin-top:9px}.prototypeLearning{margin-top:9px;padding:8px 10px;border:1px dashed var(--line);border-radius:8px;background:#0d1313;color:var(--muted);font-size:11px;line-height:1.45}.prototypeLearning strong{color:var(--text)}.prototypeEvidenceWrap{margin-top:10px}.prototypeEvidenceWrap summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0d1313;border:1px solid var(--line);border-radius:9px;padding:9px 11px;color:var(--muted);font-size:11px;font-weight:750}.prototypeEvidenceWrap summary::-webkit-details-marker{display:none}.prototypeEvidenceWrap summary:after{content:"＋";font-size:16px;color:var(--teal);line-height:1}.prototypeEvidenceWrap[open] summary:after{content:"−"}.prototypeEvidenceWrap summary:hover{border-color:var(--teal);color:var(--text)}.prototypeEvidence{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:8px}.evidence{background:var(--panel2);border-radius:8px;padding:8px}.evidence strong{display:block;font-size:11px}.evidence span{display:block;color:var(--muted);font-size:11px;line-height:1.35;margin-top:2px}@media(max-width:850px){.prototypeEvidence{grid-template-columns:1fr 1fr}}.chart{height:300px;width:100%;overflow:hidden}.chart svg{width:100%;height:100%;display:block}.chartSmall{height:150px}.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:6px}.legend span:before{content:"";display:inline-block;width:12px;border-top:2px solid currentColor;margin:0 5px 3px 0}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{padding:9px 7px;border-bottom:1px solid var(--line);text-align:left;font-size:12px}th{color:var(--muted);font-weight:500}.pill{display:inline-block;border-radius:999px;padding:3px 7px;background:#232b2b}.topologyGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.tf{background:var(--panel2);border-radius:10px;padding:11px}.tf .tfname{font-weight:800;font-size:13px}.tf .tfdir{font-size:18px;font-weight:800;margin-top:5px}.tf .tfnum{font-size:12px;margin-top:4px}.bars{display:grid;gap:8px}.barrow{display:grid;grid-template-columns:42px 1fr 70px;gap:8px;align-items:center;font-size:12px}.barbg{height:9px;background:#0d1111;border-radius:5px;overflow:hidden}.barfill{height:100%;background:var(--teal)}.actionHelp{background:#121818;border:1px solid var(--line);border-radius:10px;padding:11px 13px}.actionHelpTitle{font-weight:800;color:var(--text);margin-bottom:3px}.actionHelpText{font-size:12px;color:var(--muted);line-height:1.5}.actionGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.actionButton{text-align:left;padding:11px;background:var(--panel2)}.actionButton strong{display:block;font-size:14px;margin-bottom:4px}.actionButton span{display:block;color:var(--muted);font-size:11px;font-weight:500;line-height:1.4}.actionButton.buy{border-color:#347b73}.actionButton.harvest{border-color:#806b32}.actionNote{margin-top:7px}.journalLearning{margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}.journalLearningRow{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.journalLearningTitle{font-weight:800}.journalLearningText{font-size:11px;color:var(--muted);line-height:1.45;margin-top:3px;max-width:720px}.learnStatus{font-size:11px;color:var(--muted);margin-top:7px}.callout{padding:11px 13px;border-left:3px solid var(--teal);background:#121818;border-radius:0 9px 9px 0;line-height:1.45}.ath{display:grid;grid-template-columns:1fr 1fr;gap:9px}.modal{position:fixed;inset:0;background:rgba(0,0,0,.82);display:flex;align-items:center;justify-content:center;padding:18px;z-index:10}.modal.hidden{display:none}.modalbox{width:min(620px,100%);background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:21px;box-shadow:0 20px 70px #000}.modalbox p{color:var(--muted);line-height:1.5}.amountPrompt{display:grid;gap:10px}.amountPrompt .hint{font-size:12px;color:var(--muted);line-height:1.45}.buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.hidden{display:none!important} .guesserPortfolio{margin-top:10px;border:1px solid var(--line);border-radius:10px;background:#0e1414;padding:10px}.guesserPortfolioHead{display:flex;justify-content:space-between;align-items:center;gap:10px}.guesserPortfolioTitle{font-weight:800;font-size:12px;letter-spacing:.04em}.guesserPortfolioTag{font-size:10px;color:var(--teal);border:1px solid var(--line);border-radius:999px;padding:4px 7px}.guesserCards{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:8px}.guesserCard{background:var(--panel2);border-radius:8px;padding:8px}.guesserCard .label{font-size:10px}.guesserCard .value{font-size:16px;margin-top:2px}.guesserPortfolio details{margin-top:8px}.guesserPortfolio summary{cursor:pointer;color:var(--muted);font-size:11px;font-weight:750;list-style:none}.guesserPortfolio summary::-webkit-details-marker{display:none}.guesserPortfolio summary:after{content:"＋";float:right;color:var(--teal);font-size:15px}.guesserPortfolio details[open] summary:after{content:"−"}.guesserPortfolioDetails{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.guesserMetric{background:var(--panel2);border-radius:8px;padding:8px}.guesserMetric strong{display:block;font-size:11px}.guesserMetric span{display:block;color:var(--muted);font-size:11px;margin-top:2px;line-height:1.35}.guesserPortfolioHistory{margin-top:8px;max-height:180px;overflow:auto}.guesserPortfolioHistory table{font-size:11px}.guesserPortfolioHistory th,.guesserPortfolioHistory td{padding:6px}.guesserReset{margin-top:8px}.guesserReset button{font-size:11px;padding:6px 9px}@media(max-width:850px){.guesserCards{grid-template-columns:1fr 1fr}.guesserPortfolioDetails{grid-template-columns:1fr}}@media(max-width:850px){main{padding:13px}.grid,.grid2{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.actionGrid{grid-template-columns:1fr 1fr}.topologyGrid{grid-template-columns:1fr 1fr}.row{grid-template-columns:1fr}.top{align-items:start;flex-direction:column}.chart{height:240px}}
 .summaryPanel{max-width:980px}.summaryText{font-size:15px;line-height:1.55;margin:0 0 7px}.summaryPanel a{color:var(--teal);text-decoration:none;font-weight:700}.summaryPanel a:hover{text-decoration:underline}.terms{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}.terms summary{cursor:pointer;color:var(--muted);font-size:13px}.termgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:11px}.termgrid>div{background:var(--panel2);border-radius:10px;padding:10px}.termgrid strong{display:block;font-size:13px;margin-bottom:3px}.termgrid span{display:block;color:var(--muted);font-size:12px;line-height:1.45}@media(max-width:850px){.termgrid{grid-template-columns:1fr}}
 .brand{display:flex;align-items:center;gap:12px;min-width:0}.brandIcon{width:48px;height:48px;border-radius:11px;display:block}.brandWordmark{width:min(300px,55vw);height:auto;display:block;object-fit:contain}@media(max-width:850px){.brandWordmark{width:min(250px,62vw)}}
 </style>
@@ -14,7 +14,7 @@
 <body>
 <div class="modal" id="onboarding"><div class="modalbox">
 <h2>Set your target</h2>
-<p><strong>Your baseline is the amount of crypto exposure you want to maintain.</strong> It is the centerline you farm around. It is not a price level, and being below it does not automatically mean the market is a dip.</p>
+<p><strong>Your baseline is the amount of crypto exposure you want to maintain.</strong> It is the centerline you farm around, not a price level.</p>
 <div class="row"><div><label>Target crypto exposure</label><input id="obTarget" type="number" min="0" step="100" value="15000"></div><div><label>Current crypto exposure</label><input id="obCurrent" type="number" min="0" step="100" value="0"></div></div>
 <div class="row" style="margin-top:10px"><div><label>Capital available for entry</label><input id="obCapital" type="number" min="0" step="100" value="15000"></div><div><label>Core / tactical split</label><select id="obSplit"><option value="50">50% / 50%</option><option value="60">60% / 40%</option><option value="70">70% / 30%</option><option value="40">40% / 60%</option></select></div></div>
 <div class="buttons"><button class="primary" type="button" id="buildEntryPlan">Build entry plan</button></div>
@@ -61,6 +61,29 @@
     <summary title="Expand to see the market evidence behind this guess">See the evidence behind this guess</summary>
     <div class="prototypeEvidence" id="prototypeEvidence"></div>
   </details>
+  <div class="guesserPortfolio" id="guesserPortfolio">
+    <div class="guesserPortfolioHead"><div class="guesserPortfolioTitle">GUESSER'S VIRTUAL PORTFOLIO</div><div class="guesserPortfolioTag">ITS OWN ACCOUNT</div></div>
+    <div class="guesserCards">
+      <div class="guesserCard"><div class="label">BASELINE</div><div class="value" id="gpBaseline">—</div></div>
+      <div class="guesserCard"><div class="label">CRYPTO</div><div class="value" id="gpCrypto">—</div></div>
+      <div class="guesserCard"><div class="label">CASH</div><div class="value" id="gpCash">—</div></div>
+      <div class="guesserCard"><div class="label">TOTAL VALUE</div><div class="value" id="gpTotal">—</div></div>
+    </div>
+    <details>
+      <summary>Open portfolio details</summary>
+      <div class="guesserPortfolioDetails">
+        <div class="guesserMetric"><strong>From baseline</strong><span id="gpDeviation">—</span></div>
+        <div class="guesserMetric"><strong>Capital extracted</strong><span id="gpExtracted">—</span></div>
+        <div class="guesserMetric"><strong>Profit recycled</strong><span id="gpRecycled">—</span></div>
+        <div class="guesserMetric"><strong>Portfolio return</strong><span id="gpReturn">—</span></div>
+        <div class="guesserMetric"><strong>Last action</strong><span id="gpLastAction">—</span></div>
+        <div class="guesserMetric"><strong>Decisions managed</strong><span id="gpDecisions">—</span></div>
+      </div>
+      <div class="mini" id="gpStatus" style="margin-top:8px">—</div>
+      <div class="guesserPortfolioHistory" id="gpHistory"></div>
+      <div class="guesserReset"><button type="button" title="Start a fresh virtual portfolio using your current baseline, exposure and cash">Reset virtual portfolio from my current state</button></div>
+    </details>
+  </div>
 </div>
 <div class="actionHelp sectiongap">
   <div class="actionHelpTitle">Record what you actually did</div>
@@ -72,7 +95,7 @@
   <button class="actionButton" onclick="record('HELD')"><strong>Held</strong><span>You kept your position as-is. Use this when the current setup does not justify changing exposure.</span></button>
   <button class="actionButton harvest" onclick="openAction('harvest')"><strong>Harvested</strong><span>You took excess value off the position. Use this when you actually realized a harvest.</span></button>
 </div>
-<div class="mini actionNote">Bought buttons update the simulated exposure and remaining entry capital. Held and Harvested are journal entries; use the capital ledger below to record the financial result of a harvest or recycled profit.</div>
+<div class="mini actionNote">Bought buttons update the simulated exposure and remaining entry capital. Held and Harvested record what you actually did; the ledger tracks the resulting capital.</div>
 </section>
 
 <div class="grid sectiongap">
@@ -141,14 +164,14 @@
 
 <div class="grid2 sectiongap">
 <section class="panel"><h2>Your farming capital</h2><div class="row"><div><label>External capital supplied</label><input id="external" type="number" step="100" value="15000"></div><div><label>Capital extracted</label><input id="extracted" type="number" step="100" value="0"></div></div><div class="row" style="margin-top:10px"><div><label>Profit recycled</label><input id="recycled" type="number" step="100" value="0"></div><div><label>Round-trip friction %</label><input id="friction" type="number" step="0.01" value="0.80"></div></div><div class="cards sectiongap" style="grid-template-columns:1fr 1fr"><div class="card"><div class="label">SELF-FUNDED</div><div class="value" id="selfFund">0%</div></div><div class="card"><div class="label">VALUE / EXTERNAL $</div><div class="value" id="valuePer">$0.00</div></div></div><div class="buttons"><button onclick="raiseBaseline()">Recycle profit → raise baseline</button></div></section>
-<section class="panel"><h2>Decision log</h2><div class="mini" style="margin-bottom:8px">Every button press is saved with the exposure and market read that existed at that moment. This gives the strategy a memory you can review later.</div><div class="tablewrap"><table><thead><tr><th>Time</th><th>Action</th><th>Amount</th><th>Market read</th><th>Price</th><th>Exposure</th><th>Baseline</th><th>Deviation</th></tr></thead><tbody id="log"></tbody></table></div><div class="journalLearning"><div class="journalLearningRow"><div><div class="journalLearningTitle">Optional: teach the Guesser from your journal</div><div class="journalLearningText">If your real decisions are consistently outperforming the prototype, you can let it study them. This uses your logged actions as an additional learning source; it stays separate from the Guesser’s own self-check history and is never enabled automatically.</div><div class="learnStatus" id="journalLearnStatus">No journal history has been used as a learning source.</div></div><button class="primary" onclick="learnFromJournal()">Learn from my history</button></div></div></section>
+<section class="panel"><h2>Decision log</h2><div class="mini" style="margin-bottom:8px">Every button press is saved with the exposure and market read that existed at that moment. This gives the strategy a memory you can review later.</div><div class="tablewrap"><table><thead><tr><th>Time</th><th>Action</th><th>Amount</th><th>Market read</th><th>Price</th><th>Exposure</th><th>Baseline</th><th>Deviation</th></tr></thead><tbody id="log"></tbody></table></div><div class="journalLearning"><div class="journalLearningRow"><div><div class="journalLearningTitle">Optional: teach the Guesser from your journal</div><div class="journalLearningText">If you want, the Guesser can also study your past decisions. This is optional and stays separate from its own self-check history.</div><div class="learnStatus" id="journalLearnStatus">No journal history has been used as a learning source.</div></div><button class="primary" title="Use graded journal decisions as an optional second learning source" onclick="learnFromJournal()">Learn from my history</button></div></div></section>
 </div>
 
 
 <section class="panel sectiongap summaryPanel">
 <h2>What this page is doing</h2>
 <p class="summaryText">Baseline Farmer manages a crypto position around a target amount of exposure. It looks for meaningful movement around that target, using price, volume, structure, and the market's recent path to help decide when to build, hold, or harvest rather than treating every move as a signal.</p>
-<p class="mini">Your target tells us how much exposure you want. Market conditions tell us whether now is a sensible time to move toward it. <a href="market_strategy.html">Read the Market Strategy</a> for the full model and how the pieces fit together.</p>
+<p class="mini">Your target tells us how much exposure you want. Market conditions tell us how the position should be managed around it. <a href="market_strategy.html">Read the Market Strategy</a> for the full model and how the pieces fit together.</p>
 <details class="terms"><summary>Terms used here</summary>
 <div class="termgrid">
 <div><strong>Baseline</strong><span>The amount of crypto exposure you want to maintain under normal conditions. It is a target, not a price floor.</span></div>
@@ -165,35 +188,255 @@
 <script>
 const $=id=>document.getElementById(id), CACHE='baselineFarmerMarketV3';
 const state={target:15000,current:0,capital:15000,corePct:50,coreRemaining:7500,reserveRemaining:7500,coreStep:750,onboardingComplete:false,market:{},log:[]};
-const LEARN='baselineFarmerGuesserV3';
-const learner={nodes:[],weights:{},humanWeights:{},humanTrained:{},version:2};
+const LEARN='baselineFarmerGuesserV4';
+const learner={nodes:[],weights:{},humanWeights:{},humanTrained:{},portfolio:null,version:5};
 let sessionNodeId=null;
-function loadLearner(){try{const x=JSON.parse(localStorage.getItem(LEARN));if(x&&Array.isArray(x.nodes)){learner.nodes=x.nodes;learner.weights=x.weights||{};learner.humanWeights=x.humanWeights||{};learner.humanTrained=x.humanTrained||{};learner.version=x.version||2}}catch(e){}}
+function loadLearner(){try{let x=JSON.parse(localStorage.getItem(LEARN));if(!x||!Array.isArray(x.nodes))x=JSON.parse(localStorage.getItem('baselineFarmerGuesserV3'));if(x&&Array.isArray(x.nodes)){learner.nodes=x.nodes;learner.weights=x.weights||{};learner.humanWeights=x.humanWeights||{};learner.humanTrained=x.humanTrained||{};learner.portfolio=x.portfolio||null;learner.version=5;saveLearner()}}catch(e){}}
 function saveLearner(){try{localStorage.setItem(LEARN,JSON.stringify(learner))}catch(e){}}
 function uid(){return Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8)}
 function num(x, fallback=0){const n=Number(x);return Number.isFinite(n)?n:fallback}
 function safeRatio(x,fallback=1){const n=Number(x);return Number.isFinite(n)?n:fallback}
-function vecFrom(a,s,vf){const m=s?.map||{},names=['1H','4H','7D','30D','90D'],f=[];names.forEach(n=>{const r=m[n];f.push(r?(r.dir==='RISING'?1:r.dir==='FALLING'?-1:0):0,r?clamp(num(r.dev)/20,-3,3):0,r?clamp((safeRatio(r.vr)-1)*2,-3,3):0)});const vd=vf?num(vf.dev)*100:0;f.push(clamp(vd/15,-3,3),clamp(num(a.rangePos)*2-1,-1,1),clamp((num(a.v7)-1),-2,2),clamp((num(a.v30)-1),-2,2),clamp(num(a.dist)/30,-3,0),clamp(num(a.chg7)/20,-3,3),clamp(num(a.chg30)/40,-3,3),clamp(num(a.chg90)/60,-3,3),a.reversal?1:0,a.continuation?1:0,a.fomo?-1:0);return f}
+function vecFrom(a,s,vf){const m=s?.map||{},names=['1H','4H','7D','30D','90D'],f=[];names.forEach(n=>{const r=m[n];f.push(r?(r.dir==='RISING'?1:r.dir==='FALLING'?-1:0):0,r?clamp(num(r.dev)/20,-3,3):0,r?clamp((safeRatio(r.vr)-1)*2,-3,3):0)});const vd=vf?num(vf.dev)*100:0,tar=Math.max(1,num(state.target)),cur=Math.max(0,num(state.current));f.push(clamp(vd/15,-3,3),clamp(num(a.rangePos)*2-1,-1,1),clamp((num(a.v7)-1),-2,2),clamp((num(a.v30)-1),-2,2),clamp(num(a.dist)/30,-3,0),clamp(num(a.chg7)/20,-3,3),clamp(num(a.chg30)/40,-3,3),clamp(num(a.chg90)/60,-3,3),a.reversal?1:0,a.continuation?1:0,a.fomo?-1:0,clamp((tar-cur)/tar,-1,1),clamp(num(state.capital)/tar,0,2),clamp((cur-tar)/tar,-1,1));return f}
 function dot(w,x){let z=num(w?.b);for(let i=0;i<x.length;i++)z+=num(w?.w?.[i])*num(x[i]);return z}
-function actionClass(g){return g&&g.startsWith('BUY')?'BUY':g==='HARVEST'?'HARVEST':'HOLD'}
-function learnedScores(x){const out={BUY:0,HOLD:0,HARVEST:0},counts={BUY:0,HOLD:0,HARVEST:0};for(const n of learner.nodes){if(!n.reward||!Array.isArray(n.x))continue;const d=Math.sqrt(n.x.reduce((z,v,i)=>z+(num(v)-num(x[i]))**2,0)/(x.length||1));const sim=Math.exp(-d*1.15);for(const k of Object.keys(out)){const r=num(n.reward[k],null);if(r!==null){out[k]+=sim*r;counts[k]+=sim}}}for(const k of Object.keys(out))out[k]=counts[k]?out[k]/counts[k]:0;return{out,counts}}
+function actionClass(g){if(!g)return null;if(g.startsWith('BUY'))return'BUY';if(g==='HARVESTED'||g==='HARVEST')return'HARVEST';if(g==='HELD'||g==='HOLD'||g==='HOLD / PRESERVE')return'HOLD';return null}
+function learnedScores(x){const out={BUY:0,HOLD:0,HARVEST:0},counts={BUY:0,HOLD:0,HARVEST:0};for(const n of learner.nodes){if(!n.reward||!Array.isArray(n.x))continue;const d=Math.sqrt(n.x.reduce((z,v,i)=>z+(num(v)-num(x[i]))**2,0)/(x.length||1));const sim=Math.exp(-d*1.15);for(const k of Object.keys(out)){const r=n.reward[k];if(r!=null&&Number.isFinite(Number(r))){out[k]+=sim*Number(r);counts[k]+=sim}}}for(const k of Object.keys(out))out[k]=counts[k]?out[k]/counts[k]:0;return{out,counts}}
 function ensureWeights(){for(const k of ['BUY','HOLD','HARVEST'])if(!learner.weights[k]||!Array.isArray(learner.weights[k].w))learner.weights[k]={b:0,w:[]}}
 function ensureHumanWeights(){for(const k of ['BUY','HOLD','HARVEST'])if(!learner.humanWeights[k]||!Array.isArray(learner.humanWeights[k].w))learner.humanWeights[k]={b:0,w:[]}}
 function humanAdjustment(x){ensureHumanWeights();const counts={BUY:0,HOLD:0,HARVEST:0};Object.values(learner.humanTrained||{}).forEach(z=>{const k=actionClass(z.action);if(k)counts[k]++});const total=counts.BUY+counts.HOLD+counts.HARVEST;if(total<3)return{BUY:0,HOLD:0,HARVEST:0,ready:false,counts};const out={BUY:dot(learner.humanWeights.BUY,x),HOLD:dot(learner.humanWeights.HOLD,x),HARVEST:dot(learner.humanWeights.HARVEST,x)};return{BUY:out.BUY,HOLD:out.HOLD,HARVEST:out.HARVEST,ready:true,counts}}
 function learnedAdjustment(x){ensureWeights();const a={BUY:dot(learner.weights.BUY,x),HOLD:dot(learner.weights.HOLD,x),HARVEST:dot(learner.weights.HARVEST,x)},kn=learnedScores(x).out,h=humanAdjustment(x);return{BUY:a.BUY+kn.BUY*.45+(h.ready?h.BUY*.22:0),HOLD:a.HOLD+kn.HOLD*.45+(h.ready?h.HOLD*.22:0),HARVEST:a.HARVEST+kn.HARVEST*.45+(h.ready?h.HARVEST*.22:0)}}
-function featureSnapshot(a,s,vf,guess){return{x:vecFrom(a,s,vf),guess,created:Date.now(),price:num(a.price),target:state.target,current:state.current,capital:state.capital,market:{dist:num(a.dist),rangePos:num(a.rangePos),v7:num(a.v7),v30:num(a.v30),chg7:num(a.chg7),chg30:num(a.chg30),chg90:num(a.chg90),reversal:!!a.reversal,continuation:!!a.continuation,fomo:!!a.fomo,trajectory:a.trajectory,virtual:vf?num(vf.dev)*100:null},graded:{},reward:null}}
+function featureSnapshot(a,s,vf,guess){return{x:vecFrom(a,s,vf),guess,created:Date.now(),price:num(a.price),target:state.target,current:state.current,capital:state.capital,market:{dist:num(a.dist),rangePos:num(a.rangePos),v7:num(a.v7),v30:num(a.v30),chg7:num(a.chg7),chg30:num(a.chg30),chg90:num(a.chg90),reversal:!!a.reversal,continuation:!!a.continuation,fomo:!!a.fomo,trajectory:a.trajectory,virtual:vf?num(vf.dev)*100:null},friction:num($('friction')?.value,.8),graded:{},reward:null}}
 function futurePoint(ts){const d=state.market?.daily||[];if(!d.length)return null;let best=null,bd=Infinity;for(const x of d){const delta=num(x.t)-ts;if(delta>=0&&delta<bd){best=x;bd=delta}}return best}
-function rewardFor(node,h){const t=node.created+h*86400000,pt=futurePoint(t);if(!pt||!node.price)return null;const r=(num(pt.p)/num(node.price)-1)*100,friction=Math.max(0,num($('friction')?.value)/100),net=r-(r>0?friction:-friction);/* Each action is judged as a small counterfactual position: buying benefits from later appreciation, harvesting benefits from later decline, holding is best when the move stays contained. */return{BUY:clamp(net,-30,30),HOLD:clamp(8-Math.abs(net)*.55,-30,8),HARVEST:clamp(-net,-30,30)}}
-function gradeNodes(){let changed=false;for(const n of learner.nodes){if(!n.graded||typeof n.graded!=='object')n.graded={};if(!n.trained||typeof n.trained!=='object')n.trained={};for(const h of [1,3,7,30,90]){if(n.graded[h])continue;const rw=rewardFor(n,h);if(rw){n.graded[h]=rw;trainWeightsFor(n,rw);n.trained[h]=Date.now();changed=true}}const keys=Object.keys(n.graded);if(keys.length){n.reward={BUY:0,HOLD:0,HARVEST:0};for(const h of keys)for(const k of Object.keys(n.reward))n.reward[k]+=num(n.graded[h][k]);for(const k of Object.keys(n.reward))n.reward[k]/=keys.length;n.horizons=keys.length}}if(changed)saveLearner()}
-function trainWeightsFor(n,reward){ensureWeights();const lr=.018,decay=.002;if(!Array.isArray(n.x))return;for(const k of ['BUY','HOLD','HARVEST']){const w=learner.weights[k],pred=dot(w,n.x),err=clamp(num(reward[k])-pred,-20,20);w.b+=lr*err;for(let i=0;i<n.x.length;i++)w.w[i]=num(w.w[i])*(1-decay)+lr*err*num(n.x[i])}}
-function trainHumanExample(node,action){ensureHumanWeights();const k=actionClass(action);if(!k||!Array.isArray(node.x))return;const lr=.012;for(const c of ['BUY','HOLD','HARVEST']){const target=c===k?1:-1,pred=dot(learner.humanWeights[c],node.x),err=clamp(target-pred,-2,2);learner.humanWeights[c].b+=lr*err;for(let i=0;i<node.x.length;i++)learner.humanWeights[c].w[i]=num(learner.humanWeights[c].w[i])*.998+lr*err*num(node.x[i])}}
-function learnFromJournal(){const usable=[];for(const row of state.log||[]){const k=actionClass(row.action);if(!k||!row.nodeId)continue;const n=learner.nodes.find(z=>z.id===row.nodeId);if(!n||!Array.isArray(n.x))continue;if(learner.humanTrained[row.nodeId])continue;usable.push({row,n,k})}if(!usable.length){renderJournalLearning();return}usable.forEach(({row,n})=>{trainHumanExample(n,row.action);learner.humanTrained[n.id]={action:row.action,time:Date.now()}});saveLearner();renderJournalLearning();update()}
-function journalComparison(){let human=0,guess=0,n=0;for(const row of state.log||[]){const k=actionClass(row.action),node=row.nodeId?learner.nodes.find(z=>z.id===row.nodeId):null;if(!k||!node||!node.reward||!node.guess)continue;const g=actionClass(node.guess);if(!g||!node.reward[k]||!node.reward[g]&&node.reward[g]!==0)continue;human+=num(node.reward[k]);guess+=num(node.reward[g]);n++}return{human,guess,n,edge:n?human/n-guess/n:0}}
-function renderJournalLearning(){const el=$('journalLearnStatus');if(!el)return;const trained=Object.keys(learner.humanTrained||{}).length,total=(state.log||[]).filter(x=>actionClass(x.action)&&x.nodeId).length;const counts={BUY:0,HOLD:0,HARVEST:0};Object.values(learner.humanTrained||{}).forEach(z=>{const k=actionClass(z.action);if(k)counts[k]++});const cmp=journalComparison();let lead=cmp.n?' · Your recorded choices '+(cmp.edge>=0?'are ahead of':'are behind')+' the prototype by '+Math.abs(cmp.edge).toFixed(1)+' reward points on '+cmp.n+' graded decision'+(cmp.n===1?'':'s'):'';el.textContent=trained?trained+' journal decisions used for learning · '+counts.BUY+' buys · '+counts.HOLD+' holds · '+counts.HARVEST+' harvests.'+lead+' '+(trained<3?'Need a few more decisions before the journal layer affects guesses.':'Journal correction is active.'):(total?total+' journal decisions available to learn from. '+(cmp.n?('Your graded choices are '+(cmp.edge>=0?'ahead of':'behind')+' the prototype by '+Math.abs(cmp.edge).toFixed(1)+' reward points.'): 'Outcome comparison will appear as those decisions become gradable.'):'No journal history has been used as a learning source.')}
+function actionCapacity(node,k){
+  const target=Math.max(0,num(node.target)),current=Math.max(0,num(node.current)),capital=Math.max(0,num(node.capital));
+  if(k==='BUY')return Math.min(capital,Math.max(0,target-current));
+  if(k==='HARVEST')return Math.max(0,current-target);
+  return 1;
+}
+function outcomeAt(node,h){
+  const t=num(node.created)+h*86400000,pt=futurePoint(t);
+  if(!pt||!node.price)return null;
+  const raw=(num(pt.p)/num(node.price))-1;
+  const friction=Math.max(0,num(node.friction,.8)/100);
+  const net=raw-(raw>0?friction:-friction);
+  return {pt,raw,net};
+}
+function virtualPortfolio(node,h){
+  const d=state.market?.daily||[];
+  if(!d.length||!node?.price)return null;
+  const start=d.findIndex(x=>x.t>=num(node.created));
+  const si=start>=0?start:Math.max(0,d.length-1);
+  const end=Math.min(d.length-1,si+Math.max(1,Math.round(h)));
+  if(end<=si)return null;
+  const target=Math.max(0,num(node.target));
+  let cash=Math.max(0,num(node.capital));
+  let units=target?Math.max(0,num(node.current))/num(node.price):0;
+  let extracted=0;
+  const friction=Math.max(0,num($('friction')?.value)/100);
+  const startPrice=num(d[si].p)||num(node.price);
+  const startingValue=units*startPrice+cash;
+  let peakValue=startingValue;
+  const history=[];
+  function emaAt(idx,period){
+    const from=Math.max(0,idx-period*3),vals=d.slice(from,idx+1).map(x=>num(x.p)).filter(Boolean);
+    if(!vals.length)return 0; const k=2/(period+1); let e=vals[0]; for(let i=1;i<vals.length;i++)e=vals[i]*k+e*(1-k); return e;
+  }
+  function marketAt(i){
+    const price=num(d[i].p), e7=emaAt(i,7),e30=emaAt(i,30),e90=emaAt(i,90);
+    const dev7=e7?(price-e7)/e7*100:0,dev30=e30?(price-e30)/e30*100:0,dev90=e90?(price-e90)/e90*100:0;
+    const r7=i>=7?(price/num(d[i-7].p)-1)*100:0,r30=i>=30?(price/num(d[i-30].p)-1)*100:0;
+    const range=d.slice(Math.max(0,i-30),i+1).map(x=>num(x.p)),lo=Math.min(...range),hi=Math.max(...range),rangePos=hi>lo?(price-lo)/(hi-lo):.5;
+    const v7=volRatio(d.slice(0,i+1),7),v30=volRatio(d.slice(0,i+1),30);
+    const rising90=dev90>=0&&r30>=0, falling90=dev90<0&&r30<0;
+    const rising7=dev7>=0&&r7>=0, falling7=dev7<0&&r7<0;
+    const reversal=falling90&&rising7&&rangePos>.35&&v7>1.05;
+    const continuation=rising90&&dev30>=0&&rising7&&v7>.85;
+    const ath=Math.max(...d.slice(0,i+1).map(x=>num(x.p))); const dist=ath?(price-ath)/ath*100:-99;
+    const extended=rangePos>.8&&dev30>3&&rising7;
+    const fomo=dist>-18&&rising90&&dev30>0&&rising7&&v7>1.2&&extended;
+    const virtualDev=e30?(price/e30-1)*100:0;
+    return {price,dev7,dev30,dev90,r7,r30,rangePos,v7,v30,reversal,continuation,fomo,virtualDev};
+  }
+  function act(k,m,forced=false){
+    const value=units*m.price;
+    const gap=Math.max(0,target-value),excess=Math.max(0,value-target);
+    let amount=0;
+    if(k==='BUY'){
+      const tactical=(m.virtualDev<-5||m.reversal||m.r30<0);
+      const fraction=tactical?.30:.12;
+      amount=Math.min(cash/(1+friction),gap*0.35+cash*fraction);
+      if(forced&&amount<=0)amount=Math.min(cash,gap*.25);
+      if(amount>0){cash-=amount*(1+friction);units+=amount/m.price;}
+    }else if(k==='HARVEST'){
+      const fraction=m.fomo?.35:(m.virtualDev>5?.20:.10);
+      amount=Math.min(excess,Math.max(0,excess*fraction));
+      if(amount>0){units-=amount/m.price;cash+=amount*(1-friction);extracted+=amount;}
+    }
+  }
+  const initial=actionClass(node.guess);
+  const first=marketAt(si);
+  if(initial==='BUY')act('BUY',first,true); else if(initial==='HARVEST')act('HARVEST',first,true);
+  for(let i=si+1;i<=end;i++){
+    const m=marketAt(i),value=units*m.price,total=value+cash;
+    peakValue=Math.max(peakValue,total);
+    const gap=Math.max(0,target-value),excess=Math.max(0,value-target);
+    let decision='HOLD';
+    if(m.fomo&&excess>0)decision='HARVEST';
+    else if(m.virtualDev>5&&excess>0)decision='HARVEST';
+    else if((m.virtualDev<-5||m.reversal||((m.dev7<0&&m.dev30>0)&&m.rangePos<.55))&&gap>0)decision='BUY';
+    else if(m.continuation&&gap>0&&m.virtualDev<=5)decision='BUY';
+    if(decision==='BUY')act('BUY',m); else if(decision==='HARVEST')act('HARVEST',m);
+    history.push({t:d[i].t,value:units*m.price+cash,exposure:units*m.price,cash});
+  }
+  const last=d[end],finalExposure=units*num(last.p),finalValue=finalExposure+cash;
+  const baselineEfficiency=target?finalExposure/target:0;
+  const capitalGrowth=startingValue?((finalValue+extracted)/startingValue-1)*100:0;
+  const lockedBaseline=Math.max(0,finalExposure-target);
+  return {finalValue,finalExposure,cash,extracted,capitalGrowth,baselineEfficiency,lockedBaseline,history};
+}
+function strategyReward(node,h){
+  const sim=virtualPortfolio(node,h);
+  if(!sim)return null;
+  const start=Math.max(1,num(node.current)+num(node.capital));
+  const total=num(sim.finalValue)+num(sim.extracted);
+  const returnPct=((total/start)-1)*100;
+  const target=Math.max(0,num(node.target));
+  const baselineHold=target?num(sim.finalExposure)/target:0;
+  const extractedRatio=start?num(sim.extracted)/start:0;
+  const score=clamp(returnPct + (baselineHold-1)*8 + extractedRatio*2,-30,30);
+  const chosen=actionClass(node.guess)||'HOLD';
+  return {
+    BUY:chosen==='BUY'?score:null,
+    HOLD:chosen==='HOLD'?score:null,
+    HARVEST:chosen==='HARVEST'?score:null,
+    chosen,score,
+    portfolio:{finalValue:sim.finalValue,finalExposure:sim.finalExposure,cash:sim.cash,extracted:sim.extracted,capitalGrowth:sim.capitalGrowth,baselineEfficiency:sim.baselineEfficiency,lockedBaseline:sim.lockedBaseline},
+    compared:{BUY:null,HOLD:null,HARVEST:null}
+  };
+}
+function rewardFor(node,h){return strategyReward(node,h)}
+function gradeNodes(){
+  let changed=false;
+  for(const n of learner.nodes){
+    if(!n.graded||typeof n.graded!=='object')n.graded={};
+    if(!n.trained||typeof n.trained!=='object')n.trained={};
+    for(const h of [1,3,7,30,90]){
+      if(n.graded[h]||n.trained[h])continue;
+      const rw=rewardFor(n,h);
+      if(rw){n.graded[h]=rw;trainWeightsFor(n,rw);n.trained[h]=Date.now();changed=true}
+    }
+    const keys=Object.keys(n.graded);
+    if(keys.length){
+      n.reward={BUY:null,HOLD:null,HARVEST:null};
+      const chosen=actionClass(n.guess),scores=keys.map(h=>n.graded[h]?.score).filter(v=>Number.isFinite(Number(v)));
+      if(chosen&&scores.length)n.reward[chosen]=scores.reduce((a,b)=>a+Number(b),0)/scores.length;
+      n.reward.chosen=chosen;n.reward.score=scores.length?scores.reduce((a,b)=>a+Number(b),0)/scores.length:null;
+      n.horizons=keys.length;
+    }
+  }
+  if(changed)saveLearner();
+}
+function trainWeightsFor(n,reward){
+  ensureWeights();
+  const k=reward?.chosen;if(!k||!Array.isArray(n.x))return;
+  const observed=num(reward.score,0),lr=.012,decay=.001;
+  const w=learner.weights[k],pred=dot(w,n.x),err=clamp(observed-pred,-12,12);
+  w.b+=lr*err;
+  for(let i=0;i<n.x.length;i++)w.w[i]=num(w.w[i])*(1-decay)+lr*err*num(n.x[i]);
+}
+function trainHumanExample(node,action){
+  ensureHumanWeights();
+  const k=actionClass(action);if(!k||!Array.isArray(node.x)||!node.reward)return;
+  const chosen=num(node.reward[k],null);if(chosen===null)return;
+  const quality=clamp(chosen/10,-1,1),lr=.010;
+  const w=learner.humanWeights[k],pred=dot(w,node.x),err=clamp(quality-pred,-2,2);
+  w.b+=lr*err;
+  for(let i=0;i<node.x.length;i++)w.w[i]=num(w.w[i])*.998+lr*err*num(node.x[i]);
+}
+function learnFromJournal(){
+  gradeNodes();
+  const usable=[];
+  for(const row of state.log||[]){
+    const k=actionClass(row.action);if(!k||!row.nodeId)continue;
+    const n=learner.nodes.find(z=>z.id===row.nodeId);if(!n||!Array.isArray(n.x)||!n.reward)continue;
+    if(learner.humanTrained[row.nodeId])continue;
+    usable.push({row,n,k});
+  }
+  if(!usable.length){renderJournalLearning();return}
+  usable.forEach(({row,n})=>{trainHumanExample(n,row.action);learner.humanTrained[n.id]={action:row.action,time:Date.now()}});
+  saveLearner();renderJournalLearning();update();
+}
+function journalComparison(){
+  let human=0,guess=0,n=0;
+  for(const row of state.log||[]){
+    const k=actionClass(row.action),node=row.nodeId?learner.nodes.find(z=>z.id===row.nodeId):null;
+    if(!k||!node||!node.reward||!node.guess)continue;
+    const g=actionClass(node.guess),hr=node.reward[k],gr=node.reward[g];
+    if(hr==null||gr==null)continue;
+    human+=Number(hr);guess+=Number(gr);n++;
+  }
+  return{human,guess,n,edge:n?human/n-guess/n:0};
+}
+function renderJournalLearning(){
+  const el=$('journalLearnStatus');if(!el)return;
+  const trained=Object.keys(learner.humanTrained||{}).length,total=(state.log||[]).filter(x=>actionClass(x.action)&&x.nodeId).length;
+  const counts={BUY:0,HOLD:0,HARVEST:0};Object.values(learner.humanTrained||{}).forEach(z=>{const k=actionClass(z.action);if(k)counts[k]++});
+  const cmp=journalComparison();
+  if(!trained){el.textContent=total?total+' journal decisions available. The Guesser will only learn from decisions once their outcomes are available.':'No journal history has been used as a learning source.';return}
+  const lead=cmp.n?' · On '+cmp.n+' graded decisions, your recorded choices are '+(cmp.edge>=0?'ahead of':'behind')+' the prototype by '+Math.abs(cmp.edge).toFixed(1)+' reward points.':'';
+  el.textContent=trained+' graded journal decisions used · '+counts.BUY+' buys · '+counts.HOLD+' holds · '+counts.HARVEST+' harvests.'+lead+' '+(trained<3?'A few more cases will make the human layer more useful.':'Human correction is active.');
+}
+function initGuesserPortfolio(price,force=false){
+  if(learner.portfolio&&!force)return learner.portfolio;
+  const px=Math.max(.000001,num(price));
+  const baseline=Math.max(0,num(state.target));
+  const current=Math.max(0,num(state.current));
+  const cash=Math.max(0,num(state.capital));
+  learner.portfolio={baseline,units:current/px,cash,extracted:0,recycled:0,startingValue:current+cash,created:Date.now(),lastPrice:px,lastTime:Date.now(),lastNodeId:null,decisions:0,history:[],version:1};
+  saveLearner();return learner.portfolio;
+}
+function markGuesserPortfolio(price){
+  const p=learner.portfolio;if(!p)return null;
+  p.lastPrice=Math.max(.000001,num(price,p.lastPrice));p.lastTime=Date.now();return p;
+}
+function applyGuesserDecision(node,guess,a){
+  const p=initGuesserPortfolio(node.price);if(!p||p.lastNodeId===node.id)return p;
+  const price=Math.max(.000001,num(a?.price,node.price));markGuesserPortfolio(price);
+  const before=p.units*price+p.cash,base=Math.max(0,p.baseline),exposure=p.units*price,gap=Math.max(0,base-exposure),excess=Math.max(0,exposure-base),friction=Math.max(0,num($('friction')?.value,.8)/100);
+  let action=actionClass(guess)||'HOLD',amount=0;
+  if(action==='BUY'&&gap>0&&p.cash>0){
+    const tactical=guess.indexOf('TACTICAL')>=0;
+    const fraction=tactical?.30:.12;
+    amount=Math.min(p.cash/(1+friction),gap*.35+p.cash*fraction);
+    if(amount>0){p.cash-=amount*(1+friction);p.units+=amount/price;}
+  }else if(action==='HARVEST'&&excess>0){
+    const fraction=a?.fomo?.35:.20;
+    amount=Math.min(excess,excess*fraction);
+    if(amount>0){p.units-=amount/price;p.cash+=amount*(1-friction);p.extracted+=amount;}
+  }
+  const after=p.units*price+p.cash;
+  p.lastNodeId=node.id;p.decisions++;p.lastAction=action+(amount?' · '+money(amount):'');
+  p.history.push({time:Date.now(),nodeId:node.id,action,amount,price,baseline:base,exposure:p.units*price,cash:p.cash,total:after,change:after-before});
+  if(p.history.length>200)p.history=p.history.slice(-200);
+  saveLearner();return p;
+}
+function renderGuesserPortfolio(price){
+  const p=learner.portfolio;if(!p)return;
+  const px=Math.max(.000001,num(price,p.lastPrice)),crypto=p.units*px,total=crypto+p.cash,dev=crypto-p.baseline;
+  const start=Math.max(1,num(p.startingValue)),ret=((total+p.extracted+p.recycled)/start-1)*100;
+  $('gpBaseline').textContent=money(p.baseline);$('gpCrypto').textContent=money(crypto);$('gpCash').textContent=money(p.cash);$('gpTotal').textContent=money(total);
+  $('gpDeviation').textContent=(dev>=0?'+':'-')+money(Math.abs(dev));$('gpDeviation').className=dev<0?'bad':dev>0?'good':'';
+  $('gpExtracted').textContent=money(p.extracted);$('gpRecycled').textContent=money(p.recycled);$('gpReturn').textContent=pct(ret);$('gpReturn').className=ret>=0?'good':'bad';$('gpLastAction').textContent=p.lastAction||'HELD';$('gpDecisions').textContent=String(p.decisions||0);
+  $('gpStatus').textContent='It starts from a snapshot of your baseline, crypto exposure and available cash, then manages its own account from its own guesses. Your actions do not change this portfolio.';
+  const hist=(p.history||[]).slice().reverse();$('gpHistory').innerHTML=hist.length?'<table><thead><tr><th>Time</th><th>Action</th><th>Amount</th><th>Price</th><th>Total</th></tr></thead><tbody>'+hist.slice(0,30).map(h=>'<tr><td>'+new Date(h.time).toLocaleString()+'</td><td><span class="pill">'+h.action+'</span></td><td>'+(h.amount?money(h.amount):'—')+'</td><td>'+money(h.price)+'</td><td>'+money(h.total)+'</td></tr>').join('')+'</tbody></table>':'<div class="mini">No virtual decisions yet.</div>';
+}
+function resetGuesserPortfolio(){
+  const px=num(state.market?.ticker?.quotes?.USD?.price)||(state.market?.daily?.at(-1)?.p)||0;
+  learner.portfolio=null;sessionNodeId=null;initGuesserPortfolio(px,true);saveLearner();update();
+}
 function stateFingerprint(a,s,vf){const x=vecFrom(a,s,vf);return x.map(v=>Math.round(num(v)*100)/100).join(',')}
-function createSessionNode(a,s,vf,guess){const fp=stateFingerprint(a,s,vf),stamp=num(a.price);const last=learner.nodes.at(-1);if(last&&last.fp===fp&&Math.abs(num(last.price)-stamp)<Math.max(1,stamp*.0005))return last;const n=featureSnapshot(a,s,vf,guess);n.id=uid();n.fp=fp;n.created=Date.now();learner.nodes.push(n);if(learner.nodes.length>1500)learner.nodes=learner.nodes.slice(-1500);sessionNodeId=n.id;saveLearner();return n}
+function createSessionNode(a,s,vf,guess){const fp=stateFingerprint(a,s,vf),stamp=num(a.price),now=Date.now();const last=learner.nodes.at(-1);if(last&&last.fp===fp&&Math.abs(num(last.price)-stamp)<Math.max(1,stamp*.001)&&now-num(last.created)<6*3600000)return last;const n=featureSnapshot(a,s,vf,guess);n.id=uid();n.fp=fp;n.created=now;learner.nodes.push(n);if(learner.nodes.length>1500)learner.nodes=learner.nodes.slice(-1500);sessionNodeId=n.id;saveLearner();return n}
 function latestNode(){return sessionNodeId?learner.nodes.find(n=>n.id===sessionNodeId):null}
-function renderLearning(x){const el=$('prototypeLearning');if(!el)return;const nodes=learner.nodes,graded=nodes.filter(z=>z.horizons).length,updates=nodes.reduce((n,z)=>n+Object.keys(z.trained||{}).length,0),kn=learnedScores(x).counts,total=Math.round((kn.BUY||0)+(kn.HOLD||0)+(kn.HARVEST||0));el.innerHTML='<strong>Self-check:</strong> '+nodes.length+' frozen states · '+graded+' graded · '+updates+' outcome updates · '+total+' weighted analogues. Historical outcomes train the local correction layer; your actions are not used as labels.'}
+function renderLearning(x){const el=$('prototypeLearning');if(!el)return;const nodes=learner.nodes,graded=nodes.filter(z=>z.horizons).length,updates=nodes.reduce((n,z)=>n+Object.keys(z.trained||{}).length,0),kn=learnedScores(x).counts,total=Math.round((kn.BUY||0)+(kn.HOLD||0)+(kn.HARVEST||0));el.innerHTML='<strong>Self-check:</strong> '+graded+' of '+nodes.length+' past guesses have outcomes so far.'+(total?' '+total+' useful comparisons are available.':'')+(graded?'':' Waiting for enough history to grade its first calls.')}
 
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const money=x=>(Number(x)||0).toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:0});
@@ -237,7 +480,7 @@ let read='WAIT';let readText='The market is not giving a clean enough setup to f
 $('marketRead').textContent=read;$('marketReadText').textContent=readText;return{price,ath,dist,reversal,continuation,fomo,trajectory,rangePos,extended,v7,v30,chg90:(price-old90)/old90*100,chg7:+q.percent_change_7d||0,chg30:+q.percent_change_30d||0}}
 function virtualFarm(d){if(d.length<30)return null;const p=d.map(x=>x.p),ref=ema(p,30),v=[1],cash=0,asset=1;let exposure=1;for(let i=1;i<p.length;i++){const dev=(p[i]-ref[i])/ref[i];if(dev<-.06)exposure=Math.min(1.35,exposure+.035);else if(dev>.08)exposure=Math.max(.72,exposure-.035);v.push(exposure)}const currentRef=v.at(-1),priceNorm=p.at(-1)/p[0];const refSeries=v.map((x,i)=>p[0]*x);return{refSeries,currentRef,dev:priceNorm/currentRef-1}}
 function renderVirtual(d){const vf=virtualFarm(d);if(!vf){$('virtualState').textContent='—';return}const p=d.map(x=>x.p);renderLine($('virtualChart'),[p,vf.refSeries],[],['#e9eeee','#42d6c5']);const dev=vf.dev*100;$('virtualDeviation').textContent=pct(dev);$('virtualDeviation').className='value '+(dev<0?'bad':dev>0?'good':'teal');$('virtualState').textContent=dev<-5?'BELOW REFERENCE':dev>5?'ABOVE REFERENCE':'NEAR REFERENCE';$('virtualText').textContent='The reference is a hypothetical replay of the farming behavior through the tracked history. It gives the current price a reference built from the market path itself; it is separate from your dollar baseline and your exposure gap.'}
-function renderDecision(a){const gap=Math.max(0,state.target-state.current);$('decisionTarget').textContent=money(state.target);$('decisionCurrent').textContent=money(state.current);$('decisionGap').textContent=money(gap);let posture='WAIT / PRESERVE',text='Your exposure gap tells us how much room you have. It does not tell us that the market is cheap.';if(a.fomo){posture='DO NOT CHASE';text='You are below your target, but the market is extended near ATH with increasing participation. Preserve entry capital.'}else if(a.reversal){posture='WATCH REVERSAL';text='The market is showing strength from a damaged larger structure. That can be a constructive entry setup; do not confuse strength with FOMO.'}else if(a.continuation){posture='SELECTIVE';text='The advance is supported across scales. Keep forward progress measured rather than buying simply because price is rising.'}else if(a.trajectory==='PULLBACK IN AN ADVANCE'){posture='WATCH DIP';text='Short-term weakness is occurring inside a larger advance. Wait for the weakness to become a real deviation rather than treating every red move as a dip.'}$('decisionPosture').textContent=posture;$('decisionNarrative').textContent=text}
+function renderDecision(a){const gap=Math.max(0,state.target-state.current);$('decisionTarget').textContent=money(state.target);$('decisionCurrent').textContent=money(state.current);$('decisionGap').textContent=money(gap);let posture='WAIT / PRESERVE',text='The current setup does not offer a strong enough reason to change exposure.';if(a.fomo){posture='DO NOT CHASE';text='Price is extended near ATH with increasing participation. Preserve entry capital.'}else if(a.reversal){posture='WATCH REVERSAL';text='The market is showing strength from a damaged larger structure. That can be a constructive entry setup; do not confuse strength with FOMO.'}else if(a.continuation){posture='SELECTIVE';text='The advance is supported across scales. Keep forward progress measured.'}else if(a.trajectory==='PULLBACK IN AN ADVANCE'){posture='WATCH DIP';text='Short-term weakness is occurring inside a larger advance. Wait for the weakness to become a real deviation rather than treating every red move as a dip.'}$('decisionPosture').textContent=posture;$('decisionNarrative').textContent=text}
 function renderPrototype(a,s,vf){
   if(!a||!s)return;
   gradeNodes();
@@ -258,7 +501,7 @@ function renderPrototype(a,s,vf){
   let guess=learnedBase==='BUY'?(cheap?'BUY · TACTICAL':'BUY · CORE'):learnedBase==='HARVEST'?'HARVEST':'HOLD / PRESERVE';
   if(state.current<=state.target&&learnedBase==='HARVEST')guess='HOLD / PRESERVE';
   $('prototypeGuess').textContent=guess;$('prototypeGuess').className='prototypeTitle '+(guess.indexOf('BUY')===0?'good':guess==='HARVEST'?'warn':'');
-  let caseText='The prototype compares market structure, the virtual farming reference, participation, cycle position and your capital state. The target gap says how much room you have; it does not say the market is cheap.';
+  let caseText='The prototype weighs the market structure, virtual farming reference, participation and cycle position before choosing a posture.';
   if(a.fomo)caseText=state.current>state.target?'You are above target while price is extended near ATH with strong participation. The prototype favors harvesting excess.':'You are below target, but the market is extended near ATH. The prototype preserves entry capital instead of calling the gap a dip.';
   else if(guess==='BUY · TACTICAL')caseText='The market is showing a meaningful deviation from the hypothetical farming reference while shorter structure is weak. Tactical capital is favored over routine buying.';
   else if(guess==='BUY · CORE')caseText='The market is not showing a late-cycle chase setup. Structure and the recent path support measured progress toward the target.';
@@ -273,11 +516,13 @@ function renderPrototype(a,s,vf){
   const participation='<div class="evidence"><strong>Participation</strong><span>7D '+safeRatio(s.vol7).toFixed(2)+'× · 30D '+safeRatio(s.vol30).toFixed(2)+'× prior period</span></div>';
   const hypotheses='<div class="evidence"><strong>Market hypotheses</strong><span>Reversal '+(a.reversal?'supported':'mixed')+' · continuation '+(a.continuation?'supported':'mixed')+' · FOMO '+(a.fomo?'building':'not established')+'</span></div>';
   $('prototypeEvidence').innerHTML=ev+vline+ath+path+participation+hypotheses;
-  createSessionNode(a,s,vf,guess);
+  const node=createSessionNode(a,s,vf,guess);
+  applyGuesserDecision(node,guess,a);
+  renderGuesserPortfolio(a.price);
 }
 function heikinAshi(h){if(!h.length)return[];const out=[];for(let i=0;i<h.length;i++){const x=h[i],c=(x.open+x.high+x.low+x.close)/4,o=i?((out[i-1].o+out[i-1].c)/2):((x.open+x.close)/2);out.push({t:x.t,o,c,h:Math.max(x.high,o,c),l:Math.min(x.low,o,c),v:x.v})}return out}
 function renderHA(h){const a=heikinAshi(h);if(!a.length)return;const n=a.slice(-24),last=n[n.length-1],prev=n[Math.max(0,n.length-2)],up=last.c>=last.o;const body=Math.abs(last.c-last.o),range=Math.max(.000001,last.h-last.l);$('haTrend').textContent=up?(last.c>prev.c?'RISING':'UP'):(last.c<prev.c?'FALLING':'DOWN');$('haTrend').className='value '+(up?'good':'bad');$('haVol').textContent=money(last.v);const vr=volRatio(state.market.daily||[],7);$('vol7top').textContent=vr?vr.toFixed(2)+'×':'—';}
-function update(){const b=state.target,v=state.current,d=v-b;$('baselineOut').textContent=money(b);$('valueOut').textContent=money(v);$('devOut').textContent=(d>=0?'+':'-')+money(Math.abs(d));$('capitalOut').textContent=money(state.capital);const prog=b?clamp(v/b*100,0,100):0;$('exposureFill').style.width=prog+'%';$('capitalLine').textContent=prog.toFixed(1)+'% of your target exposure established. '+money(Math.max(0,b-v))+' remains to establish.';const m=state.market||{},daily=m.daily||[],hourly=m.hourly||[];if(m.ticker)renderTicker(m.ticker);if(daily.length){renderPriceChart(daily,m.ticker);renderRange(daily,+m.ticker?.quotes?.USD?.price||daily.at(-1).p)}if(hourly.length)renderHA(hourly);if(daily.length){const s=renderStructure(daily,hourly);if(s){const a=analyze(daily,hourly,m.ticker,s);renderDecision(a);renderVirtual(daily);renderPrototype(a,s,virtualFarm(daily))}}const ext=Number($('external').value)||0,ex=Number($('extracted').value)||0,rec=Number($('recycled').value)||0;$('selfFund').textContent=(ext?rec/ext*100:0).toFixed(1)+'%';$('valuePer').textContent=ext?money((v+ex)/ext):'—'}
+function update(){const b=state.target,v=state.current,d=v-b;$('baselineOut').textContent=money(b);$('valueOut').textContent=money(v);$('devOut').textContent=(d>=0?'+':'-')+money(Math.abs(d));$('capitalOut').textContent=money(state.capital);const prog=b?clamp(v/b*100,0,100):0;$('exposureFill').style.width=prog+'%';$('capitalLine').textContent=prog.toFixed(1)+'% of your target exposure established. '+money(Math.max(0,b-v))+' remains to establish.';const m=state.market||{},daily=m.daily||[],hourly=m.hourly||[];if(m.ticker)renderTicker(m.ticker);if(daily.length){renderPriceChart(daily,m.ticker);renderRange(daily,+m.ticker?.quotes?.USD?.price||daily.at(-1).p)}if(hourly.length)renderHA(hourly);if(daily.length){const s=renderStructure(daily,hourly);if(s){const a=analyze(daily,hourly,m.ticker,s);renderDecision(a);renderVirtual(daily);renderPrototype(a,s,virtualFarm(daily))}}const ext=Number($('external').value)||0,ex=Number($('extracted').value)||0,rec=Number($('recycled').value)||0;$('selfFund').textContent=(ext?rec/ext*100:0).toFixed(1)+'%';$('valuePer').textContent=ext?money((v+ex)/ext):'—';if(learner.portfolio){markGuesserPortfolio(Number(m.ticker?.quotes?.USD?.price)||Number(daily.at(-1)?.p)||learner.portfolio.lastPrice);renderGuesserPortfolio(learner.portfolio.lastPrice)}}
 function openAction(kind){
   pendingAction=kind;
   const modal=$('actionModal'),input=$('actionAmount'),title=$('actionModalTitle'),text=$('actionModalText'),label=$('actionAmountLabel'),hint=$('actionAmountHint'),confirm=$('actionConfirm');
@@ -321,5 +566,5 @@ let pendingAction=null;
 function record(decision,amount=0){const d=state.current-state.target;const q=state.market?.ticker?.quotes?.USD||{};const n=latestNode();state.log.push({time:new Date().toLocaleString(),action:decision,amount,guess:n?.guess||$('prototypeGuess')?.textContent||'—',marketRead:$('marketRead')?.textContent||'—',price:+q.price||0,exposure:state.current,baseline:state.target,deviation:d,nodeId:n?.id||null});if(state.log.length>200)state.log=state.log.slice(-200);renderLog();save()}
 function raiseBaseline(){const r=Number($('recycled').value)||0;if(r<=0)return;state.target+=r;update();save();record('BASELINE RAISED')}
 async function refresh(){let good=0;const next={};try{next.ticker=await fetchTicker();good++}catch(e){}try{next.daily=await fetchDaily();if(next.daily.length)good++}catch(e){}try{next.hourly=parseHourly(await fetchHourly());if(next.hourly.length)good++}catch(e){}if(good){state.market=Object.assign({},state.market,next);try{localStorage.setItem(CACHE,JSON.stringify(state.market))}catch(e){}}else{try{const c=JSON.parse(localStorage.getItem(CACHE));if(c)state.market=c}catch(e){}}$('dataStatus').textContent=good===3?'LIVE + HISTORY':good?'PARTIAL LIVE':(state.market.ticker||state.market.daily||state.market.hourly)?'CACHED':'DATA UNAVAILABLE';update()}
-$('actionCancel').addEventListener('click',closeAction);$('actionConfirm').addEventListener('click',confirmAction);$('actionAmount').addEventListener('keydown',e=>{if(e.key==='Enter')confirmAction();if(e.key==='Escape')closeAction()});$('actionModal').addEventListener('click',e=>{if(e.target.id==='actionModal')closeAction()});load();loadLearner();bindOnboarding();if(state.onboardingComplete)$('onboarding').classList.add('hidden');renderLog();renderJournalLearning();update();refresh();setInterval(refresh,300000);['external','extracted','recycled','friction'].forEach(id=>$(id).addEventListener('input',()=>{update();save()}));
+const gpReset=document.querySelector('.guesserReset button');if(gpReset)gpReset.addEventListener('click',resetGuesserPortfolio);$('actionCancel').addEventListener('click',closeAction);$('actionConfirm').addEventListener('click',confirmAction);$('actionAmount').addEventListener('keydown',e=>{if(e.key==='Enter')confirmAction();if(e.key==='Escape')closeAction()});$('actionModal').addEventListener('click',e=>{if(e.target.id==='actionModal')closeAction()});load();loadLearner();bindOnboarding();if(state.onboardingComplete)$('onboarding').classList.add('hidden');renderLog();renderJournalLearning();update();refresh();setInterval(refresh,300000);['external','extracted','recycled','friction'].forEach(id=>$(id).addEventListener('input',()=>{update();save()}));
 </script></body></html>
