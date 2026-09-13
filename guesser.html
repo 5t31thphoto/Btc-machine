@@ -265,4 +265,79 @@ $('nextLine').onclick=()=>{$('speech').firstChild.textContent=line(guess)};$('re
   render();
 })();
 </script>
+  <script>
+(function () {
+  const b = document.createElement('button');
+
+  b.textContent = 'DELETE EVERYTHING AND START OVER';
+
+  Object.assign(b.style, {
+    position: 'fixed',
+    left: '12px',
+    bottom: '12px',
+    zIndex: '999999',
+    padding: '14px 18px',
+    background: '#8b0000',
+    color: '#fff',
+    border: '2px solid #ff4444',
+    borderRadius: '8px',
+    font: 'bold 13px monospace',
+    cursor: 'pointer',
+    boxShadow: '0 4px 20px rgba(0,0,0,.6)'
+  });
+
+  b.onclick = async function () {
+    if (!confirm(
+      'DELETE THE GUESSER DATA AND START OVER?'
+    )) return;
+
+    b.disabled = true;
+    b.textContent = 'RESETTING…';
+
+    // Close the database connection used by this page.
+    try {
+      if (typeof dbHandle !== 'undefined' && dbHandle) {
+        dbHandle.close();
+        dbHandle = null;
+      }
+    } catch (e) {}
+
+    // Clear old Guesser localStorage.
+    [
+      'baselineFarmerGuesserV3',
+      'baselineFarmerGuesserV4',
+      'baselineFarmerGuesserVisualTier',
+      'baselineFarmerGuesserSetupDraft'
+    ].forEach(k => {
+      try { localStorage.removeItem(k); } catch (e) {}
+    });
+
+    try {
+      await new Promise((resolve, reject) => {
+        const req = indexedDB.deleteDatabase('baselineFarmerDB');
+
+        req.onsuccess = resolve;
+
+        req.onerror = () =>
+          reject(req.error || new Error('Database deletion failed'));
+
+        req.onblocked = () =>
+          reject(new Error(
+            'Deletion blocked. Close any other Baseline Farmer tabs, then try again.'
+          ));
+      });
+
+      // Only reload after confirmed deletion.
+      location.reload();
+
+    } catch (e) {
+      alert('RESET FAILED:\n\n' + e.message);
+      b.disabled = false;
+      b.textContent = 'DELETE EVERYTHING AND START OVER';
+    }
+  };
+
+  document.body.appendChild(b);
+})();
+</script>
 </body></html>
