@@ -352,10 +352,8 @@ async function loadJournal(limit=200){
 
 /* ---------- market cache ---------- */
 async function persistMarket(){
+  if(!_db){try{localStorage.setItem(LS_MARKET,JSON.stringify(state.market||{}))}catch(e){}return}
   const m=state.market||{};
-  // Always mirror so Guesser page / other tabs can read without racing IDB
-  try{localStorage.setItem(LS_MARKET,JSON.stringify(m))}catch(e){}
-  if(!_db)return;
   if(m.ticker)await idbPut('marketCache',m.ticker,'ticker');
   if(m.daily)await idbPut('marketCache',m.daily,'daily');
   if(m.hourly)await idbPut('marketCache',m.hourly,'hourly');
