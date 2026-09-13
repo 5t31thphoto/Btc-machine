@@ -6,22 +6,23 @@
 <title>The Guesser · Baseline Farmer</title>
 <style>
 :root{--bg:#090d0d;--panel:#121919;--panel2:#182121;--line:#2a3737;--text:#e9eeee;--muted:#8ea0a0;--teal:#42d6c5;--green:#78e08f;--yellow:#ffd166;--red:#ff7b72;--purple:#b58cff;--blue:#79a8ff}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#162424 0,#090d0d 42%);color:var(--text);font:15px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}main{max-width:1180px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:14px}.brand{display:flex;align-items:center;gap:11px}.brandIcon{width:46px;height:46px;border-radius:10px}.wordmark{width:min(260px,54vw);display:block}.sub{font-size:12px;color:var(--muted);margin-top:3px}.nav{display:flex;gap:7px;flex-wrap:wrap}.nav a,.nav button{background:#172020;border:1px solid var(--line);padding:8px 11px;border-radius:8px;color:var(--text);font-weight:700;font-size:12px}.hero{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#121b1b,#0d1212);box-shadow:0 18px 60px rgba(0,0,0,.25)}.stage{min-height:430px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(circle at 50% 46%,rgba(66,214,197,.12),transparent 27%),linear-gradient(180deg,#0d1515,#080b0b)}.stars{position:absolute;inset:0;opacity:.45;background-image:radial-gradient(circle,#fff 1px,transparent 1px);background-size:67px 67px;background-position:13px 21px}.ground{position:absolute;bottom:44px;width:78%;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);box-shadow:0 0 25px rgba(66,214,197,.12)}.scan{position:absolute;inset:0;background:linear-gradient(transparent 49%,rgba(66,214,197,.025) 50%,transparent 51%);background-size:100% 8px;pointer-events:none}.spriteWrap{position:relative;width:310px;height:340px;display:flex;align-items:end;justify-content:center;filter:drop-shadow(0 20px 34px rgba(0,0,0,.55))}.avatar{width:290px;height:330px;overflow:visible;--glow:0;--tech:0;--holo:0;--poor:0;animation:avatarFloat 3.6s ease-in-out infinite;transition:filter .7s ease}.avatar .farmerHat{opacity:calc(1 - var(--holo));transition:opacity .7s}.avatar .helmet{opacity:var(--holo);transition:opacity .7s}.avatar .tech{opacity:var(--tech);transition:opacity .7s}.avatar .holo{opacity:var(--holo);transition:opacity .7s}.avatar .poor{opacity:var(--poor);transition:opacity .7s}.avatar .warm{opacity:calc(1 - var(--holo));transition:opacity .7s}.avatar .glowStroke{filter:drop-shadow(0 0 calc(3px + 10px * var(--glow)) rgba(66,214,197,.85));transition:filter .7s}.avatar .visorGlow{filter:drop-shadow(0 0 calc(2px + 14px * var(--glow)) rgba(66,214,197,.9));transition:filter .7s}.avatar.tier0{--poor:0;--tech:0;--holo:0;--glow:.05}.avatar.tier1{--poor:.05;--tech:.28;--holo:.08;--glow:.18}.avatar.tier2{--poor:0;--tech:.7;--holo:.38;--glow:.45}.avatar.tier3{--poor:0;--tech:1;--holo:.82;--glow:.78}.avatar.tier4{--poor:0;--tech:1;--holo:1;--glow:1}.avatar.tierPoor{--poor:.9;--tech:0;--holo:0;--glow:0}.avatar.state-wait .bodyAnim{animation:bodySway 2.8s ease-in-out infinite}.avatar.state-buycore .rightArm{transform-origin:118px 185px;animation:plantArm 1.1s ease-in-out infinite}.avatar.state-buycore .leftArm{transform-origin:91px 186px;animation:plantArm2 1.1s ease-in-out infinite}.avatar.state-buytactical .rightArm{transform-origin:118px 185px;animation:pointArm 1s ease-in-out infinite}.avatar.state-buytactical .corn{animation:cornPulse 1.2s ease-in-out infinite}.avatar.state-harvest .leftArm{transform-origin:91px 186px;animation:harvestArm 1s ease-in-out infinite}.avatar.state-harvest .rightArm{transform-origin:118px 185px;animation:harvestArm2 1s ease-in-out infinite}.avatar.state-preserve .headAnim{animation:lookAround 2.6s ease-in-out infinite}.avatar.state-preserve .rightArm{transform-origin:118px 185px;animation:shushArm 2s ease-in-out infinite}.avatar.state-think .headAnim{animation:thinkHead 2s ease-in-out infinite}.avatar.state-celebrate{animation:celebrateFloat .72s ease-in-out infinite}.avatar.state-celebrate .armsUp{animation:armsUp .72s ease-in-out infinite}.avatar.state-setback{animation:setback .9s ease-in-out infinite}.avatar.state-setback .headAnim{animation:sadHead 1.2s ease-in-out infinite}.avatar.state-setback .poorPatch{animation:patchFlicker 1.4s ease-in-out infinite}@keyframes avatarFloat{50%{transform:translateY(-7px)}}@keyframes bodySway{50%{transform:rotate(1.2deg) translateY(-2px)}}@keyframes plantArm{50%{transform:rotate(27deg) translate(3px,7px)}}@keyframes plantArm2{50%{transform:rotate(-20deg)}}@keyframes pointArm{50%{transform:rotate(-34deg) translate(8px,-5px)}}@keyframes cornPulse{50%{transform:scale(1.05);opacity:.85}}@keyframes harvestArm{50%{transform:rotate(-38deg) translateY(-9px)}}@keyframes harvestArm2{50%{transform:rotate(38deg) translateY(-9px)}}@keyframes lookAround{50%{transform:translateX(7px) rotate(2deg)}}@keyframes shushArm{50%{transform:rotate(-7deg) translateY(-11px)}}@keyframes thinkHead{50%{transform:rotate(-4deg) translate(6px,-3px)}}@keyframes celebrateFloat{50%{transform:translateY(-19px)}}@keyframes armsUp{50%{transform:translateY(-4px) rotate(-2deg)}}@keyframes setback{50%{transform:translateY(4px) rotate(-1deg)}}@keyframes sadHead{50%{transform:translateY(4px) rotate(3deg)}}@keyframes patchFlicker{50%{opacity:.5}}.avatarLabel{position:absolute;right:24px;bottom:18px;display:flex;align-items:center;gap:7px;background:rgba(10,16,16,.88);border:1px solid var(--line);border-radius:99px;padding:7px 10px;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;backdrop-filter:blur(8px)}.avatarLabel i{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal)}.avatarTier{color:var(--teal)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#162424 0,#090d0d 42%);color:var(--text);font:15px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}main{max-width:1180px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:14px}.brand{display:flex;align-items:center;gap:11px}.brandIcon{width:46px;height:46px;border-radius:10px}.wordmark{width:min(260px,54vw);display:block}.sub{font-size:12px;color:var(--muted);margin-top:3px}.nav{display:flex;gap:7px;flex-wrap:wrap}.nav a,.nav button{background:#172020;border:1px solid var(--line);padding:8px 11px;border-radius:8px;color:var(--text);font-weight:700;font-size:12px}.hero{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#121b1b,#0d1212);box-shadow:0 18px 60px rgba(0,0,0,.25)}.stage{min-height:480px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(circle at 50% 46%,rgba(66,214,197,.12),transparent 27%),linear-gradient(180deg,#0d1515,#080b0b)}.stars{position:absolute;inset:0;opacity:.45;background-image:radial-gradient(circle,#fff 1px,transparent 1px);background-size:67px 67px;background-position:13px 21px}.ground{position:absolute;bottom:44px;width:78%;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);box-shadow:0 0 25px rgba(66,214,197,.12)}.scan{position:absolute;inset:0;background:linear-gradient(transparent 49%,rgba(66,214,197,.025) 50%,transparent 51%);background-size:100% 8px;pointer-events:none}.sprite-platform{position:absolute;left:50%;bottom:18px;width:200px;height:28px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(66,214,197,.22) 0%,rgba(0,0,0,.35) 55%,transparent 72%);filter:blur(1px);pointer-events:none;z-index:0}.spriteWrap .avatar{position:relative;z-index:1}.spriteWrap{position:relative;width:360px;height:380px;display:flex;align-items:end;justify-content:center;filter:drop-shadow(0 20px 34px rgba(0,0,0,.55))}.avatar-legacy-unused{display:none}.avatar .farmerHat{opacity:calc(1 - var(--holo));transition:opacity .7s}.avatar .helmet{opacity:var(--holo);transition:opacity .7s}.avatar .tech{opacity:var(--tech);transition:opacity .7s}.avatar .holo{opacity:var(--holo);transition:opacity .7s}.avatar .poor{opacity:var(--poor);transition:opacity .7s}.avatar .warm{opacity:calc(1 - var(--holo));transition:opacity .7s}.avatar .glowStroke{filter:drop-shadow(0 0 calc(3px + 10px * var(--glow)) rgba(66,214,197,.85));transition:filter .7s}.avatar .visorGlow{filter:drop-shadow(0 0 calc(2px + 14px * var(--glow)) rgba(66,214,197,.9));transition:filter .7s}.avatar.tier0{--poor:0;--tech:0;--holo:0;--glow:.05}.avatar.tier1{--poor:.05;--tech:.28;--holo:.08;--glow:.18}.avatar.tier2{--poor:0;--tech:.7;--holo:.38;--glow:.45}.avatar.tier3{--poor:0;--tech:1;--holo:.82;--glow:.78}.avatar.tier4{--poor:0;--tech:1;--holo:1;--glow:1}.avatar.tierPoor{--poor:.9;--tech:0;--holo:0;--glow:0}.avatar.state-wait .bodyAnim{animation:bodySway 2.8s ease-in-out infinite}.avatar.state-buycore .rightArm{transform-origin:118px 185px;animation:plantArm 1.1s ease-in-out infinite}.avatar.state-buycore .leftArm{transform-origin:91px 186px;animation:plantArm2 1.1s ease-in-out infinite}.avatar.state-buytactical .rightArm{transform-origin:118px 185px;animation:pointArm 1s ease-in-out infinite}.avatar.state-buytactical .corn{animation:cornPulse 1.2s ease-in-out infinite}.avatar.state-harvest .leftArm{transform-origin:91px 186px;animation:harvestArm 1s ease-in-out infinite}.avatar.state-harvest .rightArm{transform-origin:118px 185px;animation:harvestArm2 1s ease-in-out infinite}.avatar.state-preserve .headAnim{animation:lookAround 2.6s ease-in-out infinite}.avatar.state-preserve .rightArm{transform-origin:118px 185px;animation:shushArm 2s ease-in-out infinite}.avatar.state-think .headAnim{animation:thinkHead 2s ease-in-out infinite}.avatar.state-celebrate{animation:celebrateFloat .72s ease-in-out infinite}.avatar.state-celebrate .armsUp{animation:armsUp .72s ease-in-out infinite}.avatar.state-setback{animation:setback .9s ease-in-out infinite}.avatar.state-setback .headAnim{animation:sadHead 1.2s ease-in-out infinite}.avatar.state-setback .poorPatch{animation:patchFlicker 1.4s ease-in-out infinite}@keyframes avatarFloat{50%{transform:translateY(-7px)}}@keyframes bodySway{50%{transform:rotate(1.2deg) translateY(-2px)}}@keyframes plantArm{50%{transform:rotate(27deg) translate(3px,7px)}}@keyframes plantArm2{50%{transform:rotate(-20deg)}}@keyframes pointArm{50%{transform:rotate(-34deg) translate(8px,-5px)}}@keyframes cornPulse{50%{transform:scale(1.05);opacity:.85}}@keyframes harvestArm{50%{transform:rotate(-38deg) translateY(-9px)}}@keyframes harvestArm2{50%{transform:rotate(38deg) translateY(-9px)}}@keyframes lookAround{50%{transform:translateX(7px) rotate(2deg)}}@keyframes shushArm{50%{transform:rotate(-7deg) translateY(-11px)}}@keyframes thinkHead{50%{transform:rotate(-4deg) translate(6px,-3px)}}@keyframes celebrateFloat{50%{transform:translateY(-19px)}}@keyframes armsUp{50%{transform:translateY(-4px) rotate(-2deg)}}@keyframes setback{50%{transform:translateY(4px) rotate(-1deg)}}@keyframes sadHead{50%{transform:translateY(4px) rotate(3deg)}}@keyframes patchFlicker{50%{opacity:.5}}.avatarLabel{position:absolute;right:24px;bottom:18px;display:flex;align-items:center;gap:7px;background:rgba(10,16,16,.88);border:1px solid var(--line);border-radius:99px;padding:7px 10px;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;backdrop-filter:blur(8px)}.avatarLabel i{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal)}.avatarTier{color:var(--teal)}
 .stageInfo{position:absolute;left:18px;bottom:18px}.state{font-size:12px;letter-spacing:.1em;color:var(--teal);font-weight:850}.guess{font-size:34px;font-weight:900;margin-top:3px}.speech{position:absolute;right:22px;top:20px;max-width:310px;background:#edf4f1;color:#172020;border-radius:16px;padding:12px 15px;font-weight:750;line-height:1.35;box-shadow:0 10px 35px rgba(0,0,0,.25)}.speech:after{content:"";position:absolute;left:22px;bottom:-12px;border:7px solid transparent;border-top-color:#edf4f1;border-left-color:#edf4f1}.speech small{display:block;font-size:9px;opacity:.55;margin-top:5px;text-transform:uppercase;letter-spacing:.08em}.stageTools{position:absolute;right:18px;bottom:18px;display:flex;gap:6px}.stageTools button{border:1px solid var(--line);background:#111919;color:var(--muted);border-radius:8px;padding:7px 9px;cursor:pointer}.stageTools button:hover{color:var(--text);border-color:var(--teal)}
 .dash{padding:15px;background:#0e1414}.dashTop{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-bottom:11px}.dashTop h2{margin:0;font-size:18px}.dashTop p{margin:3px 0 0;color:var(--muted);font-size:12px}.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:11px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.card,.panel{background:var(--panel2);border-radius:10px;padding:11px;border:1px solid #223030}.label{font-size:10px;color:var(--muted);letter-spacing:.06em}.value{font-size:20px;font-weight:850;margin-top:3px}.green{color:var(--green)}.yellow{color:var(--yellow)}.red{color:var(--red)}.teal{color:var(--teal)}.bar{height:8px;background:#0b1010;border-radius:4px;overflow:hidden;margin-top:8px}.bar>i{display:block;height:100%;background:var(--teal)}.panel h3{font-size:13px;margin:0 0 9px}.tfgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.tf{background:#111919;border-radius:8px;padding:8px}.tf b{font-size:11px}.tf div{font-weight:850;font-size:16px;margin-top:3px}.tf span{font-size:10px;color:var(--muted)}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:7px}.metric{background:#111919;border-radius:8px;padding:9px}.metric b{display:block;font-size:11px}.metric span{display:block;color:var(--muted);font-size:11px;margin-top:3px;line-height:1.35}.learning{margin-top:11px;border:1px dashed #304040;border-radius:10px;padding:10px;background:#0c1212}.learningHead{display:flex;justify-content:space-between;align-items:center}.learningHead b{font-size:12px}.learningHead span{font-size:10px;color:var(--teal);border:1px solid var(--line);padding:3px 6px;border-radius:99px}.learning p{margin:6px 0 0;color:var(--muted);font-size:11px;line-height:1.45}.history{max-height:220px;overflow:auto;margin-top:7px}.history table{width:100%;border-collapse:collapse}.history th,.history td{padding:6px;border-bottom:1px solid var(--line);font-size:10px;text-align:left}.history th{color:var(--muted)}.pill{display:inline-block;padding:3px 6px;border-radius:99px;background:#232d2d}.foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;color:var(--muted);font-size:11px}.linkBtn{background:none;border:0;color:var(--teal);cursor:pointer;font:inherit;font-weight:700}.empty{padding:20px;text-align:center;color:var(--muted)}@media(max-width:850px){main{padding:11px}.top{align-items:flex-start;flex-direction:column}.stage{min-height:500px}.speech{right:12px;top:12px;max-width:220px;font-size:12px}.stageInfo{left:13px;bottom:13px}.guess{font-size:27px}.stageTools{right:12px;bottom:13px}.grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.tfgrid{grid-template-columns:1fr 1fr}.twocol{grid-template-columns:1fr} .spriteWrap{transform:scale(.88);transform-origin:center bottom}}
 
 /* Runtime sprite atlas: extracted from the Guesser artwork sheet. */
-.avatar{width:240px;height:240px;display:block;background-repeat:no-repeat;background-size:2160px 960px;background-position:0 0;background-color:transparent;image-rendering:auto;animation:avatarFloat 3.6s ease-in-out infinite;filter:drop-shadow(0 20px 34px rgba(0,0,0,.55));transition:filter .45s ease,transform .45s ease}.avatar.state-celebrate{animation:celebrateFloat .72s ease-in-out infinite}.avatar.state-setback{animation:setback .9s ease-in-out infinite}.avatar.evolution{animation:growthPulse .55s ease-in-out infinite}.avatar.glowup{filter:drop-shadow(0 0 18px rgba(66,214,197,.65)) drop-shadow(0 20px 34px rgba(0,0,0,.5))}@keyframes growthPulse{50%{transform:translateY(-12px) scale(1.035)}}
+.avatar{width:320px;height:320px;display:block;background-repeat:no-repeat;background-size:2880px 1280px;background-position:0 0;background-color:transparent;image-rendering:auto;animation:avatarFloat 3.6s ease-in-out infinite;filter:drop-shadow(0 18px 28px rgba(0,0,0,.6));transition:filter .45s ease,transform .45s ease;flex-shrink:0}.avatar.state-celebrate{animation:celebrateFloat .72s ease-in-out infinite}.avatar.state-setback{animation:setback .9s ease-in-out infinite}.avatar.evolution{animation:growthPulse .55s ease-in-out infinite}.avatar.glowup{filter:drop-shadow(0 0 18px rgba(66,214,197,.65)) drop-shadow(0 20px 34px rgba(0,0,0,.5))}@keyframes growthPulse{50%{transform:translateY(-12px) scale(1.035)}}
 </style>
 </head>
 <body>
 <main>
-<div class="top"><div class="brand"><img class="brandIcon" src="baseline-farmer-logo.png" alt="Baseline Farmer"><div><img class="wordmark" src="baseline-farmer-wordmark.png" alt="Baseline Farmer"><div class="sub">The Guesser's little corner of the farm.</div></div></div><div class="nav"><a href="baseline_farmer.html">Dashboard</a><a href="market_strategy.html">Strategy</a><a href="guesser_lore.html">How the Guesser works</a></div></div>
+<div class="top"><div class="brand"><img class="brandIcon" src="baseline-farmer-logo.png" alt="Baseline Farmer"><div><img class="wordmark" src="baseline-farmer-wordmark.png" alt="Baseline Farmer"><div class="sub">Your baseline-farming companion.</div></div></div><div class="nav"><a href="index.html">Home</a><a href="baseline_farmer.html">Dashboard</a><a href="market_strategy.html">Strategy</a><a href="guesser_lore.html">How it works</a></div></div>
 <section class="hero">
 <div class="stage" id="stage">
 <div class="stars"></div><div class="scan"></div><div class="ground"></div>
-<div class="speech" id="speech">Give me a second. I'm looking at the whole field.<small>Guesser</small></div>
+<div class="speech" id="speech">Give me a second. I'm looking at the whole field.<small id="speechName">Sprout</small></div>
 <div class="spriteWrap">
+<div class="sprite-platform" aria-hidden="true"></div>
 <div class="avatar tier0 state-wait" id="sprite" role="img" aria-label="The Guesser"></div>
 <div class="avatarLabel"><i></i><span id="avatarTier" class="avatarTier">STARTING OUT</span></div>
 </div>
@@ -29,7 +30,7 @@
 <div class="stageTools"><button id="nextLine">Another line</button><button id="replay">Replay</button></div>
 </div>
 <div class="dash">
-<div class="dashTop"><div><h2>Guesser dashboard</h2><p>A closer look at what the Guesser sees, remembers, and manages.</p></div><div class="label" id="updated">LOCAL STATE</div></div>
+<div class="dashTop"><div><h2>Alongside you</h2><p>What it sees in the market, what it is holding, and how its own farm is doing.</p></div><div class="label" id="updated">LOCAL STATE</div></div>
 <div class="grid">
 <div>
 <div class="cards"><div class="card"><div class="label">VIRTUAL BASELINE</div><div class="value" id="baseline">—</div></div><div class="card"><div class="label">CRYPTO</div><div class="value" id="crypto">—</div></div><div class="card"><div class="label">CASH</div><div class="value" id="cash">—</div></div><div class="card"><div class="label">TOTAL VALUE</div><div class="value" id="total">—</div></div></div>
@@ -39,29 +40,30 @@
 <div>
 <div class="panel"><h3>What it thinks right now</h3><div class="value" id="currentGuess">—</div><div style="margin-top:7px;color:var(--muted);font-size:12px;line-height:1.45" id="case">Waiting for a market observation.</div></div>
 <div class="panel" style="margin-top:8px"><h3>Evidence it is watching</h3><div class="twocol" id="evidence"></div></div>
-<div class="learning"><div class="learningHead"><b>Learning state</b><span id="policyTag">POLICY v—</span></div><p id="learningText">The Guesser keeps its own hypothetical account. Matured decisions are scored with counterfactuals, train linear weights, and adapt the management policy used by later decisions.</p></div>
+<div class="learning"><div class="learningHead"><b>Learning state</b><span id="policyTag">POLICY v—</span></div><p id="learningText">It farms with its own account using the same baseline approach. As outcomes come in, it adjusts how aggressively it buys, holds, and harvests.</p></div>
 </div>
 </div>
 <div class="panel" style="margin-top:11px"><h3>Recent Guesser decisions</h3><div class="history" id="history"></div></div>
-<div class="foot"><span>Experimental. The Guesser is a local prototype, not a promise about future market behavior.</span><a href="guesser_lore.html">Meet the machinery behind the character →</a></div>
+<div class="foot"><span>A local companion on the same strategy — not a promise about future market behavior.</span><a href="guesser_lore.html">How the Guesser thinks →</a></div>
 </div></section>
 
 <div id="guesserSetupOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:50;align-items:center;justify-content:center;padding:18px">
   <div style="max-width:480px;width:100%;background:#121919;border:1px solid #2a3737;border-radius:16px;padding:18px">
-    <div style="font-size:11px;letter-spacing:.08em;color:#42d6c5;font-weight:800">ENTRY PHASE SETUP</div>
-    <h2 style="margin:6px 0 8px;font-size:22px">Set up the Guesser account</h2>
-    <p style="color:#8ea0a0;font-size:13px;line-height:1.5;margin:0 0 12px">Virtual capital and trading style for the Guesser’s entry phase. This account is separate from your real farm.</p>
+    <div style="font-size:11px;letter-spacing:.08em;color:#42d6c5;font-weight:800">GET THE GUESSER STARTED</div>
+    <h2 style="margin:6px 0 8px;font-size:22px">Start the Guesser’s account</h2>
+    <p style="color:#8ea0a0;font-size:13px;line-height:1.5;margin:0 0 12px">Name your companion, set its stack, and pick how it likes to farm. Yours stays yours.</p>
+    <div style="margin-bottom:10px"><label style="display:block;color:#8ea0a0;font-size:12px;margin-bottom:4px">Name</label><input id="gsName" type="text" maxlength="24" value="Sprout" style="width:100%;background:#0f1414;color:#e9eeee;border:1px solid #2a3737;border-radius:8px;padding:9px"></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
       <div><label style="display:block;color:#8ea0a0;font-size:12px;margin-bottom:4px">Baseline ($)</label><input id="gsBaseline" type="number" min="0" step="50" value="1000" style="width:100%;background:#0f1414;color:#e9eeee;border:1px solid #2a3737;border-radius:8px;padding:9px"></div>
       <div><label style="display:block;color:#8ea0a0;font-size:12px;margin-bottom:4px">Crypto ($)</label><input id="gsCrypto" type="number" min="0" step="50" value="200" style="width:100%;background:#0f1414;color:#e9eeee;border:1px solid #2a3737;border-radius:8px;padding:9px"></div>
       <div><label style="display:block;color:#8ea0a0;font-size:12px;margin-bottom:4px">Cash ($)</label><input id="gsCash" type="number" min="0" step="50" value="500" style="width:100%;background:#0f1414;color:#e9eeee;border:1px solid #2a3737;border-radius:8px;padding:9px"></div>
       <div><label style="display:block;color:#8ea0a0;font-size:12px;margin-bottom:4px">Personality</label>
         <select id="gsPersonality" style="width:100%;background:#0f1414;color:#e9eeee;border:1px solid #2a3737;border-radius:8px;padding:9px">
-          <option value="balanced">Balanced farmer</option>
-          <option value="patient">Patient farmer</option>
+          <option value="balanced">Balanced</option>
+          <option value="patient">Patient</option>
           <option value="opportunistic">Opportunistic</option>
-          <option value="aggressive">Aggressive entry</option>
-          <option value="guardian">Capital guardian</option>
+          <option value="aggressive">Aggressive</option>
+          <option value="guardian">Guardian</option>
         </select>
       </div>
     </div>
@@ -75,7 +77,7 @@
 <script>
 const STATE_KEY='baselineFarmerState',LEARN_KEY='baselineFarmerGuesserV4',DRAFT_KEY='baselineFarmerGuesserSetupDraft',BF_DB='baselineFarmerDB';
 const $=id=>document.getElementById(id), money=x=>(Number(x)||0).toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:0}),pct=x=>((Number(x)||0)>=0?'+':'')+(Number(x)||0).toFixed(1)+'%';
-const GUESSER_DEFAULTS={baseline:1000,crypto:200,cash:500,personality:'balanced'};
+const GUESSER_DEFAULTS={name:'Sprout',baseline:1000,crypto:200,cash:500,personality:'balanced'};
 let state={}, learner={}, market={}, p={}, nodes=[], node={}, guess='HOLD / PRESERVE';
 function personalityPolicy(name){
   const base={buyCore:.10,buyTactical:.28,buyGapCap:.35,harvestNormal:.12,harvestHigh:.20,harvestFomo:.35,devBuy:-5,devHarvest:5,reversalBoost:.10,continuationBoost:.06,recycleRate:.15};
@@ -114,6 +116,20 @@ async function loadAll(){
     const gp=await idbGet(db,'guesserPortfolio','current');
     const gl=await idbGet(db,'guesserLearning','current');
     const draft=await idbGet(db,'meta','guesserSetupDraft');
+    // Market lives in IndexedDB now (dashboard no longer embeds it in state JSON)
+    try{
+      const ticker=await idbGet(db,'marketCache','ticker');
+      const daily=await idbGet(db,'marketCache','daily');
+      const hourly=await idbGet(db,'marketCache','hourly');
+      market={...(market||{})};
+      if(ticker)market.ticker=ticker;
+      if(daily)market.daily=daily;
+      if(hourly)market.hourly=hourly;
+    }catch(e){}
+    // Fallback: legacy localStorage market cache key
+    if(!market.ticker&&!market.daily){
+      try{const c=JSON.parse(localStorage.getItem('baselineFarmerMarketV3')||'null');if(c)market=c}catch(e){}
+    }
     learner={portfolio:gp||null,policy:gl?.policy||null,nodes:[],version:gl?.version||9};
     if(draft)learner._draft=draft;
     try{
@@ -133,6 +149,7 @@ function applySetup(cfg,db){
   const crypto=Math.max(0,Number(cfg.crypto)||200);
   const cash=Math.max(0,Number(cfg.cash)||500);
   const personality=cfg.personality||'balanced';
+  const name=String(cfg.name||GUESSER_DEFAULTS.name||'Sprout').trim().slice(0,24)||'Sprout';
   const pol=personalityPolicy(personality);
   pol.version=(Number(learner.policy?.version)||1)+1;
   pol.personality=personality;
@@ -141,9 +158,9 @@ function applySetup(cfg,db){
     baseline,units:price>0?crypto/price:0,cash,extracted:0,recycled:0,
     startingValue:crypto+cash,created:Date.now(),lastPrice:price,lastTime:Date.now(),
     lastNodeId:null,decisions:0,history:[],version:2,policyVersion:pol.version,
-    personality,setupComplete:true,phase:'entry'
+    personality,name,setupComplete:true,phase:'entry'
   };
-  const draft={baseline,crypto,cash,personality,updatedAt:Date.now(),source:cfg.source||'guesser-page'};
+  const draft={name,baseline,crypto,cash,personality,updatedAt:Date.now(),source:cfg.source||'guesser-page'};
   try{localStorage.setItem(DRAFT_KEY,JSON.stringify(draft))}catch(e){}
   // merge into legacy blob for thin readers
   try{
@@ -162,38 +179,109 @@ function showSetup(draft){
   const ov=$('guesserSetupOverlay');
   ov.style.display='flex';
   const d={...GUESSER_DEFAULTS,...(draft||{})};
+  if($('gsName'))$('gsName').value=d.name||GUESSER_DEFAULTS.name||'Sprout';
   $('gsBaseline').value=String(Math.round(Number(d.baseline)||1000));
   $('gsCrypto').value=String(Math.round(Number(d.crypto)||200));
   $('gsCash').value=String(Math.round(Number(d.cash)||500));
   $('gsPersonality').value=d.personality||'balanced';
 }
 
-function cls(g){if(g.includes('TACTICAL'))return'buytactical';if(g.includes('CORE'))return'buycore';if(g==='HARVEST')return'harvest';if(g.includes('PRESERVE'))return'preserve';if(g.includes('HOLD'))return'wait';return'think'}
+function cls(g){if(!g)return'idle';if(g.includes('TACTICAL'))return'buy-tactical';if(g.includes('CORE'))return'buy-core';if(g==='HARVEST'||g==='HARVESTED')return'harvest';if(g.includes('PRESERVE'))return'preserve';if(g.includes('HOLD'))return'idle';return'thinking'}
 function label(g){return g==='HARVEST'?'HARVESTING':g.includes('TACTICAL')?'TACTICAL BUY':g.includes('CORE')?'CORE BUY':g.includes('PRESERVE')?'PRESERVING':'WAITING'}
-function line(g){const lines={
-'HOLD / PRESERVE':['Not every gap needs filling.','I am watching. The market can come to us.','Patience is an active position, apparently.'],
-'HOLD':['Nothing compelling enough yet.','I have opinions. I am not trading them.','Still watching the shape of this thing.'],
-'BUY · CORE':['This looks like normal farming territory.','Small steps. Keep building the baseline.','Planting time. Nothing dramatic.'],
-'BUY · TACTICAL':['Okay, that is more interesting.','That deviation is worth keeping some powder for.','Now we are talking. Tactical capital.'],
-'HARVEST':['There is something to harvest here.','I do not need the exact top to take a little home.','Good crop. Put some of it in the barn.']}; const a=lines[g]||lines['HOLD / PRESERVE'];return a[Math.floor(Math.random()*a.length)]}
+function guesserName(){return (p&&p.name)||(learner.portfolio&&learner.portfolio.name)||GUESSER_DEFAULTS.name||'Sprout'}
+function guesserPersonality(){return (p&&p.personality)||(learner.portfolio&&learner.portfolio.personality)||(learner.policy&&learner.policy.personality)||'balanced'}
+function line(g){
+  const pers=guesserPersonality();
+  const byPers={
+    balanced:{
+      'HOLD / PRESERVE':['Not every gap needs filling.','Watching. The field can come to us.','Holding is still a decision.'],
+      'HOLD':['Nothing strong enough yet.','I have a read. I am not forcing it.','Still watching the shape of this.'],
+      'BUY · CORE':['Normal farming ground. Small steps.','Building the baseline, not the drama.','Steady planting.'],
+      'BUY · TACTICAL':['That deviation is worth powder.','Tactical stack — not a blind fill.','Okay. That one is interesting.'],
+      'HARVEST':['Something to take home.','Do not need the exact top.','Barn time for part of the crop.']
+    },
+    patient:{
+      'HOLD / PRESERVE':['Still too early.','Let the weak hands hurry.','I can wait longer than the noise.'],
+      'HOLD':['Not convinced.','Another candle does not change the plan.','Patience is the edge here.'],
+      'BUY · CORE':['Only the clean, quiet add.','Baseline work. No heroics.','Slow is smooth.'],
+      'BUY · TACTICAL':['Finally a real dip, not a flinch.','I waited for this shape.','Powder for a proper deviation.'],
+      'HARVEST':['Ripe enough.','Take some, leave some growing.','No greed for the last tick.']
+    },
+    opportunistic:{
+      'HOLD / PRESERVE':['Scanning for a crack.','Idle, not asleep.','When it slips, I move.'],
+      'HOLD':['Almost… not yet.','Keep the dry powder dry.','Waiting on a better entry print.'],
+      'BUY · CORE':['Take the lane while it is open.','Core fill — do not overthink it.','Path of least regret.'],
+      'BUY · TACTICAL':['There — that is the slip.','Tactical. Fast. Measured.','Caught a useful wobble.'],
+      'HARVEST':['Skim the cream.','Strength is a gift. Take a slice.','Lock a little luck in.']
+    },
+    aggressive:{
+      'HOLD / PRESERVE':['Hate sitting still, but fine.','Baseline is still the mission.','Only hold if chase is worse.'],
+      'HOLD':['Reluctant hold.','Would rather be filling.','Clock is loud today.'],
+      'BUY · CORE':['Fill it. Toward baseline.','Push the stack up.','Core size. Keep moving.'],
+      'BUY · TACTICAL':['Press the weakness.','Bigger bite while it is soft.','Do not waste a clean dip.'],
+      'HARVEST':['Take profit, stay in the game.','Trim fat, keep the farm.','Harvest hard, then reload.']
+    },
+    guardian:{
+      'HOLD / PRESERVE':['Capital first.','No need to prove anything.','Survive the boring days.'],
+      'HOLD':['Protect the dry powder.','Risk is not interesting today.','Still whole. Good.'],
+      'BUY · CORE':['Only what the plan allows.','Careful seed, not a splash.','Baseline, not bravado.'],
+      'BUY · TACTICAL':['Small tactical — sized for regret.','A dip, not a dare.','Buy, but leave room to breathe.'],
+      'HARVEST':['Bank it. Sleep better.','Pull risk off the table.','Guardians harvest early.']
+    }
+  };
+  const pack=byPers[pers]||byPers.balanced;
+  const lines=pack[g]||pack['HOLD / PRESERVE'];
+  return lines[Math.floor(Math.random()*lines.length)];
+}
 function avatarTier(){const q=learner.portfolio||{};const start=Number(q.startingValue)||0;const now=(Number(q.cash)||0)+(Number(q.units)||0)*(Number(market.ticker?.quotes?.USD?.price)||Number((market.daily||[]).at(-1)?.p)||Number(q.lastPrice)||0)+(Number(q.extracted)||0);const base=Number(q.baseline)||start||1;const progress=(now-start)/Math.max(start,1);const growth=(base-start)/Math.max(start,1);const score=progress*0.72+growth*0.28;if(score<-.14)return ['tierPoor','STRUGGLING'];if(score<-.03)return ['tier0','STARTING OUT'];if(score<.10)return ['tier1','BUILDING'];if(score<.28)return ['tier2','GROWING'];if(score<.55)return ['tier3','ADVANCING'];return ['tier4','HOLOGRAPHIC'];}
 let spriteTimer=null, spriteFrame=0;
 const SPRITE_COL={idle:0,thinking:1,'buy-core':2,'buy-tactical':3,harvest:4,preserve:5,celebrate:6,setback:7,growth:8};
 const SPRITE_FRAMES={idle:4,thinking:2,'buy-core':3,'buy-tactical':2,harvest:4,preserve:3,celebrate:3,setback:2,growth:3};
 const SPRITE_SPEED={idle:520,thinking:620,'buy-core':260,'buy-tactical':260,harvest:240,preserve:520,celebrate:180,setback:500,growth:220};
 function atlasTierClass(tier){return tier==='tierPoor'?6:tier==='tier4'?5:tier==='tier3'?4:tier==='tier2'?3:tier==='tier1'?2:1;}
-function applyAvatarTier(){const [tier,name]=avatarTier();const s=$('sprite');s.className='avatar '+tier;s.style.backgroundImage=`url("guesser_tier${atlasTierClass(tier)}.png")`;$('avatarTier').textContent=name;return tier;}
-function setSpriteFrame(stateName,frame){const s=$('sprite');const col=SPRITE_COL[stateName]??0;s.style.backgroundPosition=`-${col*240}px -${frame*240}px`;s.dataset.spriteState=stateName;s.dataset.spriteFrame=String(frame);}
-function startSprite(stateName){clearInterval(spriteTimer);spriteFrame=0;setSpriteFrame(stateName,0);const count=SPRITE_FRAMES[stateName]||1;const speed=SPRITE_SPEED[stateName]||450;if(count>1)spriteTimer=setInterval(()=>{spriteFrame=(spriteFrame+1)%count;setSpriteFrame(stateName,spriteFrame)},speed);}
-function animate(g){const s=$('sprite');const tier=applyAvatarTier();const stateName=cls(g);s.className='avatar '+tier+' state-'+stateName;void s.offsetWidth;$('stateLabel').textContent=label(g);$('guessLabel').textContent=g;$('speech').firstChild.textContent=line(g);const atlas=atlasTierClass(tier);const previous=Number(localStorage.getItem('baselineFarmerGuesserVisualTier')||atlas);const changed=previous!==atlas;localStorage.setItem('baselineFarmerGuesserVisualTier',String(atlas));if(changed&&previous!==0){s.classList.add('evolution','glowup');startSprite('growth');setTimeout(()=>{s.classList.remove('evolution');startSprite(stateName)},1700)}else{startSprite(stateName)}if(g==='HARVEST'||g==='BUY · TACTICAL'){s.classList.add('state-celebrate');setTimeout(()=>s.classList.remove('state-celebrate'),700)}}
+const SPRITE_CELL=320; // display cell size (sheet is 9x4 of 240; CSS scales sheet to 2880x1280)
+function applyAvatarTier(){
+  const [tier,name]=avatarTier();
+  const s=$('sprite');
+  if(!s)return tier;
+  const atlas=atlasTierClass(tier);
+  s.className='avatar '+tier;
+  s.style.width=SPRITE_CELL+'px';
+  s.style.height=SPRITE_CELL+'px';
+  s.style.backgroundImage=`url("guesser_tier${atlas}.png")`;
+  s.style.backgroundRepeat='no-repeat';
+  s.style.backgroundSize=(SPRITE_CELL*9)+'px '+(SPRITE_CELL*4)+'px';
+  s.style.backgroundColor='transparent';
+  $('avatarTier').textContent=name;
+  return tier;
+}
+function setSpriteFrame(stateName,frame){
+  const s=$('sprite');if(!s)return;
+  const key=SPRITE_COL[stateName]!=null?stateName:'idle';
+  const col=SPRITE_COL[key]??0;
+  const fr=Math.max(0,Number(frame)||0);
+  s.style.backgroundPosition=`-${col*SPRITE_CELL}px -${fr*SPRITE_CELL}px`;
+  s.dataset.spriteState=key;
+  s.dataset.spriteFrame=String(fr);
+}
+function startSprite(stateName){
+  clearInterval(spriteTimer);
+  spriteFrame=0;
+  const key=SPRITE_COL[stateName]!=null?stateName:'idle';
+  setSpriteFrame(key,0);
+  const count=SPRITE_FRAMES[key]||1;
+  const speed=SPRITE_SPEED[key]||450;
+  if(count>1)spriteTimer=setInterval(()=>{spriteFrame=(spriteFrame+1)%count;setSpriteFrame(key,spriteFrame)},speed);
+}
+function animate(g){const s=$('sprite');const tier=applyAvatarTier();const stateName=cls(g);s.className='avatar '+tier+' state-'+stateName;void s.offsetWidth;$('stateLabel').textContent=label(g);$('guessLabel').textContent=g;const sp=$('speech');if(sp){sp.childNodes[0].textContent=line(g)+' ';const sm=$('speechName');if(sm)sm.textContent=guesserName();}const atlas=atlasTierClass(tier);const previous=Number(localStorage.getItem('baselineFarmerGuesserVisualTier')||atlas);const changed=previous!==atlas;localStorage.setItem('baselineFarmerGuesserVisualTier',String(atlas));if(changed&&previous!==0){s.classList.add('evolution','glowup');startSprite('growth');setTimeout(()=>{s.classList.remove('evolution');startSprite(stateName)},1700)}else{startSprite(stateName)}if(g==='HARVEST'||g==='BUY · TACTICAL'){s.classList.add('state-celebrate');setTimeout(()=>s.classList.remove('state-celebrate'),700)}}
 function render(){const price=Number(market.ticker?.quotes?.USD?.price)||Number((market.daily||[]).at(-1)?.p)||Number(p.lastPrice)||0;const crypto=Number(p.units||0)*price,total=crypto+Number(p.cash||0),dev=p.baseline?((crypto-p.baseline)/p.baseline*100):0;
 $('baseline').textContent=money(p.baseline);$('crypto').textContent=money(crypto);$('cash').textContent=money(p.cash);$('total').textContent=money(total);$('dev').textContent=pct(dev);$('dev').className=dev>=0?'green':'red';$('last').textContent=p.lastAction||'HELD';$('extracted').textContent=money(p.extracted);$('recycled').textContent=money(p.recycled);$('cryptoBar').style.width=Math.max(0,Math.min(100,p.baseline?crypto/p.baseline*100:0))+'%';
-$('currentGuess').textContent=guess;$('currentGuess').className='value '+(guess.includes('BUY')?'green':guess==='HARVEST'?'yellow':'');const ncase=node.caseText||node.case||'The Guesser is comparing current market structure with its learned farming reference and capital state.';$('case').textContent=ncase;$('policyTag').textContent='POLICY v'+(learner.policy?.version||'—');
+$('currentGuess').textContent=guess;$('currentGuess').className='value '+(guess.includes('BUY')?'green':guess==='HARVEST'?'yellow':'');const ncase=node.caseText||node.case||'Comparing market structure with its farming reference and the state of its own account.';$('case').textContent=ncase;$('policyTag').textContent='POLICY v'+(learner.policy?.version||'—');
 const ts=['1H','4H','7D','30D','90D'];const refs=node.features?.refs||node.featureSnapshot?.refs||{};const rows=ts.map(t=>{const r=refs[t]||node.features?.[t]||node.featureSnapshot?.[t];if(!r)return '<div class="tf"><b>'+t+'</b><div>—</div><span>No snapshot</span></div>';return '<div class="tf"><b>'+t+'</b><div>'+String(r.dir||r.direction||'MIXED')+'</div><span>'+pct(r.dev||r.deviation||0)+' vs ref</span></div>'}).join('');$('timeframes').innerHTML=rows;
 const dist=Number(node.features?.athDist??node.featureSnapshot?.athDist??node.dist);const range=Number(node.features?.rangePos??node.featureSnapshot?.rangePos??node.rangePos);const vdev=Number(node.features?.virtualDev??node.featureSnapshot?.virtualDev??node.virtualDev);$('evidence').innerHTML=[['ATH distance',Number.isFinite(dist)?pct(dist):'—'],['30D range',Number.isFinite(range)?Math.round(range*100)+'%':'—'],['Virtual reference',Number.isFinite(vdev)?pct(vdev):'—'],['Nodes learned',String(nodes.filter(x=>x.horizons).length)],['Capital state',money(p.cash)],['Policy', 'v'+(learner.policy?.version||'—')]].map(x=>'<div class="metric"><b>'+x[0]+'</b><span>'+x[1]+'</span></div>').join('');
-$('history').innerHTML=nodes.length?'<table><thead><tr><th>When</th><th>Guess</th><th>BTC</th><th>Outcome</th><th>Policy</th></tr></thead><tbody>'+nodes.slice().sort((a,b)=>(Number(b.t)||0)-(Number(a.t)||0)).slice(0,40).map(x=>'<tr><td>'+new Date(Number(x.t)||Date.now()).toLocaleString()+'</td><td><span class="pill">'+(x.guess||'—')+'</span></td><td>'+money(x.price)+'</td><td>'+((x.horizons&&Object.keys(x.horizons).length)?'MATURED':'watching')+'</td><td>v'+(x.policyVersion||'—')+'</td></tr>').join('')+'</tbody></table>':'<div class="empty">No Guesser decisions have been recorded yet. Return to the main dashboard and let the prototype observe the market.</div>';
+$('history').innerHTML=nodes.length?'<table><thead><tr><th>When</th><th>Guess</th><th>BTC</th><th>Outcome</th><th>Policy</th></tr></thead><tbody>'+nodes.slice().sort((a,b)=>(Number(b.t)||0)-(Number(a.t)||0)).slice(0,40).map(x=>'<tr><td>'+new Date(Number(x.t)||Date.now()).toLocaleString()+'</td><td><span class="pill">'+(x.guess||'—')+'</span></td><td>'+money(x.price)+'</td><td>'+((x.horizons&&Object.keys(x.horizons).length)?'MATURED':'watching')+'</td><td>v'+(x.policyVersion||'—')+'</td></tr>').join('')+'</tbody></table>':'<div class="empty">No Guesser decisions yet. Open the dashboard and let it watch the market alongside you.</div>';
 $('updated').textContent=price?'BTC '+money(price):'NO MARKET SNAPSHOT';animate(guess)}
-$('nextLine').onclick=()=>{$('speech').firstChild.textContent=line(guess)};$('replay').onclick=()=>animate(guess);
+$('nextLine').onclick=()=>{const sp=$('speech');if(sp){sp.childNodes[0].textContent=line(guess)+' ';const sm=$('speechName');if(sm)sm.textContent=guesserName();}};$('replay').onclick=()=>animate(guess);
 (async function bootGuesserPage(){
   const db=await loadAll();
   p=learner.portfolio||{};
@@ -204,7 +292,7 @@ $('nextLine').onclick=()=>{$('speech').firstChild.textContent=line(guess)};$('re
   if(needsSetup){
     showSetup(learner._draft||GUESSER_DEFAULTS);
     $('gsStart').onclick=()=>{
-      applySetup({baseline:$('gsBaseline').value,crypto:$('gsCrypto').value,cash:$('gsCash').value,personality:$('gsPersonality').value,source:'guesser-page'},db);
+      applySetup({name:$('gsName')?.value,baseline:$('gsBaseline').value,crypto:$('gsCrypto').value,cash:$('gsCash').value,personality:$('gsPersonality').value,source:'guesser-page'},db);
       $('guesserSetupOverlay').style.display='none';
       p=learner.portfolio;guess=p.lastAction||'HOLD / PRESERVE';render();
     };
