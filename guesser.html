@@ -8,7 +8,7 @@
 :root{--bg:#090d0d;--panel:#121919;--panel2:#182121;--line:#2a3737;--text:#e9eeee;--muted:#8ea0a0;--teal:#42d6c5;--green:#78e08f;--yellow:#ffd166;--red:#ff7b72;--purple:#b58cff;--blue:#79a8ff}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#162424 0,#090d0d 42%);color:var(--text);font:15px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}main{max-width:1180px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:14px}.brand{display:flex;align-items:center;gap:11px}.brandIcon{width:46px;height:46px;border-radius:10px}.wordmark{width:min(260px,54vw);display:block}.sub{font-size:12px;color:var(--muted);margin-top:3px}.nav{display:flex;gap:7px;flex-wrap:wrap}.nav a,.nav button{background:#172020;border:1px solid var(--line);padding:8px 11px;border-radius:8px;color:var(--text);font-weight:700;font-size:12px}.hero{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#121b1b,#0d1212);box-shadow:0 18px 60px rgba(0,0,0,.25)}.stage{min-height:480px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(circle at 50% 46%,rgba(66,214,197,.12),transparent 27%),linear-gradient(180deg,#0d1515,#080b0b)}.stars{position:absolute;inset:0;opacity:.45;background-image:radial-gradient(circle,#fff 1px,transparent 1px);background-size:67px 67px;background-position:13px 21px}.ground{position:absolute;bottom:44px;width:78%;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);box-shadow:0 0 25px rgba(66,214,197,.12)}.scan{position:absolute;inset:0;background:linear-gradient(transparent 49%,rgba(66,214,197,.025) 50%,transparent 51%);background-size:100% 8px;pointer-events:none}.sprite-platform{position:absolute;left:50%;bottom:18px;width:200px;height:28px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(66,214,197,.22) 0%,rgba(0,0,0,.35) 55%,transparent 72%);filter:blur(1px);pointer-events:none;z-index:0}.spriteWrap .avatar{position:relative;z-index:1}.spriteWrap{position:relative;width:360px;height:380px;display:flex;align-items:end;justify-content:center;filter:drop-shadow(0 20px 34px rgba(0,0,0,.55))}.avatar-legacy-unused{display:none}.avatar .farmerHat{opacity:calc(1 - var(--holo));transition:opacity .7s}.avatar .helmet{opacity:var(--holo);transition:opacity .7s}.avatar .tech{opacity:var(--tech);transition:opacity .7s}.avatar .holo{opacity:var(--holo);transition:opacity .7s}.avatar .poor{opacity:var(--poor);transition:opacity .7s}.avatar .warm{opacity:calc(1 - var(--holo));transition:opacity .7s}.avatar .glowStroke{filter:drop-shadow(0 0 calc(3px + 10px * var(--glow)) rgba(66,214,197,.85));transition:filter .7s}.avatar .visorGlow{filter:drop-shadow(0 0 calc(2px + 14px * var(--glow)) rgba(66,214,197,.9));transition:filter .7s}.avatar.tier0{--poor:0;--tech:0;--holo:0;--glow:.05}.avatar.tier1{--poor:.05;--tech:.28;--holo:.08;--glow:.18}.avatar.tier2{--poor:0;--tech:.7;--holo:.38;--glow:.45}.avatar.tier3{--poor:0;--tech:1;--holo:.82;--glow:.78}.avatar.tier4{--poor:0;--tech:1;--holo:1;--glow:1}.avatar.tierPoor{--poor:.9;--tech:0;--holo:0;--glow:0}.avatar.state-wait .bodyAnim{animation:bodySway 2.8s ease-in-out infinite}.avatar.state-buycore .rightArm{transform-origin:118px 185px;animation:plantArm 1.1s ease-in-out infinite}.avatar.state-buycore .leftArm{transform-origin:91px 186px;animation:plantArm2 1.1s ease-in-out infinite}.avatar.state-buytactical .rightArm{transform-origin:118px 185px;animation:pointArm 1s ease-in-out infinite}.avatar.state-buytactical .corn{animation:cornPulse 1.2s ease-in-out infinite}.avatar.state-harvest .leftArm{transform-origin:91px 186px;animation:harvestArm 1s ease-in-out infinite}.avatar.state-harvest .rightArm{transform-origin:118px 185px;animation:harvestArm2 1s ease-in-out infinite}.avatar.state-preserve .headAnim{animation:lookAround 2.6s ease-in-out infinite}.avatar.state-preserve .rightArm{transform-origin:118px 185px;animation:shushArm 2s ease-in-out infinite}.avatar.state-think .headAnim{animation:thinkHead 2s ease-in-out infinite}.avatar.state-celebrate{animation:celebrateFloat .72s ease-in-out infinite}.avatar.state-celebrate .armsUp{animation:armsUp .72s ease-in-out infinite}.avatar.state-setback{animation:setback .9s ease-in-out infinite}.avatar.state-setback .headAnim{animation:sadHead 1.2s ease-in-out infinite}.avatar.state-setback .poorPatch{animation:patchFlicker 1.4s ease-in-out infinite}@keyframes avatarFloat{50%{transform:translateY(-7px)}}@keyframes bodySway{50%{transform:rotate(1.2deg) translateY(-2px)}}@keyframes plantArm{50%{transform:rotate(27deg) translate(3px,7px)}}@keyframes plantArm2{50%{transform:rotate(-20deg)}}@keyframes pointArm{50%{transform:rotate(-34deg) translate(8px,-5px)}}@keyframes cornPulse{50%{transform:scale(1.05);opacity:.85}}@keyframes harvestArm{50%{transform:rotate(-38deg) translateY(-9px)}}@keyframes harvestArm2{50%{transform:rotate(38deg) translateY(-9px)}}@keyframes lookAround{50%{transform:translateX(7px) rotate(2deg)}}@keyframes shushArm{50%{transform:rotate(-7deg) translateY(-11px)}}@keyframes thinkHead{50%{transform:rotate(-4deg) translate(6px,-3px)}}@keyframes celebrateFloat{50%{transform:translateY(-19px)}}@keyframes armsUp{50%{transform:translateY(-4px) rotate(-2deg)}}@keyframes setback{50%{transform:translateY(4px) rotate(-1deg)}}@keyframes sadHead{50%{transform:translateY(4px) rotate(3deg)}}@keyframes patchFlicker{50%{opacity:.5}}.avatarLabel{position:absolute;right:24px;bottom:18px;display:flex;align-items:center;gap:7px;background:rgba(10,16,16,.88);border:1px solid var(--line);border-radius:99px;padding:7px 10px;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;backdrop-filter:blur(8px)}.avatarLabel i{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal)}.avatarTier{color:var(--teal)}
 .stageInfo{position:absolute;left:18px;bottom:18px}.state{font-size:12px;letter-spacing:.1em;color:var(--teal);font-weight:850}.guess{font-size:34px;font-weight:900;margin-top:3px}.speech{position:absolute;right:22px;top:20px;max-width:310px;background:#edf4f1;color:#172020;border-radius:16px;padding:12px 15px;font-weight:750;line-height:1.35;box-shadow:0 10px 35px rgba(0,0,0,.25)}.speech:after{content:"";position:absolute;left:22px;bottom:-12px;border:7px solid transparent;border-top-color:#edf4f1;border-left-color:#edf4f1}.speech small{display:block;font-size:9px;opacity:.55;margin-top:5px;text-transform:uppercase;letter-spacing:.08em}.stageTools{position:absolute;right:18px;bottom:18px;display:flex;gap:6px}.stageTools button{border:1px solid var(--line);background:#111919;color:var(--muted);border-radius:8px;padding:7px 9px;cursor:pointer}.stageTools button:hover{color:var(--text);border-color:var(--teal)}
-.dash{padding:15px;background:#0e1414}.dashTop{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-bottom:11px}.dashTop h2{margin:0;font-size:18px}.dashTop p{margin:3px 0 0;color:var(--muted);font-size:12px}.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:11px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.card,.panel{background:var(--panel2);border-radius:10px;padding:11px;border:1px solid #223030}.label{font-size:10px;color:var(--muted);letter-spacing:.06em}.value{font-size:20px;font-weight:850;margin-top:3px}.green{color:var(--green)}.yellow{color:var(--yellow)}.red{color:var(--red)}.teal{color:var(--teal)}.bar{height:8px;background:#0b1010;border-radius:4px;overflow:hidden;margin-top:8px}.bar>i{display:block;height:100%;background:var(--teal)}.panel h3{font-size:13px;margin:0 0 9px}.tfgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.tf{background:#111919;border-radius:8px;padding:8px}.tf b{font-size:11px}.tf div{font-weight:850;font-size:16px;margin-top:3px}.tf span{font-size:10px;color:var(--muted)}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:7px}.metric{background:#111919;border-radius:8px;padding:9px}.metric b{display:block;font-size:11px}.metric span{display:block;color:var(--muted);font-size:11px;margin-top:3px;line-height:1.35}.learning{margin-top:11px;border:1px dashed #304040;border-radius:10px;padding:10px;background:#0c1212}.learningHead{display:flex;justify-content:space-between;align-items:center}.learningHead b{font-size:12px}.learningHead span{font-size:10px;color:var(--teal);border:1px solid var(--line);padding:3px 6px;border-radius:99px}.learning p{margin:6px 0 0;color:var(--muted);font-size:11px;line-height:1.45}.history{max-height:220px;overflow:auto;margin-top:7px}.history table{width:100%;border-collapse:collapse}.history th,.history td{padding:6px;border-bottom:1px solid var(--line);font-size:10px;text-align:left}.history th{color:var(--muted)}.pill{display:inline-block;padding:3px 6px;border-radius:99px;background:#232d2d}.foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;color:var(--muted);font-size:11px}.linkBtn{background:none;border:0;color:var(--teal);cursor:pointer;font:inherit;font-weight:700}.empty{padding:20px;text-align:center;color:var(--muted)}@media(max-width:850px){main{padding:11px}.top{align-items:flex-start;flex-direction:column}.stage{min-height:500px}.speech{right:12px;top:12px;max-width:220px;font-size:12px}.stageInfo{left:13px;bottom:13px}.guess{font-size:27px}.stageTools{right:12px;bottom:13px}.grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.tfgrid{grid-template-columns:1fr 1fr}.twocol{grid-template-columns:1fr} .spriteWrap{transform:scale(.88);transform-origin:center bottom}}
+.dash{padding:15px;background:#0e1414}.dashTop{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-bottom:11px}.dashTop h2{margin:0;font-size:18px}.dashTop p{margin:3px 0 0;color:var(--muted);font-size:12px}.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:11px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.card,.panel{background:var(--panel2);border-radius:10px;padding:11px;border:1px solid #223030}.label{font-size:10px;color:var(--muted);letter-spacing:.06em}.value{font-size:20px;font-weight:850;margin-top:3px}.green{color:var(--green)}.yellow{color:var(--yellow)}.red{color:var(--red)}.teal{color:var(--teal)}.bar{height:8px;background:#0b1010;border-radius:4px;overflow:hidden;margin-top:8px}.bar>i{display:block;height:100%;background:var(--teal)}.panel h3{font-size:13px;margin:0 0 9px}.tfgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.tf{background:#111919;border-radius:8px;padding:8px}.tf b{font-size:11px}.tf div{font-weight:850;font-size:16px;margin-top:3px}.tf span{font-size:10px;color:var(--muted)}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:7px}.metric{background:#111919;border-radius:8px;padding:9px}.metric b{display:block;font-size:11px}.metric span{display:block;color:var(--muted);font-size:11px;margin-top:3px;line-height:1.35}.learning{margin-top:11px;border:1px dashed #304040;border-radius:10px;padding:10px;background:#0c1212}.learningHead{display:flex;justify-content:space-between;align-items:center}.learningHead b{font-size:12px}.learningHead span{font-size:10px;color:var(--teal);border:1px solid var(--line);padding:3px 6px;border-radius:99px}.learning p{margin:6px 0 0;color:var(--muted);font-size:11px;line-height:1.45}.history{max-height:220px;overflow:auto;margin-top:7px}.history table{width:100%;border-collapse:collapse}.history th,.history td{padding:6px;border-bottom:1px solid var(--line);font-size:10px;text-align:left}.history th{color:var(--muted)}.pill{display:inline-block;padding:3px 6px;border-radius:99px;background:#232d2d}.foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;color:var(--muted);font-size:11px}.linkBtn{background:none;border:0;color:var(--teal);cursor:pointer;font:inherit;font-weight:700}.empty{padding:20px;text-align:center;color:var(--muted)}.snapNote{margin-top:11px;border:1px solid #2a3737;border-left:3px solid var(--teal);border-radius:0 9px 9px 0;background:#101818;padding:10px 13px;color:var(--muted);font-size:12px;line-height:1.5}.snapNote.warn{border-left-color:var(--yellow)}.snapNote a{font-weight:700}.resetBtn{border-color:#5c3330!important;color:#ff9d96!important}.sheet{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:60;display:none;align-items:center;justify-content:center;padding:18px}.sheetBox{max-width:460px;width:100%;background:#121919;border:1px solid #2a3737;border-radius:16px;padding:18px}.sheetBox h2{margin:6px 0 8px;font-size:21px}.sheetBox p{color:var(--muted);font-size:13px;line-height:1.5;margin:0 0 12px}.sheetOpt{width:100%;text-align:left;background:#172020;border:1px solid #2a3737;border-radius:10px;padding:11px 13px;color:var(--text);cursor:pointer;margin-bottom:8px;font:inherit}.sheetOpt:hover{border-color:var(--teal)}.sheetOpt b{display:block;font-size:13px;font-weight:800}.sheetOpt span{display:block;color:var(--muted);font-size:11px;line-height:1.45;margin-top:3px}.sheetOpt.danger:hover{border-color:#ff7b72}@media(max-width:850px){main{padding:11px}.top{align-items:flex-start;flex-direction:column}.stage{min-height:500px}.speech{right:12px;top:12px;max-width:220px;font-size:12px}.stageInfo{left:13px;bottom:13px}.guess{font-size:27px}.stageTools{right:12px;bottom:13px}.grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.tfgrid{grid-template-columns:1fr 1fr}.twocol{grid-template-columns:1fr} .spriteWrap{transform:scale(.88);transform-origin:center bottom}}
 
 /* Runtime sprite atlas: extracted from the Guesser artwork sheet. */
 .avatar{width:320px;height:320px;display:block;background-repeat:no-repeat;background-size:2880px 1280px;background-position:0 0;background-color:transparent;image-rendering:auto;animation:avatarFloat 3.6s ease-in-out infinite;filter:drop-shadow(0 18px 28px rgba(0,0,0,.6));transition:filter .45s ease,transform .45s ease;flex-shrink:0}.avatar.state-celebrate{animation:celebrateFloat .72s ease-in-out infinite}.avatar.state-setback{animation:setback .9s ease-in-out infinite}.avatar.evolution{animation:growthPulse .55s ease-in-out infinite}.avatar.glowup{filter:drop-shadow(0 0 18px rgba(66,214,197,.65)) drop-shadow(0 20px 34px rgba(0,0,0,.5))}@keyframes growthPulse{50%{transform:translateY(-12px) scale(1.035)}}
@@ -27,11 +27,12 @@
 <div class="avatarLabel"><i></i><span id="avatarTier" class="avatarTier">STARTING OUT</span></div>
 </div>
 <div class="stageInfo"><div class="state" id="stateLabel">WAITING</div><div class="guess" id="guessLabel">WAIT / PRESERVE</div></div>
-<div class="stageTools"><button id="nextLine">Another line</button><button id="replay">Replay</button></div>
+<div class="stageTools"><button id="nextLine">Another line</button><button id="replay">Replay</button><button id="resetOpen" class="resetBtn" title="Restart the Guesser or erase all local data">Reset</button></div>
 </div>
 <div class="dash">
 <div class="dashTop"><div><h2>Alongside you</h2><p>What it sees in the market, what it is holding, and how its own farm is doing.</p></div><div class="label" id="updated">LOCAL STATE</div></div>
-<div class="grid">
+<div class="snapNote" id="snapshotNote" style="display:none"></div>
+<div class="grid" style="margin-top:11px">
 <div>
 <div class="cards"><div class="card"><div class="label">VIRTUAL BASELINE</div><div class="value" id="baseline">—</div></div><div class="card"><div class="label">CRYPTO</div><div class="value" id="crypto">—</div></div><div class="card"><div class="label">CASH</div><div class="value" id="cash">—</div></div><div class="card"><div class="label">TOTAL VALUE</div><div class="value" id="total">—</div></div></div>
 <div class="panel" style="margin-top:8px"><h3>Portfolio position</h3><div class="twocol"><div class="metric"><b>From baseline</b><span id="dev">—</span></div><div class="metric"><b>Last action</b><span id="last">—</span></div><div class="metric"><b>Extracted</b><span id="extracted">—</span></div><div class="metric"><b>Recycled</b><span id="recycled">—</span></div></div><div class="bar"><i id="cryptoBar" style="width:50%"></i></div></div>
@@ -47,6 +48,16 @@
 <div class="foot"><span>A local companion on the same strategy — not a promise about future market behavior.</span><a href="guesser_lore.html">How the Guesser thinks →</a></div>
 </div></section>
 
+<div class="sheet" id="resetSheet">
+  <div class="sheetBox">
+    <div style="font-size:11px;letter-spacing:.08em;color:#42d6c5;font-weight:800">START OVER</div>
+    <h2>Reset the Guesser</h2>
+    <p>Two levels. The first only touches the Guesser&rsquo;s own account. The second returns this browser to a genuine first-visit state.</p>
+    <button type="button" class="sheetOpt" id="resetSoft"><b>Restart the Guesser</b><span>Clears its account, policy and decision memory, then reopens the setup screen. Your dashboard numbers, journal and market cache are left alone.</span></button>
+    <button type="button" class="sheetOpt danger" id="resetHard"><b>Reset everything</b><span>Erases all Baseline Farmer data in this browser &mdash; account settings, journal, market cache and the Guesser. Cannot be undone.</span></button>
+    <div style="display:flex;justify-content:flex-end;margin-top:4px"><button type="button" id="resetCancel" style="background:#172020;color:#e9eeee;border:1px solid #2a3737;border-radius:8px;padding:9px 13px;font-weight:700;cursor:pointer">Cancel</button></div>
+  </div>
+</div>
 <div id="guesserSetupOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:50;align-items:center;justify-content:center;padding:18px">
   <div style="max-width:480px;width:100%;background:#121919;border:1px solid #2a3737;border-radius:16px;padding:18px">
     <div style="font-size:11px;letter-spacing:.08em;color:#42d6c5;font-weight:800">GET THE GUESSER STARTED</div>
@@ -79,6 +90,7 @@ const STATE_KEY='baselineFarmerState',LEARN_KEY='baselineFarmerGuesserV4',DRAFT_
 const $=id=>document.getElementById(id), money=x=>(Number(x)||0).toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:0}),pct=x=>((Number(x)||0)>=0?'+':'')+(Number(x)||0).toFixed(1)+'%';
 const GUESSER_DEFAULTS={name:'Sprout',baseline:1000,crypto:200,cash:500,personality:'balanced'};
 let state={}, learner={}, market={}, p={}, nodes=[], node={}, guess='HOLD / PRESERVE';
+let DB=null;
 function personalityPolicy(name){
   const base={buyCore:.10,buyTactical:.28,buyGapCap:.35,harvestNormal:.12,harvestHigh:.20,harvestFomo:.35,devBuy:-5,devHarvest:5,reversalBoost:.10,continuationBoost:.06,recycleRate:.15};
   if(name==='patient')return {...base,buyCore:.06,buyTactical:.18,buyGapCap:.25,devBuy:-7,devHarvest:6,harvestNormal:.10,harvestHigh:.16,harvestFomo:.28,reversalBoost:.06,continuationBoost:.03,recycleRate:.12};
@@ -87,14 +99,61 @@ function personalityPolicy(name){
   if(name==='guardian')return {...base,buyCore:.07,buyTactical:.16,buyGapCap:.22,devBuy:-8,devHarvest:3.5,harvestNormal:.16,harvestHigh:.28,harvestFomo:.45,reversalBoost:.05,continuationBoost:.02,recycleRate:.28};
   return base;
 }
+/* This MUST match the dashboard's schema exactly.
+   Previously this opened the shared DB at v2 with an empty onupgradeneeded, so
+   visiting this page first created baselineFarmerDB with zero object stores.
+   The dashboard then opened the same version, never ran its upgrade, and every
+   read/write failed from then on — which is why no market snapshot ever appeared. */
+const BF_DB_VER=2;
+const BF_STORES=['appState','journal','guesserNodes','guesserLearning','guesserPortfolio','portfolioHistory','marketCache','meta'];
 async function openDb(){
   return new Promise((resolve,reject)=>{
-    if(!window.indexedDB){reject();return}
-    const r=indexedDB.open(BF_DB,2);
-    r.onsuccess=()=>resolve(r.result);
+    if(!window.indexedDB){reject(new Error('no-idb'));return}
+    const r=indexedDB.open(BF_DB,BF_DB_VER);
+    r.onupgradeneeded=()=>{
+      const db=r.result;
+      for(const s of BF_STORES){
+        if(db.objectStoreNames.contains(s))continue;
+        if(s==='journal')db.createObjectStore(s,{keyPath:'id',autoIncrement:true});
+        else if(s==='guesserNodes')db.createObjectStore(s,{keyPath:'id'});
+        else if(s==='portfolioHistory')db.createObjectStore(s,{keyPath:'id',autoIncrement:true});
+        else db.createObjectStore(s);
+      }
+      for(const legacy of ['nodes'])if(db.objectStoreNames.contains(legacy))db.deleteObjectStore(legacy);
+    };
+    r.onsuccess=()=>{
+      const db=r.result;
+      // Heal a database the old build left store-less. It holds no data by definition,
+      // so drop it and rebuild at the SAME version both pages expect (never bump —
+      // the dashboard opens v2 explicitly and a higher version would make it throw).
+      if(!BF_STORES.some(s=>!db.objectStoreNames.contains(s))){resolve(db);return}
+      db.close();
+      const del=indexedDB.deleteDatabase(BF_DB);
+      const again=()=>{
+        const r2=indexedDB.open(BF_DB,BF_DB_VER);
+        r2.onupgradeneeded=()=>{
+          const d2=r2.result;
+          for(const s of BF_STORES){
+            if(d2.objectStoreNames.contains(s))continue;
+            if(s==='journal')d2.createObjectStore(s,{keyPath:'id',autoIncrement:true});
+            else if(s==='guesserNodes')d2.createObjectStore(s,{keyPath:'id'});
+            else if(s==='portfolioHistory')d2.createObjectStore(s,{keyPath:'id',autoIncrement:true});
+            else d2.createObjectStore(s);
+          }
+        };
+        r2.onsuccess=()=>resolve(r2.result);
+        r2.onerror=()=>reject(r2.error);
+      };
+      del.onsuccess=again;del.onerror=again;del.onblocked=again;
+    };
     r.onerror=()=>reject(r.error);
-    r.onupgradeneeded=()=>{};
   });
+}
+function idbSafeGet(db,store,key){
+  try{
+    if(!db||!db.objectStoreNames.contains(store))return Promise.resolve(undefined);
+    return idbGet(db,store,key).catch(()=>undefined);
+  }catch(e){return Promise.resolve(undefined)}
 }
 async function idbGet(db,store,key){
   return new Promise((resolve,reject)=>{
@@ -108,41 +167,71 @@ async function idbPut(db,store,value,key){
     t.onsuccess=()=>resolve();t.onerror=()=>reject(t.error);
   });
 }
+const MARKET_KEY='baselineFarmerMarketV3';
+function hasMarket(){return !!(market&&(market.ticker||(market.daily||[]).length))}
 async function loadAll(){
   try{state=JSON.parse(localStorage.getItem(STATE_KEY)||'{}')||{}}catch(e){state={}}
   market=state.market||{};
-  try{
-    const db=await openDb();
-    const gp=await idbGet(db,'guesserPortfolio','current');
-    const gl=await idbGet(db,'guesserLearning','current');
-    const draft=await idbGet(db,'meta','guesserSetupDraft');
-    // Market lives in IndexedDB now (dashboard no longer embeds it in state JSON)
-    try{
-      const ticker=await idbGet(db,'marketCache','ticker');
-      const daily=await idbGet(db,'marketCache','daily');
-      const hourly=await idbGet(db,'marketCache','hourly');
-      market={...(market||{})};
-      if(ticker)market.ticker=ticker;
-      if(daily)market.daily=daily;
-      if(hourly)market.hourly=hourly;
-    }catch(e){}
-    // Fallback: legacy localStorage market cache key
-    if(!market.ticker&&!market.daily){
-      try{const c=JSON.parse(localStorage.getItem('baselineFarmerMarketV3')||'null');if(c)market=c}catch(e){}
-    }
-    learner={portfolio:gp||null,policy:gl?.policy||null,nodes:[],version:gl?.version||9};
+  let db=null;
+  try{db=await openDb()}catch(e){db=null}
+  if(db){
+    const gp=await idbSafeGet(db,'guesserPortfolio','current');
+    const gl=await idbSafeGet(db,'guesserLearning','current');
+    const draft=await idbSafeGet(db,'meta','guesserSetupDraft');
+    // Market lives in IndexedDB (the dashboard no longer embeds it in the state JSON)
+    const ticker=await idbSafeGet(db,'marketCache','ticker');
+    const daily=await idbSafeGet(db,'marketCache','daily');
+    const hourly=await idbSafeGet(db,'marketCache','hourly');
+    market={...(market||{})};
+    if(ticker)market.ticker=ticker;
+    if(daily)market.daily=daily;
+    if(hourly)market.hourly=hourly;
+    learner={portfolio:gp||null,policy:gl?.policy||null,weights:gl?.weights||{},humanWeights:gl?.humanWeights||{},humanTrained:gl?.humanTrained||{},nodes:[],version:gl?.version||9};
     if(draft)learner._draft=draft;
     try{
-      const nodesReq=db.transaction('guesserNodes','readonly').objectStore('guesserNodes').getAll();
-      await new Promise((res,rej)=>{nodesReq.onsuccess=()=>{learner.nodes=nodesReq.result||[];res()};nodesReq.onerror=()=>rej(nodesReq.error)});
-    }catch(e){}
-    return db;
-  }catch(e){
+      const store=db.objectStoreNames.contains('guesserNodes')?db.transaction('guesserNodes','readonly').objectStore('guesserNodes'):null;
+      if(store){
+        const req=store.getAll();
+        learner.nodes=await new Promise(res=>{req.onsuccess=()=>res(req.result||[]);req.onerror=()=>res([])});
+      }
+    }catch(e){learner.nodes=[]}
+  }else{
     try{learner=JSON.parse(localStorage.getItem(LEARN_KEY)||'{}')||{}}catch(err){learner={}}
-    try{learner._draft=JSON.parse(localStorage.getItem(DRAFT_KEY)||'null')}catch(err){}
-    return null;
+    if(!Array.isArray(learner.nodes))learner.nodes=[];
+    try{const d=JSON.parse(localStorage.getItem(DRAFT_KEY)||'null');if(d)learner._draft=d}catch(err){}
   }
+  // Legacy localStorage market cache, used only when IndexedDB gave us nothing
+  if(!hasMarket()){
+    try{const c=JSON.parse(localStorage.getItem(MARKET_KEY)||'null');if(c&&(c.ticker||c.daily))market={...market,...c}}catch(e){}
+  }
+  return db;
 }
+/* The Guesser page used to be a pure reader, so opening it before the dashboard
+   showed "NO MARKET SNAPSHOT" with no way forward. It can now top up the shared
+   cache itself, using the same endpoints and parsers the dashboard uses. */
+function parseHourlyCandles(a){return Array.isArray(a)?a.map(x=>({t:x[0]*1000,low:+x[1],high:+x[2],open:+x[3],close:+x[4],v:+x[5]||0})).filter(x=>x.close>0).sort((a,b)=>a.t-b.t):[]}
+function parseCoinbaseDaily(a){return parseHourlyCandles(a).map(x=>({t:x.t,p:x.close,v:x.v})).sort((a,b)=>a.t-b.t)}
+async function getJson(url){const r=await fetch(url,{cache:'default'});if(!r.ok)throw new Error(String(r.status));return r.json()}
+async function refreshMarket(db,force=false){
+  let stamp=0;
+  if(db)stamp=Number(await idbSafeGet(db,'marketCache','updatedAt'))||0;
+  if(!force&&hasMarket()&&(Date.now()-stamp<3*60*1000))return false;
+  let got=false;
+  try{const t=await getJson('https://api.coinpaprika.com/v1/tickers/btc-bitcoin');if(t&&t.quotes){market.ticker=t;got=true}}catch(e){}
+  try{const d=parseCoinbaseDaily(await getJson('https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400'));if(d.length){market.daily=d;got=true}}catch(e){}
+  if(!got)return false;
+  if(db){
+    try{
+      if(market.ticker)await idbPut(db,'marketCache',market.ticker,'ticker');
+      if(market.daily)await idbPut(db,'marketCache',market.daily,'daily');
+      await idbPut(db,'marketCache',Date.now(),'updatedAt');
+    }catch(e){}
+  }else{
+    try{localStorage.setItem(MARKET_KEY,JSON.stringify({ticker:market.ticker,daily:market.daily}))}catch(e){}
+  }
+  return true;
+}
+
 function applySetup(cfg,db){
   const price=Number(market.ticker?.quotes?.USD?.price)||Number((market.daily||[]).at(-1)?.p)||Number(learner.portfolio?.lastPrice)||1;
   const baseline=Math.max(0,Number(cfg.baseline)||1000);
@@ -170,7 +259,9 @@ function applySetup(cfg,db){
   }catch(e){}
   if(db){
     idbPut(db,'guesserPortfolio',learner.portfolio,'current').catch(()=>{});
-    idbPut(db,'guesserLearning',{policy:learner.policy,weights:{},humanWeights:{},humanTrained:{},version:9},'current').catch(()=>{});
+    // Preserve what it has already learned. The old build overwrote weights,
+    // humanWeights and humanTrained with {}, silently erasing all training.
+    idbPut(db,'guesserLearning',{policy:learner.policy,weights:learner.weights||{},humanWeights:learner.humanWeights||{},humanTrained:learner.humanTrained||{},version:learner.version||9},'current').catch(()=>{});
     idbPut(db,'meta',draft,'guesserSetupDraft').catch(()=>{});
   }
   p=learner.portfolio;
@@ -233,7 +324,25 @@ function line(g){
   const lines=pack[g]||pack['HOLD / PRESERVE'];
   return lines[Math.floor(Math.random()*lines.length)];
 }
-function avatarTier(){const q=learner.portfolio||{};const start=Number(q.startingValue)||0;const now=(Number(q.cash)||0)+(Number(q.units)||0)*(Number(market.ticker?.quotes?.USD?.price)||Number((market.daily||[]).at(-1)?.p)||Number(q.lastPrice)||0)+(Number(q.extracted)||0);const base=Number(q.baseline)||start||1;const progress=(now-start)/Math.max(start,1);const growth=(base-start)/Math.max(start,1);const score=progress*0.72+growth*0.28;if(score<-.14)return ['tierPoor','STRUGGLING'];if(score<-.03)return ['tier0','STARTING OUT'];if(score<.10)return ['tier1','BUILDING'];if(score<.28)return ['tier2','GROWING'];if(score<.55)return ['tier3','ADVANCING'];return ['tier4','HOLOGRAPHIC'];}
+function avatarTier(){
+  const q=learner.portfolio||{};
+  const start=Number(q.startingValue)||0;
+  // Without a positive starting value every ratio below is meaningless (a $0 start
+  // made `progress` the raw dollar total, which pinned the sprite at the top tier).
+  if(!(start>0))return ['tier0','STARTING OUT'];
+  const px=Number(market.ticker?.quotes?.USD?.price)||Number((market.daily||[]).at(-1)?.p)||Number(q.lastPrice)||0;
+  const now=(Number(q.cash)||0)+(Number(q.units)||0)*px+(Number(q.extracted)||0);
+  const base=Number(q.baseline)||start;
+  const progress=(now-start)/start;
+  const growth=(base-start)/start;
+  const score=Math.max(-2,Math.min(2,progress*0.72+growth*0.28));
+  if(score<-.14)return ['tierPoor','STRUGGLING'];
+  if(score<-.03)return ['tier0','STARTING OUT'];
+  if(score<.10)return ['tier1','BUILDING'];
+  if(score<.28)return ['tier2','GROWING'];
+  if(score<.55)return ['tier3','ADVANCING'];
+  return ['tier4','HOLOGRAPHIC'];
+}
 let spriteTimer=null, spriteFrame=0;
 const SPRITE_COL={idle:0,thinking:1,'buy-core':2,'buy-tactical':3,harvest:4,preserve:5,celebrate:6,setback:7,growth:8};
 const SPRITE_FRAMES={idle:4,thinking:2,'buy-core':3,'buy-tactical':2,harvest:4,preserve:3,celebrate:3,setback:2,growth:3};
@@ -274,35 +383,177 @@ function startSprite(stateName){
   if(count>1)spriteTimer=setInterval(()=>{spriteFrame=(spriteFrame+1)%count;setSpriteFrame(key,spriteFrame)},speed);
 }
 function animate(g){const s=$('sprite');const tier=applyAvatarTier();const stateName=cls(g);s.className='avatar '+tier+' state-'+stateName;void s.offsetWidth;$('stateLabel').textContent=label(g);$('guessLabel').textContent=g;const sp=$('speech');if(sp){sp.childNodes[0].textContent=line(g)+' ';const sm=$('speechName');if(sm)sm.textContent=guesserName();}const atlas=atlasTierClass(tier);const previous=Number(localStorage.getItem('baselineFarmerGuesserVisualTier')||atlas);const changed=previous!==atlas;localStorage.setItem('baselineFarmerGuesserVisualTier',String(atlas));if(changed&&previous!==0){s.classList.add('evolution','glowup');startSprite('growth');setTimeout(()=>{s.classList.remove('evolution');startSprite(stateName)},1700)}else{startSprite(stateName)}if(g==='HARVEST'||g==='BUY · TACTICAL'){s.classList.add('state-celebrate');setTimeout(()=>s.classList.remove('state-celebrate'),700)}}
-function render(){const price=Number(market.ticker?.quotes?.USD?.price)||Number((market.daily||[]).at(-1)?.p)||Number(p.lastPrice)||0;const crypto=Number(p.units||0)*price,total=crypto+Number(p.cash||0),dev=p.baseline?((crypto-p.baseline)/p.baseline*100):0;
-$('baseline').textContent=money(p.baseline);$('crypto').textContent=money(crypto);$('cash').textContent=money(p.cash);$('total').textContent=money(total);$('dev').textContent=pct(dev);$('dev').className=dev>=0?'green':'red';$('last').textContent=p.lastAction||'HELD';$('extracted').textContent=money(p.extracted);$('recycled').textContent=money(p.recycled);$('cryptoBar').style.width=Math.max(0,Math.min(100,p.baseline?crypto/p.baseline*100:0))+'%';
-$('currentGuess').textContent=guess;$('currentGuess').className='value '+(guess.includes('BUY')?'green':guess==='HARVEST'?'yellow':'');const ncase=node.caseText||node.case||'Comparing market structure with its farming reference and the state of its own account.';$('case').textContent=ncase;$('policyTag').textContent='POLICY v'+(learner.policy?.version||'—');
-const ts=['1H','4H','7D','30D','90D'];const refs=node.features?.refs||node.featureSnapshot?.refs||{};const rows=ts.map(t=>{const r=refs[t]||node.features?.[t]||node.featureSnapshot?.[t];if(!r)return '<div class="tf"><b>'+t+'</b><div>—</div><span>No snapshot</span></div>';return '<div class="tf"><b>'+t+'</b><div>'+String(r.dir||r.direction||'MIXED')+'</div><span>'+pct(r.dev||r.deviation||0)+' vs ref</span></div>'}).join('');$('timeframes').innerHTML=rows;
-const dist=Number(node.features?.athDist??node.featureSnapshot?.athDist??node.dist);const range=Number(node.features?.rangePos??node.featureSnapshot?.rangePos??node.rangePos);const vdev=Number(node.features?.virtualDev??node.featureSnapshot?.virtualDev??node.virtualDev);$('evidence').innerHTML=[['ATH distance',Number.isFinite(dist)?pct(dist):'—'],['30D range',Number.isFinite(range)?Math.round(range*100)+'%':'—'],['Virtual reference',Number.isFinite(vdev)?pct(vdev):'—'],['Nodes learned',String(nodes.filter(x=>x.horizons).length)],['Capital state',money(p.cash)],['Policy', 'v'+(learner.policy?.version||'—')]].map(x=>'<div class="metric"><b>'+x[0]+'</b><span>'+x[1]+'</span></div>').join('');
-$('history').innerHTML=nodes.length?'<table><thead><tr><th>When</th><th>Guess</th><th>BTC</th><th>Outcome</th><th>Policy</th></tr></thead><tbody>'+nodes.slice().sort((a,b)=>(Number(b.t)||0)-(Number(a.t)||0)).slice(0,40).map(x=>'<tr><td>'+new Date(Number(x.t)||Date.now()).toLocaleString()+'</td><td><span class="pill">'+(x.guess||'—')+'</span></td><td>'+money(x.price)+'</td><td>'+((x.horizons&&Object.keys(x.horizons).length)?'MATURED':'watching')+'</td><td>v'+(x.policyVersion||'—')+'</td></tr>').join('')+'</tbody></table>':'<div class="empty">No Guesser decisions yet. Open the dashboard and let it watch the market alongside you.</div>';
-$('updated').textContent=price?'BTC '+money(price):'NO MARKET SNAPSHOT';animate(guess)}
+/* The dashboard stores its market read on each node under `market`, including the
+   per-timeframe `refs` map. The old build here looked for `node.features` /
+   `node.featureSnapshot` / `node.athDist` — keys nothing ever wrote — so the
+   structure tiles always said "No snapshot" and every evidence row read "—".
+   This reads the real shape and still tolerates the older/alternate ones. */
+function snapshotOf(n){
+  const src=(n&&(n.market||n.features||n.featureSnapshot))||{};
+  const refs=src.refs||n?.features?.refs||n?.featureSnapshot?.refs||{};
+  const pick=(...v)=>{for(const x of v){const z=Number(x);if(Number.isFinite(z))return z}return null};
+  return {
+    refs,
+    athDist:pick(src.dist,src.athDist,n?.dist,n?.athDist),
+    rangePos:pick(src.rangePos,n?.rangePos),
+    virtualDev:pick(src.virtual,src.virtualDev,n?.virtualDev),
+    chg7:pick(src.chg7),chg30:pick(src.chg30),chg90:pick(src.chg90),
+    v7:pick(src.v7),v30:pick(src.v30),
+    trajectory:src.trajectory||null,
+    reversal:!!src.reversal,continuation:!!src.continuation,fomo:!!src.fomo,
+    at:pick(src.at,n?.created,n?.t),
+    has:!!(Object.keys(refs).length||Number.isFinite(Number(src.dist))||Number.isFinite(Number(src.rangePos)))
+  };
+}
+function nodeTime(n){const v=Number(n?.created)||Number(n?.t)||0;return v}
+function render(){
+  const price=Number(market.ticker?.quotes?.USD?.price)||Number((market.daily||[]).at(-1)?.p)||Number(p.lastPrice)||0;
+  const crypto=Number(p.units||0)*price,total=crypto+Number(p.cash||0),dev=p.baseline?((crypto-p.baseline)/p.baseline*100):0;
+  $('baseline').textContent=money(p.baseline);$('crypto').textContent=money(crypto);$('cash').textContent=money(p.cash);$('total').textContent=money(total);
+  $('dev').textContent=pct(dev);$('dev').className=dev>=0?'green':'red';
+  $('last').textContent=p.lastAction||'HELD';$('extracted').textContent=money(p.extracted);$('recycled').textContent=money(p.recycled);
+  $('cryptoBar').style.width=Math.max(0,Math.min(100,p.baseline?crypto/p.baseline*100:0))+'%';
+
+  $('currentGuess').textContent=guess;
+  $('currentGuess').className='value '+(guess.includes('BUY')?'green':guess==='HARVEST'?'yellow':'');
+  const snap=snapshotOf(node);
+  $('case').textContent=node.caseText||node.case||(snap.has?'Comparing market structure with its farming reference and the state of its own account.':'No decision recorded yet. Open the Dashboard once so it can read the market and make its first call.');
+  $('policyTag').textContent='POLICY v'+(learner.policy?.version||'—');
+
+  const ts=['1H','4H','7D','30D','90D'];
+  $('timeframes').innerHTML=ts.map(t=>{
+    const r=snap.refs[t];
+    if(!r)return '<div class="tf"><b>'+t+'</b><div>—</div><span>No snapshot</span></div>';
+    const dir=String(r.dir||r.direction||'MIXED');
+    const cls=dir==='RISING'?'green':dir==='FALLING'?'red':'yellow';
+    const vr=Number(r.vr);
+    return '<div class="tf"><b>'+t+'</b><div class="'+cls+'">'+dir+'</div><span>'+pct(r.dev??r.deviation??0)+' vs ref'+(Number.isFinite(vr)?' · vol '+vr.toFixed(2)+'\u00d7':'')+'</span></div>';
+  }).join('');
+
+  const n=v=>Number.isFinite(v)?v:null;
+  $('evidence').innerHTML=[
+    ['ATH distance',n(snap.athDist)!=null?pct(snap.athDist):'—'],
+    ['30D range',n(snap.rangePos)!=null?Math.round(snap.rangePos*100)+'%':'—'],
+    ['Virtual reference',n(snap.virtualDev)!=null?pct(snap.virtualDev):'—'],
+    ['Price path',n(snap.chg7)!=null?('7D '+pct(snap.chg7)+' · 30D '+pct(snap.chg30||0)):'—'],
+    ['Hypotheses',snap.has?('reversal '+(snap.reversal?'yes':'no')+' · FOMO '+(snap.fomo?'yes':'no')):'—'],
+    ['Nodes learned',String(nodes.filter(x=>x.horizons).length)],
+    ['Capital state',money(p.cash)],
+    ['Policy','v'+(learner.policy?.version||'—')]
+  ].map(x=>'<div class="metric"><b>'+x[0]+'</b><span>'+x[1]+'</span></div>').join('');
+
+  $('history').innerHTML=nodes.length
+    ?'<table><thead><tr><th>When</th><th>Guess</th><th>BTC</th><th>Outcome</th><th>Policy</th></tr></thead><tbody>'
+      +nodes.slice().sort((a,b)=>nodeTime(b)-nodeTime(a)).slice(0,40).map(x=>{
+        const t=nodeTime(x);
+        return '<tr><td>'+(t?new Date(t).toLocaleString():'—')+'</td><td><span class="pill">'+(x.guess||'—')+'</span></td><td>'+money(x.price)+'</td><td>'+((x.horizons&&Object.keys(x.horizons).length)?'MATURED':'watching')+'</td><td>v'+(x.policyVersion||'—')+'</td></tr>';
+      }).join('')+'</tbody></table>'
+    :'<div class="empty">No Guesser decisions yet. Open the dashboard and let it watch the market alongside you.</div>';
+
+  $('updated').textContent=price?'BTC '+money(price):'NO MARKET SNAPSHOT';
+  const banner=$('snapshotNote');
+  if(banner){
+    if(!price){banner.style.display='';banner.className='snapNote warn';banner.innerHTML='No market snapshot yet. <button type="button" class="linkBtn" id="fetchNow">Fetch market data</button> or open the <a href="baseline_farmer.html">Dashboard</a>.';}
+    else if(!snap.has){banner.style.display='';banner.className='snapNote';banner.innerHTML='Market data is loaded, but the Guesser has not recorded a decision against it yet. Open the <a href="baseline_farmer.html">Dashboard</a> once to let it make a call.';}
+    else {banner.style.display='none';}
+    const fn=$('fetchNow');
+    if(fn)fn.onclick=async()=>{fn.textContent='Fetching\u2026';fn.disabled=true;await refreshMarket(DB,true);render()};
+  }
+  animate(guess);
+}
 $('nextLine').onclick=()=>{const sp=$('speech');if(sp){sp.childNodes[0].textContent=line(guess)+' ';const sm=$('speechName');if(sm)sm.textContent=guesserName();}};$('replay').onclick=()=>animate(guess);
+/* ---------- reset ---------- */
+function clearLocalKeys(){
+  try{
+    const doomed=[];
+    for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.indexOf('baselineFarmer')===0)doomed.push(k)}
+    doomed.forEach(k=>{try{localStorage.removeItem(k)}catch(e){}});
+  }catch(e){}
+}
+function idbDelete(db,store,key){
+  return new Promise(res=>{
+    try{
+      if(!db||!db.objectStoreNames.contains(store)){res();return}
+      const r=db.transaction(store,'readwrite').objectStore(store).delete(key);
+      r.onsuccess=()=>res();r.onerror=()=>res();
+    }catch(e){res()}
+  });
+}
+function idbClearStore(db,store){
+  return new Promise(res=>{
+    try{
+      if(!db||!db.objectStoreNames.contains(store)){res();return}
+      const r=db.transaction(store,'readwrite').objectStore(store).clear();
+      r.onsuccess=()=>res();r.onerror=()=>res();
+    }catch(e){res()}
+  });
+}
+/* Soft reset: the Guesser only. The dashboard's own numbers, journal and the
+   shared market cache are deliberately left in place. */
+async function softReset(){
+  if(DB){
+    await idbDelete(DB,'guesserPortfolio','current');
+    await idbDelete(DB,'guesserLearning','current');
+    await idbDelete(DB,'meta','guesserSetupDraft');
+    await idbClearStore(DB,'guesserNodes');
+  }
+  ['baselineFarmerGuesserV4','baselineFarmerGuesserV3','baselineFarmerGuesserSetupDraft','baselineFarmerGuesserVisualTier']
+    .forEach(k=>{try{localStorage.removeItem(k)}catch(e){}});
+  learner={portfolio:null,policy:null,weights:{},humanWeights:{},humanTrained:{},nodes:[],version:9};
+  p={};nodes=[];node={};guess='HOLD / PRESERVE';
+  closeReset();
+  openSetup(GUESSER_DEFAULTS);
+  render();
+}
+/* Hard reset: genuine first-visit state for the whole app. */
+async function hardReset(){
+  if(!confirm('Erase all Baseline Farmer data in this browser?\n\nThis removes your account settings, decision journal, market cache, and the Guesser\u2019s account, policy and memory. It cannot be undone.'))return;
+  const btn=$('resetHard');if(btn){btn.disabled=true;btn.innerHTML='<b>Resetting\u2026</b>'}
+  try{if(DB){DB.close();DB=null}}catch(e){}
+  await new Promise(res=>{
+    if(!window.indexedDB){res();return}
+    let done=false;const fin=()=>{if(!done){done=true;res()}};
+    try{const r=indexedDB.deleteDatabase(BF_DB);r.onsuccess=fin;r.onerror=fin;r.onblocked=fin}catch(e){fin()}
+    setTimeout(fin,2500);
+  });
+  clearLocalKeys();
+  location.reload();
+}
+function openReset(){$('resetSheet').style.display='flex'}
+function closeReset(){$('resetSheet').style.display='none'}
+
+/* ---------- setup ---------- */
+function openSetup(draft){
+  showSetup(draft||learner._draft||GUESSER_DEFAULTS);
+  $('gsStart').onclick=()=>{
+    applySetup({name:$('gsName')?.value,baseline:$('gsBaseline').value,crypto:$('gsCrypto').value,cash:$('gsCash').value,personality:$('gsPersonality').value,source:'guesser-page'},DB);
+    $('guesserSetupOverlay').style.display='none';
+    p=learner.portfolio;guess=p.lastAction||'HOLD / PRESERVE';render();
+  };
+  $('gsDefaults').onclick=()=>{
+    applySetup({...GUESSER_DEFAULTS,source:'defaults'},DB);
+    $('guesserSetupOverlay').style.display='none';
+    p=learner.portfolio;guess='HOLD / PRESERVE';render();
+  };
+}
+
+$('resetOpen').onclick=openReset;
+$('resetCancel').onclick=closeReset;
+$('resetSoft').onclick=softReset;
+$('resetHard').onclick=hardReset;
+$('resetSheet').onclick=e=>{if(e.target.id==='resetSheet')closeReset()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeReset()});
+
 (async function bootGuesserPage(){
-  const db=await loadAll();
+  DB=await loadAll();
   p=learner.portfolio||{};
   nodes=Array.isArray(learner.nodes)?learner.nodes:[];
-  node=nodes.slice().sort((a,b)=>(Number(b.created)||Number(b.t)||0)-(Number(a.created)||Number(a.t)||0))[0]||{};
+  node=nodes.slice().sort((a,b)=>nodeTime(b)-nodeTime(a))[0]||{};
   guess=node.guess||p.lastAction||'HOLD / PRESERVE';
-  const needsSetup=!p||!p.setupComplete;
-  if(needsSetup){
-    showSetup(learner._draft||GUESSER_DEFAULTS);
-    $('gsStart').onclick=()=>{
-      applySetup({name:$('gsName')?.value,baseline:$('gsBaseline').value,crypto:$('gsCrypto').value,cash:$('gsCash').value,personality:$('gsPersonality').value,source:'guesser-page'},db);
-      $('guesserSetupOverlay').style.display='none';
-      p=learner.portfolio;guess=p.lastAction||'HOLD / PRESERVE';render();
-    };
-    $('gsDefaults').onclick=()=>{
-      applySetup({...GUESSER_DEFAULTS,source:'defaults'},db);
-      $('guesserSetupOverlay').style.display='none';
-      p=learner.portfolio;guess='HOLD / PRESERVE';render();
-    };
-  }
   render();
+  if(!p||!p.setupComplete)openSetup(learner._draft||GUESSER_DEFAULTS);
+  // Top up the shared market cache if it is missing or stale, then repaint.
+  try{if(await refreshMarket(DB,false))render()}catch(e){}
 })();
 </script>
 </body></html>
