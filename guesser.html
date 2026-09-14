@@ -345,10 +345,12 @@ function avatarTier(){
 }
 let spriteTimer=null, spriteFrame=0;
 const SPRITE_COL={idle:0,thinking:1,'buy-core':2,'buy-tactical':3,harvest:4,preserve:5,celebrate:6,setback:7,growth:8};
-const SPRITE_FRAMES={idle:4,thinking:2,'buy-core':3,'buy-tactical':2,harvest:4,preserve:3,celebrate:3,setback:2,growth:3};
+/* harvest is 3, not 4: the old sheets' second harvest frame was a mis-sliced
+   sliver of panel border, so the animation blanked once per cycle. */
+const SPRITE_FRAMES={idle:4,thinking:2,'buy-core':3,'buy-tactical':2,harvest:3,preserve:3,celebrate:3,setback:2,growth:3};
 const SPRITE_SPEED={idle:520,thinking:620,'buy-core':260,'buy-tactical':260,harvest:240,preserve:520,celebrate:180,setback:500,growth:220};
 function atlasTierClass(tier){return tier==='tierPoor'?6:tier==='tier4'?5:tier==='tier3'?4:tier==='tier2'?3:tier==='tier1'?2:1;}
-const SPRITE_CELL=320; // display cell size (sheet is 9x4 of 240; CSS scales sheet to 2880x1280)
+const SPRITE_CELL=320; // sheets are authored at 2880x1280 = 9x4 cells of 320, so the browser blits 1:1
 function applyAvatarTier(){
   const [tier,name]=avatarTier();
   const s=$('sprite');
