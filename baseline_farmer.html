@@ -116,6 +116,7 @@
         <button type="button" id="exportBrain" title="Download a full local backup (account, journal, market cache, Guesser policy, nodes, portfolio)">Export backup</button>
         <button type="button" id="importBrain" title="Restore from a previously exported local backup file">Import backup</button>
         <input type="file" id="importBrainFile" accept="application/json,.json" hidden>
+        <button type="button" id="hardResetAll" title="Erase all local data and return this browser to a first-visit state" style="border-color:#7a3b36;color:#ff9d96">Reset everything</button>
       </div>
       <div class="mini" style="margin-top:6px">Persistence is IndexedDB (local only). localStorage is only used for migration/fallback. Backup never leaves your device.</div>
     </details>
@@ -227,6 +228,7 @@ const state={target:15000,current:0,capital:15000,corePct:50,coreRemaining:7500,
 const LEARN='baselineFarmerGuesserV4';
 const BF_DB='baselineFarmerDB';
 const BF_DB_VER=2;
+const BF_STORES=['appState','journal','guesserNodes','guesserLearning','guesserPortfolio','portfolioHistory','marketCache','meta'];
 const learner={nodes:[],weights:{},humanWeights:{},humanTrained:{},portfolio:null,policy:null,version:9};
 let sessionNodeId=null;
 let _db=null;
@@ -238,7 +240,7 @@ const LS_MIGRATED='baselineFarmerIdbMigratedV2';
 
 function slimNode(n){
   if(!n||typeof n!=='object')return n;
-  const o={id:n.id,x:n.x,guess:n.guess,created:n.created,price:n.price,target:n.target,current:n.current,capital:n.capital,friction:n.friction,policy:n.policy,policyVersion:n.policyVersion,graded:null,reward:n.reward||null,horizons:n.horizons,weightsTrained:n.weightsTrained,trained:n.trained,account:null,market:n.market||null};
+  const o={id:n.id,x:n.x,guess:n.guess,created:n.created,t:n.t||n.created,caseText:n.caseText||null,price:n.price,target:n.target,current:n.current,capital:n.capital,friction:n.friction,policy:n.policy,policyVersion:n.policyVersion,graded:null,reward:n.reward||null,horizons:n.horizons,weightsTrained:n.weightsTrained,trained:n.trained,account:null,market:n.market||null};
   if(n.graded&&typeof n.graded==='object'){
     const g={};
     for(const h of Object.keys(n.graded)){
@@ -259,7 +261,7 @@ function openDb(){
     const req=indexedDB.open(BF_DB,BF_DB_VER);
     req.onupgradeneeded=()=>{
       const db=req.result;
-      const stores=['appState','journal','guesserNodes','guesserLearning','guesserPortfolio','portfolioHistory','marketCache','meta'];
+      const stores=BF_STORES;
       for(const s of stores){
         if(!db.objectStoreNames.contains(s)){
           if(s==='journal')db.createObjectStore(s,{keyPath:'id',autoIncrement:true});
@@ -271,7 +273,31 @@ function openDb(){
       // drop legacy v1 stores if present
       for(const legacy of ['nodes']){if(db.objectStoreNames.contains(legacy))db.deleteObjectStore(legacy)}
     };
-    req.onsuccess=()=>resolve(req.result);
+    req.onsuccess=()=>{
+      const db=req.result;
+      // An older build of guesser.html could create this DB at v2 with no object stores.
+      // Same version means onupgradeneeded never fires, so the schema would stay broken
+      // forever. A store-less DB holds nothing, so rebuild it at the same version.
+      if(!BF_STORES.some(s=>!db.objectStoreNames.contains(s))){resolve(db);return}
+      db.close();
+      const del=indexedDB.deleteDatabase(BF_DB);
+      const again=()=>{
+        const r2=indexedDB.open(BF_DB,BF_DB_VER);
+        r2.onupgradeneeded=()=>{
+          const d2=r2.result;
+          for(const s of BF_STORES){
+            if(d2.objectStoreNames.contains(s))continue;
+            if(s==='journal')d2.createObjectStore(s,{keyPath:'id',autoIncrement:true});
+            else if(s==='guesserNodes')d2.createObjectStore(s,{keyPath:'id'});
+            else if(s==='portfolioHistory')d2.createObjectStore(s,{keyPath:'id',autoIncrement:true});
+            else d2.createObjectStore(s);
+          }
+        };
+        r2.onsuccess=()=>resolve(r2.result);
+        r2.onerror=()=>reject(r2.error||new Error('idb-open-failed'));
+      };
+      del.onsuccess=again;del.onerror=again;del.onblocked=again;
+    };
     req.onerror=()=>reject(req.error||new Error('idb-open-failed'));
   });
 }
@@ -637,7 +663,11 @@ function ensureWeights(dim){for(const k of ['BUY','HOLD','HARVEST']){if(!learner
 function ensureHumanWeights(){for(const k of ['BUY','HOLD','HARVEST'])if(!learner.humanWeights[k]||!Array.isArray(learner.humanWeights[k].w))learner.humanWeights[k]={b:0,w:[]}}
 function humanAdjustment(x){ensureHumanWeights();const counts={BUY:0,HOLD:0,HARVEST:0};Object.values(learner.humanTrained||{}).forEach(z=>{const k=actionClass(z.action);if(k)counts[k]++});const total=counts.BUY+counts.HOLD+counts.HARVEST;if(total<3)return{BUY:0,HOLD:0,HARVEST:0,ready:false,counts};const out={BUY:dot(learner.humanWeights.BUY,x),HOLD:dot(learner.humanWeights.HOLD,x),HARVEST:dot(learner.humanWeights.HARVEST,x)};return{BUY:out.BUY,HOLD:out.HOLD,HARVEST:out.HARVEST,ready:true,counts}}
 function learnedAdjustment(x){ensureWeights();const a={BUY:dot(learner.weights.BUY,x),HOLD:dot(learner.weights.HOLD,x),HARVEST:dot(learner.weights.HARVEST,x)},kn=learnedScores(x).out,h=humanAdjustment(x);const linW=.55,knW=.50,humW=h.ready?.28:0;return{BUY:a.BUY*linW+kn.BUY*knW+(h.ready?h.BUY*humW:0),HOLD:a.HOLD*linW+kn.HOLD*knW+(h.ready?h.HOLD*humW:0),HARVEST:a.HARVEST*linW+kn.HARVEST*knW+(h.ready?h.HARVEST*humW:0)}}
-function featureSnapshot(a,s,vf,guess,acct){const aa=acct||{baseline:state.target,crypto:state.current,cash:state.capital};return{x:vecFrom(a,s,vf,aa),guess,created:Date.now(),price:num(a.price),target:num(aa.baseline),current:num(aa.crypto),capital:num(aa.cash),account:{baseline:num(aa.baseline),crypto:num(aa.crypto),cash:num(aa.cash),extracted:num(aa.extracted),recycled:num(aa.recycled)},market:{dist:num(a.dist),rangePos:num(a.rangePos),v7:num(a.v7),v30:num(a.v30),chg7:num(a.chg7),chg30:num(a.chg30),chg90:num(a.chg90),reversal:!!a.reversal,continuation:!!a.continuation,fomo:!!a.fomo,trajectory:a.trajectory,virtual:vf?num(vf.dev)*100:null},friction:num($('friction')?.value,.8),graded:{},reward:null,policy:policySnapshot()}}
+/* The 1H/4H/7D/30D/90D structure map, slimmed so it survives storage.
+   The Guesser page renders this; without it every timeframe tile reads "No snapshot". */
+function refsFrom(s){const m=s?.map||{},out={};for(const k of ['1H','4H','7D','30D','90D']){const r=m[k];if(r)out[k]={dir:r.dir,dev:num(r.dev),vr:safeRatio(r.vr)}}return out}
+function marketSnapshotFrom(a,s,vf){return{dist:num(a.dist),rangePos:num(a.rangePos),v7:num(a.v7),v30:num(a.v30),chg7:num(a.chg7),chg30:num(a.chg30),chg90:num(a.chg90),reversal:!!a.reversal,continuation:!!a.continuation,fomo:!!a.fomo,trajectory:a.trajectory,virtual:vf?num(vf.dev)*100:null,refs:refsFrom(s),at:Date.now()}}
+function featureSnapshot(a,s,vf,guess,acct,caseText){const aa=acct||{baseline:state.target,crypto:state.current,cash:state.capital};const now=Date.now();return{x:vecFrom(a,s,vf,aa),guess,created:now,t:now,caseText:caseText||null,price:num(a.price),target:num(aa.baseline),current:num(aa.crypto),capital:num(aa.cash),account:{baseline:num(aa.baseline),crypto:num(aa.crypto),cash:num(aa.cash),extracted:num(aa.extracted),recycled:num(aa.recycled)},market:marketSnapshotFrom(a,s,vf),friction:num($('friction')?.value,.8),graded:{},reward:null,policy:policySnapshot()}}
 function futurePoint(ts){const d=state.market?.daily||[];if(!d.length)return null;let best=null,bd=Infinity;for(const x of d){const delta=num(x.t)-ts;if(delta>=0&&delta<bd){best=x;bd=delta}}return best}
 function actionCapacity(node,k){
   const target=Math.max(0,num(node.target)),current=Math.max(0,num(node.current)),capital=Math.max(0,num(node.capital));
@@ -696,7 +726,7 @@ function gradeNodes(){let changed=false;ensurePolicy();
 function trainWeightsFor(n,reward){ensureWeights();if(!reward||!Array.isArray(n.x))return;const vals=['BUY','HOLD','HARVEST'].map(k=>num(reward[k],null)).filter(v=>v!=null&&Number.isFinite(v));const baseline=vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:0;const lr=.018,decay=.0008;for(const k of ['BUY','HOLD','HARVEST']){const observed=num(reward[k],null);if(observed==null||!Number.isFinite(observed))continue;const target=observed-baseline;const w=learner.weights[k];if(!Array.isArray(w.w)||w.w.length<n.x.length){while((w.w||(w.w=[])).length<n.x.length)w.w.push(0)}const pred=dot(w,n.x),err=clamp(target-pred,-8,8);w.b+=lr*err;for(let i=0;i<n.x.length;i++)w.w[i]=num(w.w[i])*(1-decay)+lr*err*num(n.x[i]);}}
 function trainHumanExample(node,action){ensureHumanWeights();const k=actionClass(action);if(!k||!Array.isArray(node.x)||!node.reward)return;const chosen=num(node.reward[k],null);if(chosen===null)return;const quality=clamp(chosen/10,-1,1),lr=.010,w=learner.humanWeights[k],pred=dot(w,node.x),err=clamp(quality-pred,-2,2);w.b+=lr*err;for(let i=0;i<node.x.length;i++)w.w[i]=num(w.w[i])*.998+lr*err*num(node.x[i]);}
 function portfolioSnapshot(px){const p=initGuesserPortfolio(px);if(!p)return null;const price=Math.max(.000001,num(px)||p.lastPrice||1);return{baseline:num(p.baseline),crypto:num(p.units)*price,cash:num(p.cash),extracted:num(p.extracted),recycled:num(p.recycled),units:num(p.units)};}
-function createSessionNode(a,s,vf,guess){const p=portfolioSnapshot(a?.price),price=num(a?.price),prev=latestNode();if(prev&&Math.abs(num(prev.price)-price)/Math.max(1,price)<0.0005&&Date.now()-num(prev.created)<6*3600000){prev.guess=guess;prev.x=vecFrom(a,s,vf,p||undefined);prev.account=p||prev.account||null;prev.policyVersion=num(learner.policy?.version,1);return prev;}const n=featureSnapshot(a,s,vf,guess,p||undefined);n.id=uid();n.account=p||null;n.policyVersion=num(learner.policy?.version,1);learner.nodes.push(n);if(learner.nodes.length>NODE_WORKING_SET+50)learner.nodes=learner.nodes.slice(-(NODE_WORKING_SET+50));sessionNodeId=n.id;learner.nodeTotal=(learner.nodeTotal||0)+1;persistGuesserNode(n).catch(()=>{});scheduleSave('learnerMeta',async()=>{await persistGuesserLearning();await persistGuesserPortfolio()},200);return n;}function latestNode(){return sessionNodeId?learner.nodes.find(n=>n.id===sessionNodeId)||learner.nodes.at(-1):learner.nodes.at(-1)||null;}
+function createSessionNode(a,s,vf,guess,caseText){const p=portfolioSnapshot(a?.price),price=num(a?.price),prev=latestNode();if(prev&&Math.abs(num(prev.price)-price)/Math.max(1,price)<0.0005&&Date.now()-num(prev.created)<6*3600000){prev.guess=guess;prev.x=vecFrom(a,s,vf,p||undefined);prev.account=p||prev.account||null;prev.policyVersion=num(learner.policy?.version,1);prev.market=marketSnapshotFrom(a,s,vf);if(caseText)prev.caseText=caseText;prev.t=prev.t||prev.created;persistGuesserNode(prev).catch(()=>{});return prev;}const n=featureSnapshot(a,s,vf,guess,p||undefined,caseText);n.id=uid();n.account=p||null;n.policyVersion=num(learner.policy?.version,1);learner.nodes.push(n);if(learner.nodes.length>NODE_WORKING_SET+50)learner.nodes=learner.nodes.slice(-(NODE_WORKING_SET+50));sessionNodeId=n.id;learner.nodeTotal=(learner.nodeTotal||0)+1;persistGuesserNode(n).catch(()=>{});scheduleSave('learnerMeta',async()=>{await persistGuesserLearning();await persistGuesserPortfolio()},200);return n;}function latestNode(){return sessionNodeId?learner.nodes.find(n=>n.id===sessionNodeId)||learner.nodes.at(-1):learner.nodes.at(-1)||null;}
 const GUESSER_DEFAULTS={name:'Sprout',baseline:1000,crypto:200,cash:500,personality:'balanced'};
 function personalityPolicy(name){
   const base=defaultPolicy();
@@ -818,6 +848,37 @@ function resetGuesserPortfolio(){
   if($('gpSetupCash'))$('gpSetupCash').value=String(setup.cash);
   initGuesserPortfolio(px,true,setup);
   saveLearner();update();
+}
+/* ---------- full local wipe: back to a genuine first-visit state ---------- */
+function clearBaselineFarmerLocalStorage(){
+  try{
+    const doomed=[];
+    for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.indexOf('baselineFarmer')===0)doomed.push(k)}
+    doomed.forEach(k=>{try{localStorage.removeItem(k)}catch(e){}});
+  }catch(e){}
+}
+function deleteBaselineFarmerDb(){
+  return new Promise(resolve=>{
+    try{if(_db){_db.close();_db=null}}catch(e){}
+    if(!window.indexedDB){resolve();return}
+    let done=false;
+    const finish=()=>{if(!done){done=true;resolve()}};
+    try{
+      const req=indexedDB.deleteDatabase(BF_DB);
+      req.onsuccess=finish;req.onerror=finish;req.onblocked=finish;
+    }catch(e){finish()}
+    // never hang the UI on a blocked delete
+    setTimeout(finish,2500);
+  });
+}
+async function hardResetEverything(){
+  if(!confirm('Erase all Baseline Farmer data in this browser?\n\nThis removes your account settings, decision journal, market cache, and the Guesser\u2019s account, policy and memory. It cannot be undone. Export a backup first if you want to keep it.'))return;
+  const btn=$('hardResetAll');if(btn){btn.disabled=true;btn.textContent='Resetting\u2026'}
+  Object.keys(_saveTimers).forEach(k=>{if(_saveTimers[k])clearTimeout(_saveTimers[k])});
+  _saveTimers={};
+  await deleteBaselineFarmerDb();
+  clearBaselineFarmerLocalStorage();
+  location.reload();
 }
 function renderLearning(x){const el=$('prototypeLearning');if(!el)return;const nodes=learner.nodes,graded=nodes.filter(z=>z.horizons).length,stored=learner.nodeTotal||nodes.length,kn=learnedScores(x).counts,total=Math.round((kn.BUY||0)+(kn.HOLD||0)+(kn.HARVEST||0));ensurePolicy();el.innerHTML='<strong>Learning:</strong> '+graded+' graded calls · '+stored+' remembered.'+(total?' '+total+' useful comparisons.':'')+(graded?'':' Waiting for enough market history to grade its first calls.')+' <span class="mini">Policy v'+num(learner.policy?.version,1)+'</span>'}
 
@@ -942,7 +1003,7 @@ function renderPrototype(a,s,vf){
   const participation='<div class="evidence"><strong>Participation</strong><span>7D '+safeRatio(s.vol7).toFixed(2)+'× · 30D '+safeRatio(s.vol30).toFixed(2)+'× prior period</span></div>';
   const hypotheses='<div class="evidence"><strong>Market hypotheses</strong><span>Reversal '+(a.reversal?'supported':'mixed')+' · continuation '+(a.continuation?'supported':'mixed')+' · FOMO '+(a.fomo?'building':'not established')+'</span></div>';
   $('prototypeEvidence').innerHTML=ev+vline+ath+path+participation+hypotheses;
-  const node=createSessionNode(a,s,vf,guess);
+  const node=createSessionNode(a,s,vf,guess,caseText);
   applyGuesserDecision(node,guess,a);
   renderGuesserPortfolio(a.price);
 }
@@ -1027,6 +1088,7 @@ function scheduleMarketPolls(){
 const gpReset=$('gpResetDefaults');if(gpReset)gpReset.addEventListener('click',resetGuesserPortfolio);
 const gpApply=$('gpSetupApply');if(gpApply)gpApply.addEventListener('click',setupGuesserPortfolioFromForm);
 const gpCopy=$('gpCopyMyAccount');if(gpCopy)gpCopy.addEventListener('click',copyMyAccountToGuesser);
+const hardReset=$('hardResetAll');if(hardReset)hardReset.addEventListener('click',hardResetEverything);
 $('actionCancel').addEventListener('click',closeAction);$('actionConfirm').addEventListener('click',confirmAction);$('actionAmount').addEventListener('keydown',e=>{if(e.key==='Enter')confirmAction();if(e.key==='Escape')closeAction()});$('actionModal').addEventListener('click',e=>{if(e.target.id==='actionModal')closeAction()});
 async function boot(){
   load();
